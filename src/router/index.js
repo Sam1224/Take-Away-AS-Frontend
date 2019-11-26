@@ -63,7 +63,6 @@ const router = new Router({
     },
     {
       path: '/admin',
-      name: 'admin',
       component: AdminHome,
       children: [
         {
@@ -73,7 +72,6 @@ const router = new Router({
         },
         {
           path: 'users',
-          name: 'users',
           component: AdminUserIndex,
           children: [
             {
@@ -83,7 +81,7 @@ const router = new Router({
             },
             {
               path: 'users',
-              name: 'userslist',
+              name: 'users',
               component: AdminUsersList
             },
             {
