@@ -1,0 +1,465 @@
+<template>
+  <div class="add-wrapper">
+    <h2 class="title">{{title}}</h2>
+    <el-form ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
+      <el-form-item label="Username" prop="username">
+        <el-input v-model="userForm.username" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Password" prop="password">
+        <el-input type="password" v-model="userForm.password" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Phone" prop="phone">
+        <el-input v-model="userForm.phone" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Address" prop="address">
+        <ul>
+          <li class="address-item" v-for="(address, index) in userForm.address" :key="index">
+            <div class="input-wrapper">
+              <el-input v-model="userForm.address[index]" auto-complete="off"></el-input>
+            </div>
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-remove-outline" @click="delAddress(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.address.length - 1 === index}" @click="addAddress(index)" style="margin-top:6px;"></i>
+            </div>
+          </li>
+        </ul>
+      </el-form-item>
+      <el-form-item label="Pay" prop="pay">
+        <ul>
+          <li class="pay-item" v-for="(pay, index) in userForm.pay" :key="index">
+            <div class="input-wrapper">
+              <el-input v-model="userForm.pay[index]" auto-complete="off"></el-input>
+            </div>
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-remove-outline" @click="delPay(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.pay.length - 1 === index}" @click="addPay(index)" style="margin-top:6px;"></i>
+            </div>
+          </li>
+        </ul>
+      </el-form-item>
+      <el-form-item label="Favorite" prop="favorite">
+        <ul>
+          <li class="favorite-item" v-for="(favorite, index) in userForm.favorite" :key="index">
+            <div class="input-wrapper">
+              <el-input v-model="userForm.favorite[index]" auto-complete="off"></el-input>
+            </div>
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-remove-outline" @click="delFavorite(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.favorite.length - 1 === index}" @click="addFavorite(index)" style="margin-top:6px;"></i>
+            </div>
+          </li>
+        </ul>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="editUser">Edit User</el-button>
+        <el-button @click="cancel">Cancel</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  import Service from '@/services/services'
+  import { mapGetters } from 'vuex'
+
+  const ERR_OK = 0
+
+  export default {
+    props: {
+      id: String
+    },
+    data() {
+      return {
+        title: 'Edit User',
+        user: {},
+        userForm: {
+          username: '',
+          password: '',
+          phone: '',
+          address: [],
+          pay: [],
+          favorite: []
+        },
+        rules: {
+          username: [{
+            required: true,
+            message: 'Please enter username',
+            trigger: 'blur'
+          }],
+          password: [{
+            required: true,
+            message: 'Please enter password',
+            trigger: 'blur'
+          }],
+          phone: [{
+            required: true,
+            message: 'Please enter phone',
+            trigger: 'blur'
+          }]
+        }
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'token'
+      ])
+    },
+    created() {
+      this._initializeUser(this.$router.params)
+    },
+    methods: {
+      _initializeUser(id) {
+        if (!this.$router.params) {
+          this.$router.push('/admin/users')
+        }
+        Service.getOneUser(id)
+          .then((response) => {
+            let res = response.data
+            if (res.code === ERR_OK) {
+              this.userForm = res.data[0]
+              this.user = res.data[0]
+              if (this.userForm.address.length === 0) {
+                this.userForm.address.push('')
+              }
+              if (this.userForm.pay.length === 0) {
+                this.userForm.pay.push('')
+              }
+              if (this.userForm.favorite.length === 0) {
+                this.userForm.favorite.push('')
+              }
+            }
+          })
+      },
+      editUser() {
+        let user = {
+          username: this.userForm.username,
+          password: this.userForm.password,
+          phone: this.userForm.phone,
+          token: this.token
+        }
+
+        Service.updateUser(user)
+          .then((response) => {
+            let res = response.data
+            if (res.code === ERR_OK) {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'success',
+                center: true,
+                duration: 1000
+              })
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+            }
+          })
+      },
+      cancel() {
+        this.$router.push('/admin/users')
+      },
+      addAddress(index) {
+        this.$prompt('Please enter your address', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel'
+        }).then(({ value }) => {
+          let address = {
+            username: this.user.username,
+            address: value,
+            token: this.token
+          }
+
+          Service.addAddress(address)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                let newAddress = value
+                this.userForm.address.push(newAddress)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel adding address',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      },
+      delAddress(index) {
+        let address = {
+          username: this.user.username,
+          address: this.userForm.address[index],
+          token: this.token
+        }
+        this.$confirm('This operation will delete this address, continue?', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          Service.deleteAddress(address)
+            .then((response) => {
+              let res = response.data
+              console.log(res)
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                if (this.userForm.address.length === 1) {
+                  this.userForm.address[0] = ''
+                  return
+                }
+                this.userForm.address.splice(index, 1)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel deleting address',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      },
+      addPay(index) {
+        this.$prompt('Please enter your pay', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel'
+        }).then(({ value }) => {
+          let pay = {
+            username: this.user.username,
+            pay: value,
+            token: this.token
+          }
+
+          Service.addPay(pay)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                let newPay = value
+                this.userForm.pay.push(newPay)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel adding pay',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      },
+      delPay(index) {
+        let pay = {
+          username: this.user.username,
+          pay: this.userForm.pay[index],
+          token: this.token
+        }
+        this.$confirm('This operation will delete this pay, continue?', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          Service.deletePay(pay)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                if (this.userForm.pay.length === 1) {
+                  this.userForm.pay[0] = ''
+                  return
+                }
+                this.userForm.pay.splice(index, 1)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel deleting pay',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      },
+      addFavorite(index) {
+        this.$prompt('Please enter your favorite seller', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel'
+        }).then(({ value }) => {
+          let favorite = {
+            username: this.user.username,
+            favorite: value,
+            token: this.token
+          }
+
+          Service.addFavorite(favorite)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                let newFavorite = value
+                this.userForm.favorite.push(newFavorite)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel adding favorite',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      },
+      delFavorite(index) {
+        let favorite = {
+          username: this.user.username,
+          favorite: this.userForm.favorite[index],
+          token: this.token
+        }
+        this.$confirm('This operation will delete this favorite seller, continue?', 'Tips', {
+          confirmButtonText: 'Submit',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          Service.deleteFavorite(favorite)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                if (this.userForm.favorite.length === 1) {
+                  this.userForm.favorite[0] = ''
+                  return
+                }
+                this.userForm.favorite.splice(index, 1)
+              } else {
+                this.$message({
+                  showClose: true,
+                  message: res.message,
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            showClose: true,
+            message: 'Cancel deleting favorite seller',
+            type: 'info',
+            center: true,
+            duration: 1000
+          })
+        })
+      }
+    }
+  }
+</script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+  .add-wrapper
+    position: relative
+    font-size: 0
+    text-align: center
+    .title
+      font-size: 36px
+      margin-top: 36px
+    .user-table
+      position: relative
+      width: 40%
+      top: 50px
+      margin: 0 auto
+    .address-item, .pay-item, .favorite-item
+      position: relative
+      display: flex
+      .input-wrapper
+        flex: 0 0 90%
+      .icon-wrapper
+        flex: 1
+        margin: auto
+</style>

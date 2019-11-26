@@ -32,8 +32,8 @@ export default {
   getOneUser(id) {
     return Api().get(`/user/${id}`)
   },
-  updateUser(id, user) {
-    return Api().put(`/user/${id}`, user, {
+  updateUser(user) {
+    return Api().put('/user', user, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -41,5 +41,51 @@ export default {
   },
   deleteUser(id) {
     return Api().delete(`/user/${id}`)
+  },
+  addAddress(address) {
+    return Api().post('/user/address', address, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  deleteAddress(address) {
+    console.log(address)
+    return Api().delete('/user/address', {
+      data: address,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  addPay(pay) {
+    return Api().post('/user/pay', pay, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  deletePay(pay) {
+    return Api().delete('/user/pay', {
+      data: pay,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  addFavorite(favorite) {
+    return Api().post('/user/favorite', favorite, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  deleteFavorite(favorite) {
+    return Api().delete('/user/favorite', {
+      data: favorite,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 }

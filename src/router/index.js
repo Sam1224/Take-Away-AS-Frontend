@@ -12,6 +12,7 @@ import AdminIndex from '@/components/admin/index/index'
 import AdminUserIndex from '@/components/admin/users/index'
 import AdminUsersList from '@/components/admin/users/userslist'
 import AdminAddUser from '@/components/admin/users/adduser'
+import AdminEditUser from '@/components/admin/users/edituser'
 import AdminSellers from '@/components/admin/sellers/sellers'
 import AdminOrders from '@/components/admin/orders/orders'
 import store from '@/store/store'
@@ -88,6 +89,12 @@ const router = new Router({
               path: 'add',
               name: 'adduser',
               component: AdminAddUser
+            },
+            {
+              path: 'edit',
+              name: 'edituser',
+              component: AdminEditUser,
+              props: true
             }
           ]
         },

@@ -3,6 +3,7 @@
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
       <v-client-table :columns="columns" :data="users" :options="options" label-width="auto">
+        <a slot="edit" slot-scope="props" class="slot fa fa-edit fa-2x" @click="editUser(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="slot fa fa-trash-o fa-2x" @click="deleteUser(props.row._id)"></a>
       </v-client-table>
       <div class="tab">
@@ -29,14 +30,16 @@
         messageTitle: 'User List',
         users: [],
         errors: [],
-        columns: ['_id', 'username', 'phone', 'remove'],
+        columns: ['_id', 'username', 'phone', 'edit', 'remove'],
         options: {
           headings: {
             _id: 'ID',
             username: 'Username',
             phone: 'Phone'
           },
-          sortables: ['username', 'phone']
+          sortables: ['username', 'phone'],
+          perPage: 10,
+          filterable: ['username', 'phone']
         },
         props: [
           '_id'
@@ -87,14 +90,16 @@
             message: 'Cancel deleting'
           })
         })
+      },
+      editUser(id) {
+        this.$router.params = id
+        this.$router.push('/admin/users/edit')
       }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .VueTables__sortable
-    cursor: pointer
   .vue-title
     margin-top: 30px
     text-align: center
@@ -108,6 +113,8 @@
       margin: 0 auto
     .tab
       display: flex
+      position: relative
+      bottom: 50px
       float: right
       height: 40px
       line-height: 40px
