@@ -50,7 +50,6 @@
             let res = response.data
             if (res.code === ERR_OK) {
               this.users = res.data
-              console.log(res.data)
             }
           })
           .catch((err) => {
@@ -81,6 +80,7 @@
         border-radius: 10px
         padding-left: 5px
         padding-right: 5px
+        border: solid black 1px
         & > a
           display: block
           text-decoration: none
