@@ -2,7 +2,9 @@
   <div class="userslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
-      <v-client-table :columns="columns" :data="users" :options="options" label-width="auto"></v-client-table>
+      <v-client-table :columns="columns" :data="users" :options="options" label-width="auto">
+        <a slot="remove" slot-scope="props" class="slot fa fa-trash-o fa-2x" @click="deleteUser(props.row._id)"></a>
+      </v-client-table>
       <div class="tab">
         <div class="tab-item">
           <router-link to="/admin/users/add" tag="a">Add User</router-link>
@@ -27,7 +29,7 @@
         messageTitle: 'User List',
         users: [],
         errors: [],
-        columns: ['_id', 'username', 'phone'],
+        columns: ['_id', 'username', 'phone', 'remove'],
         options: {
           headings: {
             _id: 'ID',
@@ -57,9 +59,33 @@
             this.errors.push(err)
           })
       },
-      _findRow(id) {
-        return this.users.findIndex((value, index, arr) => {
-          return value._id === id
+      deleteUser(id) {
+        this.$confirm('This operation will delete the user, continue?', 'Tips', {
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          Service.deleteUser(id)
+            .then((response) => {
+              let res = response.data
+              if (res.code === ERR_OK) {
+                this.$message({
+                  showClose: true,
+                  message: 'Successfully deleting one user',
+                  type: 'success',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this._initializeUsers()
+                }, 1500)
+              }
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Cancel deleting'
+          })
         })
       }
     }
@@ -80,7 +106,6 @@
     .slot
       display: table
       margin: 0 auto
-      width: 75%
     .tab
       display: flex
       float: right
