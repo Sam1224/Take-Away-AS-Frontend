@@ -14,6 +14,7 @@
       <el-form-item>
         <el-button type="primary" @click="addUser">Add User</el-button>
         <el-button @click="reset">Reset</el-button>
+        <el-button @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -68,9 +69,24 @@
               .then((response) => {
                 let res = response.data
                 if (res.code === ERR_OK) {
-                  this.$message('Successfully adding one user')
+                  this.$message({
+                    showClose: true,
+                    message: 'Successfully adding one user',
+                    type: 'success',
+                    center: true,
+                    duration: 1000
+                  })
+                  setTimeout(() => {
+                    this.$router.push('/admin/users')
+                  }, 1500)
                 } else if (res.code === USER_DUP) {
-                  this.$message('The username has been registered')
+                  this.$message({
+                    showClose: true,
+                    message: 'The username has been registered',
+                    type: 'warning',
+                    center: true,
+                    duration: 1000
+                  })
                 }
               })
           } else {
@@ -80,6 +96,9 @@
       },
       reset() {
         this.$refs.userForm.resetFields()
+      },
+      cancel() {
+        this.$router.push('/admin/users')
       }
     }
   }
