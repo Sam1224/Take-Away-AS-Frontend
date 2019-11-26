@@ -12,40 +12,61 @@
         <el-input v-model="userForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Address" prop="address">
-        <ul>
+        <ul v-if="userForm.address.length !== 0">
           <li class="address-item" v-for="(address, index) in userForm.address" :key="index">
             <div class="input-wrapper">
               <el-input v-model="userForm.address[index]" auto-complete="off"></el-input>
             </div>
             <div class="icon-wrapper">
-              <i class="iconBtn el-icon-remove-outline" @click="delAddress(index)" style="margin-top:6px;"></i>
-              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.address.length - 1 === index}" @click="addAddress(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn el-icon-remove-outline" @click="delAddress(index)"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.address.length - 1 === index}" @click="addAddress(index)"></i>
+            </div>
+          </li>
+        </ul>
+        <ul v-else>
+          <li class="address-item">
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-circle-plus-outline" @click="addAddress(0)"></i>
             </div>
           </li>
         </ul>
       </el-form-item>
       <el-form-item label="Pay" prop="pay">
-        <ul>
+        <ul v-if="userForm.pay.length !== 0">
           <li class="pay-item" v-for="(pay, index) in userForm.pay" :key="index">
             <div class="input-wrapper">
               <el-input v-model="userForm.pay[index]" auto-complete="off"></el-input>
             </div>
             <div class="icon-wrapper">
-              <i class="iconBtn el-icon-remove-outline" @click="delPay(index)" style="margin-top:6px;"></i>
-              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.pay.length - 1 === index}" @click="addPay(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn el-icon-remove-outline" @click="delPay(index)"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.pay.length - 1 === index}" @click="addPay(index)"></i>
+            </div>
+          </li>
+        </ul>
+        <ul v-else>
+          <li class="pay-item">
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-circle-plus-outline" @click="addPay(0)"></i>
             </div>
           </li>
         </ul>
       </el-form-item>
       <el-form-item label="Favorite" prop="favorite">
-        <ul>
+        <ul v-if="userForm.favorite.length !== 0">
           <li class="favorite-item" v-for="(favorite, index) in userForm.favorite" :key="index">
             <div class="input-wrapper">
               <el-input v-model="userForm.favorite[index]" auto-complete="off"></el-input>
             </div>
             <div class="icon-wrapper">
-              <i class="iconBtn el-icon-remove-outline" @click="delFavorite(index)" style="margin-top:6px;"></i>
-              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.favorite.length - 1 === index}" @click="addFavorite(index)" style="margin-top:6px;"></i>
+              <i class="iconBtn el-icon-remove-outline" @click="delFavorite(index)"></i>
+              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.favorite.length - 1 === index}" @click="addFavorite(index)"></i>
+            </div>
+          </li>
+        </ul>
+        <ul v-else>
+          <li class="favorite-item">
+            <div class="icon-wrapper">
+              <i class="iconBtn el-icon-circle-plus-outline" @click="addFavorite(0)"></i>
             </div>
           </li>
         </ul>
@@ -118,15 +139,6 @@
             if (res.code === ERR_OK) {
               this.userForm = res.data[0]
               this.user = res.data[0]
-              if (this.userForm.address.length === 0) {
-                this.userForm.address.push('')
-              }
-              if (this.userForm.pay.length === 0) {
-                this.userForm.pay.push('')
-              }
-              if (this.userForm.favorite.length === 0) {
-                this.userForm.favorite.push('')
-              }
             }
           })
       },
@@ -461,5 +473,8 @@
         flex: 0 0 90%
       .icon-wrapper
         flex: 1
-        margin: auto
+        position: relative
+        .iconBtn
+          position: relative
+          top: 15px
 </style>
