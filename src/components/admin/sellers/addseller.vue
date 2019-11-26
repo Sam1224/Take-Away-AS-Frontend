@@ -1,7 +1,5 @@
 <template>
-  <div class="sellers">
-    <h1>Sellers</h1>
-  </div>
+  <div class="add-wrapper"></div>
 </template>
 
 <script type="text/ecmascript-6">

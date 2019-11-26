@@ -1,5 +1,5 @@
 <template>
-  <div class="add-wrapper">
+  <div class="edit-wrapper">
     <h2 class="title">{{title}}</h2>
     <el-form ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
       <el-form-item label="Username" prop="username">
@@ -454,7 +454,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .add-wrapper
+  .edit-wrapper
     position: relative
     font-size: 0
     text-align: center

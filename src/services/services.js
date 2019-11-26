@@ -12,6 +12,14 @@ export default {
   getSellers () {
     return Api().get('/seller')
   },
+  deleteSeller(id, seller) {
+    return Api().delete(`/seller/${id}`, {
+      data: seller,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   login(user) {
     return Api().post('/login', user, {
       headers: {
