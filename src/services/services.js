@@ -29,6 +29,16 @@ export default {
   getUsers() {
     return Api().get('/user')
   },
+  getOneUser(id) {
+    return Api().get(`/user/${id}`)
+  },
+  updateUser(id, user) {
+    return Api().put(`/user/${id}`, user, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   deleteUser(id) {
     return Api().delete(`/user/${id}`)
   }
