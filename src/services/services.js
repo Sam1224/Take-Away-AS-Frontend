@@ -25,5 +25,8 @@ export default {
         'Content-Type': 'application/json'
       }
     })
+  },
+  getUsers() {
+    return Api().get('/user')
   }
 }
