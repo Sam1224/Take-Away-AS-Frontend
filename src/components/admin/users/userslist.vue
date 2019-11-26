@@ -2,7 +2,7 @@
   <div class="userslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
-      <v-client-table :columns="columns" :data="users" :options="options"></v-client-table>
+      <v-client-table :columns="columns" :data="users" :options="options" label-width="auto"></v-client-table>
       <div class="tab">
         <div class="tab-item">
           <router-link to="/admin/users/add" tag="a">Add User</router-link>
@@ -27,17 +27,18 @@
         messageTitle: 'User List',
         users: [],
         errors: [],
-        columns: ['_id', 'username', 'phone', 'address', 'pay', 'favorite'],
+        columns: ['_id', 'username', 'phone'],
         options: {
           headings: {
             _id: 'ID',
             username: 'Username',
-            phone: 'Phone',
-            address: 'Address',
-            pay: 'Pay',
-            favorite: 'Favorite'
-          }
-        }
+            phone: 'Phone'
+          },
+          sortables: ['username', 'phone']
+        },
+        props: [
+          '_id'
+        ]
       }
     },
     created () {
@@ -55,12 +56,19 @@
           .catch((err) => {
             this.errors.push(err)
           })
+      },
+      _findRow(id) {
+        return this.users.findIndex((value, index, arr) => {
+          return value._id === id
+        })
       }
     }
   }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .VueTables__sortable
+    cursor: pointer
   .vue-title
     margin-top: 30px
     text-align: center
@@ -69,6 +77,10 @@
   .users-table
     width: 80%
     margin: 0 auto
+    .slot
+      display: table
+      margin: 0 auto
+      width: 75%
     .tab
       display: flex
       float: right
