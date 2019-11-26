@@ -9,7 +9,9 @@ import Login from '@/components/login/login'
 import Register from '@/components/register/register'
 import AdminHome from '@/components/admin/home/home'
 import AdminIndex from '@/components/admin/index/index'
-import AdminUsers from '@/components/admin/users/users'
+import AdminUserIndex from '@/components/admin/users/index'
+import AdminUsersList from '@/components/admin/users/userslist'
+import AdminAddUser from '@/components/admin/users/adduser'
 import AdminSellers from '@/components/admin/sellers/sellers'
 import AdminOrders from '@/components/admin/orders/orders'
 import store from '@/store/store'
@@ -72,7 +74,24 @@ const router = new Router({
         {
           path: 'users',
           name: 'users',
-          component: AdminUsers
+          component: AdminUserIndex,
+          children: [
+            {
+              path: '',
+              name: 'userslist',
+              component: AdminUsersList
+            },
+            {
+              path: 'users',
+              name: 'userslist',
+              component: AdminUsersList
+            },
+            {
+              path: 'add',
+              name: 'adduser',
+              component: AdminAddUser
+            }
+          ]
         },
         {
           path: 'sellers',

@@ -1,8 +1,13 @@
 <template>
-  <div class="users">
+  <div class="userslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
       <v-client-table :columns="columns" :data="users" :options="options"></v-client-table>
+      <div class="tab">
+        <div class="tab-item">
+          <router-link to="/admin/users/add" tag="a">Add User</router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -65,4 +70,22 @@
   .users-table
     width: 80%
     margin: 0 auto
+    .tab
+      display: flex
+      float: right
+      height: 40px
+      line-height: 40px
+      .tab-item
+        flex: 1
+        text-align: center
+        border-radius: 10px
+        padding-left: 5px
+        padding-right: 5px
+        & > a
+          display: block
+          text-decoration: none
+          font-size: 18px
+          color: rgb(77, 85, 93)
+          &.active
+            color: rgb(240, 20, 20)
 </style>
