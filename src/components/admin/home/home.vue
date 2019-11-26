@@ -8,6 +8,8 @@
         <b-navbar-nav>
           <b-nav-item to="/admin"><i class="fa fa-home" style="padding: 5px">Home</i></b-nav-item>
           <b-nav-item to="/admin/users"><i class="fa fa-list" style="padding: 5px">Users</i></b-nav-item>
+          <b-nav-item to="/admin/sellers"><i class="fa fa-list" style="padding: 5px">Sellers</i></b-nav-item>
+          <b-nav-item to="/admin/orders"><i class="fa fa-list" style="padding: 5px">Orders</i></b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/login"><i class="fa fa-sign-in" style="padding: 5px">Login</i></b-nav-item>

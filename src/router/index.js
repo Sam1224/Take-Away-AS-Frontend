@@ -9,6 +9,9 @@ import Login from '@/components/login/login'
 import Register from '@/components/register/register'
 import AdminHome from '@/components/admin/home/home'
 import AdminIndex from '@/components/admin/index/index'
+import AdminUsers from '@/components/admin/users/users'
+import AdminSellers from '@/components/admin/sellers/sellers'
+import AdminOrders from '@/components/admin/orders/orders'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -65,6 +68,21 @@ const router = new Router({
           path: '',
           name: 'index',
           component: AdminIndex
+        },
+        {
+          path: 'users',
+          name: 'users',
+          component: AdminUsers
+        },
+        {
+          path: 'sellers',
+          name: 'sellers',
+          component: AdminSellers
+        },
+        {
+          path: 'orders',
+          name: 'orders',
+          component: AdminOrders
         }
       ]
     }
