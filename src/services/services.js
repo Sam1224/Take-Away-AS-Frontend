@@ -12,6 +12,13 @@ export default {
   getSellers () {
     return Api().get('/seller')
   },
+  addSeller(seller) {
+    return Api().post('/seller', seller, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   deleteSeller(id, seller) {
     return Api().delete(`/seller/${id}`, {
       data: seller,
