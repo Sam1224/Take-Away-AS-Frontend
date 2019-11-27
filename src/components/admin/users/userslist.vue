@@ -3,8 +3,8 @@
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
       <v-client-table :columns="columns" :data="users" :options="options" label-width="auto">
-        <a slot="edit" slot-scope="props" class="slot fa fa-edit fa-2x" @click="editUser(props.row._id)"></a>
-        <a slot="remove" slot-scope="props" class="slot fa fa-trash-o fa-2x" @click="deleteUser(props.row._id)"></a>
+        <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editUser(props.row._id)"></a>
+        <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteUser(props.row._id)"></a>
       </v-client-table>
       <div class="tab">
         <div class="tab-item">
