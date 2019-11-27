@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -16,7 +14,17 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
-    text-align: center
   .VueTables__sortable
     cursor: pointer
+  .VueTables__child-row-toggler
+    width: 16px
+    height: 16px
+    line-height: 16px
+    display: block
+    margin: auto
+    text-align: center
+  .VueTables__child-row-toggler--closed::before
+    content: "+"
+  .VueTables__child-row-toggler--open::before
+    content: "-"
 </style>

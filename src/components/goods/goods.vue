@@ -170,7 +170,11 @@
     watch: {
       // '$route' (to, from) {
       //   this.$router.go(0)
-      // }
+      // },
+      'seller'() {
+        this._initScroll()
+        this._calculateHeight()
+      }
     },
     components: {
       shopcart,

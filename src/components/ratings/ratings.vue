@@ -77,9 +77,7 @@
     created() {
         this.ratings = this.seller.ratings
         this.$nextTick(() => {
-          this.scroll = new BScroll(this.$refs.ratings, {
-            click: true
-          })
+          this._initScroll()
         })
     },
     computed: {
@@ -94,6 +92,11 @@
       }
     },
     methods: {
+      _initScroll() {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      },
       needShow(type, text) {
         if (this.onlyContent && !text) {
           return false
@@ -115,6 +118,11 @@
         this.$nextTick(() => {
           this.scroll.refresh()
         })
+      }
+    },
+    watch: {
+      'seller'() {
+        this._initScroll()
       }
     },
     components: {

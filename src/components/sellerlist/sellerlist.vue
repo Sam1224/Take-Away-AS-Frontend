@@ -59,7 +59,7 @@
       },
       selectSeller(seller) {
         this.$router.params = seller._id
-        this.$router.push('/sellerhome/goods')
+        this.$router.push('/sellerhome')
         // Vuex
         this.setSeller(seller)
         this.setGoods(seller.goods)

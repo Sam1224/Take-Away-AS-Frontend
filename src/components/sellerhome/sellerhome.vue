@@ -12,9 +12,7 @@
         <router-link to="/sellerhome/seller" tag="a">Seller</router-link>
       </div>
     </div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <router-view></router-view>
   </div>
 </template>
 

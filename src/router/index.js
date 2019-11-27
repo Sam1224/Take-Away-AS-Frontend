@@ -32,9 +32,14 @@ const router = new Router({
     },
     {
       path: '/sellerhome',
-      name: 'sellerhome',
       component: sellerhome,
       children: [
+        {
+          path: '',
+          name: 'sellerhome',
+          component: goods,
+          props: true
+        },
         {
           path: 'goods',
           name: 'goods',

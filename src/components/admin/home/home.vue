@@ -27,5 +27,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
+  .home
+    text-align: center
 </style>
