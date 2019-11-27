@@ -17,6 +17,7 @@ import AdminSellerIndex from '@/components/admin/sellers/index'
 import AdminSellersList from '@/components/admin/sellers/sellerslist'
 import AdminAddSeller from '@/components/admin/sellers/addseller'
 import AdminEditSeller from '@/components/admin/sellers/editseller'
+import AdminEditGoods from '@/components/admin/sellers/editgoods'
 import AdminOrders from '@/components/admin/orders/orders'
 import store from '@/store/store'
 
@@ -129,6 +130,12 @@ const router = new Router({
               path: 'edit',
               name: 'editseller',
               component: AdminEditSeller,
+              props: true
+            },
+            {
+              path: 'editgoods',
+              name: 'editgoods',
+              component: AdminEditGoods,
               props: true
             }
           ]

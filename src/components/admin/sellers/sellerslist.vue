@@ -138,6 +138,7 @@
             </el-form-item>
           </el-form>
         </div>
+        <a slot="goods" slot-scope="props" class="el-icon-tableware" @click="editGoods(props.row._id)"></a>
         <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editSeller(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteSeller(props.row._id)"></a>
       </v-client-table>
@@ -168,7 +169,7 @@
         messageTitle: 'Seller List',
         sellers: [],
         errors: [],
-        columns: ['_id', 'name', 'description', 'score', 'edit', 'remove'],
+        columns: ['_id', 'name', 'description', 'score', 'goods', 'edit', 'remove'],
         options: {
           headings: {
             _id: 'ID',
@@ -257,6 +258,10 @@
       editSeller(id) {
         this.$router.params = id
         this.$router.push('/admin/sellers/edit')
+      },
+      editGoods(id) {
+        this.$router.params = id
+        this.$router.push('/admin/sellers/editgoods')
       }
     },
     components: {

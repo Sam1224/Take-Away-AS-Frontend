@@ -34,6 +34,13 @@ export default {
       }
     })
   },
+  updateGoods(id, goods) {
+    return Api().put(`/seller/${id}/goods`, goods, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   login(user) {
     return Api().post('/login', user, {
       headers: {
