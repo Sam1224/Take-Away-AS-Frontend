@@ -19,6 +19,13 @@ export default {
       }
     })
   },
+  updateSeller(id, seller) {
+    return Api().put(`/seller/${id}`, seller, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   deleteSeller(id, seller) {
     return Api().delete(`/seller/${id}`, {
       data: seller,
