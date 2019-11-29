@@ -47,7 +47,7 @@
             </el-form-item>
             <el-form-item label="Status" prop="status">
               <el-card shadow="never">
-                <span>{{props.row.status === 0 ? 'Commented' : 'Not commented'}}</span>
+                <span>{{props.row.status === 0 ? 'Not commented' : 'Commented'}}</span>
               </el-card>
             </el-form-item>
           </el-form>

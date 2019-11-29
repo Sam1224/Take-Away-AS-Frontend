@@ -140,6 +140,21 @@ export default {
       }
     })
   },
+  getOneOrder(id, token) {
+    return Api().get(`/order/${id}`, {
+      headers: {
+        token: token,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  updateOrder(id, order) {
+    return Api().put(`/order/${id}`, order, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   deleteOrder(id, order) {
     return Api().delete(`/order/${id}`, {
       data: order,

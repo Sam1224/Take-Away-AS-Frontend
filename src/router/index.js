@@ -21,6 +21,7 @@ import AdminEditGoods from '@/components/admin/sellers/editgoods'
 import AdminEditRatings from '@/components/admin/sellers/editratings'
 import AdminOrdersIndex from '@/components/admin/orders/index'
 import AdminOrdersList from '@/components/admin/orders/orderslist'
+import AdminEditOrder from '@/components/admin/orders/editorder'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -161,6 +162,12 @@ const router = new Router({
               path: 'orders',
               name: 'orders',
               component: AdminOrdersList
+            },
+            {
+              path: 'edit',
+              name: 'editOrder',
+              component: AdminEditOrder,
+              props: true
             }
           ]
         }
