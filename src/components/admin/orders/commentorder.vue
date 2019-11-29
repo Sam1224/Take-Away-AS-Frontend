@@ -1,7 +1,7 @@
 <template>
   <div class="comment-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="commentForm" :model="commentForm" status-icon label-width="100px" class="comment-table" :rules="rules">
+    <el-form ref="commentForm" :model="commentForm" status-icon label-width="100px" class="comment-table">
       <el-form-item label="Seller" prop="seller">
         <el-input v-model="commentForm.seller" auto-complete="off" disabled></el-input>
       </el-form-item>
@@ -58,13 +58,6 @@
           recommend: [],
           username: USERNAME,
           avatar: AVATAR
-        },
-        rules: {
-          foodName: [{
-            required: true,
-            message: 'Please enter food name',
-            trigger: 'blur'
-          }]
         }
       }
     },

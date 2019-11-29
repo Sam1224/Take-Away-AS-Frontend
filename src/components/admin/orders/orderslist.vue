@@ -199,4 +199,25 @@
     .slot
       display: table
       margin: 0 auto
+    .tab
+      display: flex
+      position: relative
+      bottom: 50px
+      float: right
+      height: 40px
+      line-height: 40px
+      .tab-item
+        flex: 1
+        text-align: center
+        border-radius: 10px
+        padding-left: 5px
+        padding-right: 5px
+        border: solid black 1px
+        & > a
+          display: block
+          text-decoration: none
+          font-size: 18px
+          color: rgb(77, 85, 93)
+          &.active
+            color: rgb(240, 20, 20)
 </style>

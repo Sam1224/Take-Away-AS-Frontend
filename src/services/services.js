@@ -148,6 +148,13 @@ export default {
       }
     })
   },
+  addOrder(order) {
+    return Api().post('/order', order, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   updateOrder(id, order) {
     return Api().put(`/order/${id}`, order, {
       headers: {

@@ -209,7 +209,9 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
+              console.log(res.data)
               this.sellers = res.data
+              console.log(this.sellers)
             }
           })
           .catch((err) => {

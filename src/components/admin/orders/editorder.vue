@@ -70,7 +70,7 @@
           seller: '',
           address: '',
           phone: null,
-          Note: '',
+          note: '',
           status: '0',
           foods: [{
             name: '',
