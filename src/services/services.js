@@ -131,5 +131,21 @@ export default {
         'Content-Type': 'application/json'
       }
     })
+  },
+  getOrders(token) {
+    return Api().get('/order', {
+      headers: {
+        token: token,
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  deleteOrder(id, order) {
+    return Api().delete(`/order/${id}`, {
+      data: order,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
 }

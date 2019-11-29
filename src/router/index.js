@@ -19,7 +19,8 @@ import AdminAddSeller from '@/components/admin/sellers/addseller'
 import AdminEditSeller from '@/components/admin/sellers/editseller'
 import AdminEditGoods from '@/components/admin/sellers/editgoods'
 import AdminEditRatings from '@/components/admin/sellers/editratings'
-import AdminOrders from '@/components/admin/orders/orders'
+import AdminOrdersIndex from '@/components/admin/orders/index'
+import AdminOrdersList from '@/components/admin/orders/orderslist'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -149,8 +150,19 @@ const router = new Router({
         },
         {
           path: 'orders',
-          name: 'orders',
-          component: AdminOrders
+          component: AdminOrdersIndex,
+          children: [
+            {
+              path: '',
+              name: 'orderslist',
+              component: AdminOrdersList
+            },
+            {
+              path: 'orders',
+              name: 'orders',
+              component: AdminOrdersList
+            }
+          ]
         }
       ]
     }
