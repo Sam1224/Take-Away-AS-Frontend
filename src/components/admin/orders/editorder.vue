@@ -2,6 +2,12 @@
   <div class="edit-wrapper">
     <h2 class="title">{{title}}</h2>
     <el-form ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
+      <el-form-item label="User" prop="user">
+        <el-input v-model="orderForm.user" auto-complete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="Seller" prop="seller">
+        <el-input v-model="orderForm.seller" auto-complete="off"></el-input>
+      </el-form-item>
       <el-form-item label="Address" prop="address">
         <el-input type="textarea" v-model="orderForm.address" auto-complete="off"></el-input>
       </el-form-item>

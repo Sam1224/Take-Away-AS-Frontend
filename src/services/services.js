@@ -155,6 +155,13 @@ export default {
       }
     })
   },
+  commentOrder(id, comment) {
+    return Api().put(`/order/${id}/comment`, comment, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   deleteOrder(id, order) {
     return Api().delete(`/order/${id}`, {
       data: order,

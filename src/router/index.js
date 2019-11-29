@@ -22,6 +22,7 @@ import AdminEditRatings from '@/components/admin/sellers/editratings'
 import AdminOrdersIndex from '@/components/admin/orders/index'
 import AdminOrdersList from '@/components/admin/orders/orderslist'
 import AdminEditOrder from '@/components/admin/orders/editorder'
+import AdminCommentOrder from '@/components/admin/orders/commentorder'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -167,6 +168,12 @@ const router = new Router({
               path: 'edit',
               name: 'editOrder',
               component: AdminEditOrder,
+              props: true
+            },
+            {
+              path: 'comment',
+              name: 'commentOrder',
+              component: AdminCommentOrder,
               props: true
             }
           ]

@@ -52,6 +52,8 @@
             </el-form-item>
           </el-form>
         </div>
+        <a v-if="props.row.status === 0" slot="comment" slot-scope="props" class="el-icon-edit-outline" @click="commentOrder(props.row._id)"></a>
+        <a v-else slot="comment" slot-scope="props" class="el-icon-check"></a>
         <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editOrder(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteOrder(props.row)"></a>
       </v-client-table>
@@ -80,7 +82,7 @@
         messageTitle: 'Order List',
         orders: [],
         errors: [],
-        columns: ['_id', 'user', 'seller', 'phone', 'edit', 'remove'],
+        columns: ['_id', 'user', 'seller', 'phone', 'comment', 'edit', 'remove'],
         options: {
           headings: {
             _id: 'ID',
@@ -176,6 +178,10 @@
       editOrder(id) {
         this.$router.params = id
         this.$router.push('/admin/orders/edit')
+      },
+      commentOrder(id) {
+        this.$router.params = id
+        this.$router.push('/admin/orders/comment')
       }
     }
   }
