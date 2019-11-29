@@ -2,7 +2,7 @@
   <div class="userslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
-      <v-client-table :columns="columns" :data="users" :options="options" label-width="auto">
+      <v-client-table v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" :columns="columns" :data="users" :options="options" label-width="auto">
         <div slot="child_row" slot-scope="props">
           <el-form :model="props.row" status-icon label-width="100px" style="position:relative;width: 50%;margin:auto;">
             <el-form-item label="Username" prop="username">
@@ -69,6 +69,7 @@
     data() {
       return {
         messageTitle: 'User List',
+        loading: true,
         users: [],
         errors: [],
         columns: ['_id', 'username', 'phone', 'edit', 'remove'],
@@ -98,6 +99,9 @@
             let res = response.data
             if (res.code === ERR_OK) {
               this.users = res.data
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
           .catch((err) => {

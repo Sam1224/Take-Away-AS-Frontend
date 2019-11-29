@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
       <el-form-item label="User" prop="user">
         <el-input v-model="orderForm.user" auto-complete="off"></el-input>
       </el-form-item>
@@ -63,6 +63,7 @@
     data () {
       return {
         title: 'Edit Order',
+        loading: true,
         order: {},
         orderForm: {
           _id: '',
@@ -112,6 +113,9 @@
               })
               this.orderForm = res.data[0]
               this.order = res.data[0]
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="edit-goods-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="goodsForm" :model="goodsForm" status-icon label-width="100px" class="goods-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="goodsForm" :model="goodsForm" status-icon label-width="100px" class="goods-table" :rules="rules">
       <el-form-item label="Goods" prop="goods">
         <el-collapse>
           <div v-for="(good, goodIndex) in goodsForm.goods" :key="goodIndex" class="good-wrapper">
@@ -70,6 +70,7 @@
     data() {
       return {
         title: 'Edit Goods',
+        loading: true,
         goods: {},
         goodsForm: {
           goods: [{
@@ -146,10 +147,16 @@
             let res = response.data
             if (res.code === ERR_OK) {
               if (res.data[0].goods.length === 0) {
+                setTimeout(() => {
+                  this.loading = false
+                }, 1000)
                 return
               }
               this.goodsForm.goods = res.data[0].goods
               this.goods = res.data[0].goods
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
       },

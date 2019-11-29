@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
       <el-form-item label="Username" prop="username">
         <el-input v-model="userForm.username" auto-complete="off"></el-input>
       </el-form-item>
@@ -92,6 +92,7 @@
     data() {
       return {
         title: 'Edit User',
+        loading: true,
         user: {},
         userForm: {
           username: '',
@@ -142,6 +143,9 @@
             if (res.code === ERR_OK) {
               this.userForm = res.data[0]
               this.user = res.data[0]
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
       },

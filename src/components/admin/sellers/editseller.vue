@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="sellerForm" :model="sellerForm" status-icon label-width="100px" class="seller-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="sellerForm" :model="sellerForm" status-icon label-width="100px" class="seller-table" :rules="rules">
       <el-form-item label="Name" prop="name">
         <el-input v-model="sellerForm.name" auto-complete="off"></el-input>
       </el-form-item>
@@ -81,6 +81,7 @@
     data() {
       return {
         title: 'Edit Seller',
+        loading: true,
         seller: {},
         sellerForm: {
           name: '',
@@ -141,6 +142,9 @@
             if (res.code === ERR_OK) {
               this.sellerForm = res.data[0]
               this.seller = res.data[0]
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
       },

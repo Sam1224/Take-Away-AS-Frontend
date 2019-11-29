@@ -2,7 +2,7 @@
   <div class="orderslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="orders-table">
-      <v-client-table :columns="columns" :data="orders" :options="options" label-width="auto">
+      <v-client-table v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" :columns="columns" :data="orders" :options="options" label-width="auto">
         <div slot="child_row" slot-scope="props">
           <el-form :model="props.row" status-icon label-width="100px" style="position:relative;width: 75%;margin:auto;">
             <el-form-item label="OrderID" prop="_id">
@@ -80,6 +80,7 @@
     data() {
       return {
         messageTitle: 'Order List',
+        loading: true,
         orders: [],
         errors: [],
         columns: ['_id', 'user', 'seller', 'phone', 'comment', 'edit', 'remove'],
@@ -131,6 +132,9 @@
                 order.foods.push(statisticalRow)
               })
               this.orders = res.data
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
           .catch((err) => {

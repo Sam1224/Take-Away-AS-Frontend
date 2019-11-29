@@ -1,7 +1,7 @@
 <template>
   <div class="edit-ratings-wrapper">
     <h2 class="title">{{title}}</h2>
-    <el-form ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
       <el-collapse>
         <el-collapse-item title="Ratings" name="Ratings">
           <el-collapse>
@@ -78,6 +78,7 @@
     data() {
       return {
         title: 'Edit Ratings',
+        loading: true,
         ratings: {},
         ratingsForm: {
           ratings: [{
@@ -142,6 +143,9 @@
                   recommend: [],
                   status: 1
                 }]
+                setTimeout(() => {
+                  this.loading = false
+                }, 1000)
                 return
               }
               res.data[0].ratings.forEach((rating) => {
@@ -152,6 +156,9 @@
               })
               this.ratingsForm.ratings = res.data[0].ratings
               this.ratings = res.data[0].ratings
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
       },

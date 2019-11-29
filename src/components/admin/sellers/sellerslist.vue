@@ -2,7 +2,7 @@
   <div class="sellerslist-wrapper">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="sellers-table">
-      <v-client-table :columns="columns" :data="sellers" :options="options" label-width="auto">
+      <v-client-table v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" :columns="columns" :data="sellers" :options="options" label-width="auto">
         <div slot="child_row" slot-scope="props">
           <el-form :model="props.row" status-icon label-width="100px" style="position:relative;width: 50%;margin:auto;">
             <el-form-item label="Name" prop="name">
@@ -168,6 +168,7 @@
     data() {
       return {
         messageTitle: 'Seller List',
+        loading: true,
         sellers: [],
         errors: [],
         columns: ['_id', 'name', 'description', 'score', 'goods', 'ratings', 'edit', 'remove'],
@@ -209,9 +210,10 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
-              console.log(res.data)
               this.sellers = res.data
-              console.log(this.sellers)
+              setTimeout(() => {
+                this.loading = false
+              }, 1000)
             }
           })
           .catch((err) => {
