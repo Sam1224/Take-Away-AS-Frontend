@@ -79,6 +79,9 @@ const router = new Router({
     {
       path: '/admin',
       component: AdminHome,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: '',
@@ -191,9 +194,9 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
+  if (to.matched.some((r) => r.meta.requireAuth)) {
     if (store.state.token) {
-      next();
+      next()
     } else {
       next({
         path: '/login',
@@ -201,7 +204,7 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    next();
+    next()
   }
 })
 
