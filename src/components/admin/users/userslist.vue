@@ -3,6 +3,47 @@
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="users-table">
       <v-client-table :columns="columns" :data="users" :options="options" label-width="auto">
+        <div slot="child_row" slot-scope="props">
+          <el-form :model="props.row" status-icon label-width="100px" style="position:relative;width: 50%;margin:auto;">
+            <el-form-item label="Username" prop="username">
+              <el-card shadow="never">
+                <span>{{props.row.username}}</span>
+              </el-card>
+            </el-form-item>
+            <el-form-item label="Phone" prop="phone">
+              <el-card shadow="never">
+                <span>{{props.row.phone}}</span>
+              </el-card>
+            </el-form-item>
+            <el-form-item label="Address" prop="address">
+              <ul>
+                <li class="address-item" v-for="(address, index) in props.row.address" :key="index">
+                  <el-card shadow="never">
+                    <span>{{address}}</span>
+                  </el-card>
+                </li>
+              </ul>
+            </el-form-item>
+            <el-form-item label="Pay" prop="pay">
+              <ul>
+                <li class="pay-item" v-for="(pay, index) in props.row.pay" :key="index">
+                  <el-card shadow="never">
+                    <span>{{pay}}</span>
+                  </el-card>
+                </li>
+              </ul>
+            </el-form-item>
+            <el-form-item label="Favorite" prop="favorite">
+              <ul>
+                <li class="favorite-item" v-for="(favorite, index) in props.row.favorite" :key="index">
+                  <el-card shadow="never">
+                    <span>{{favorite}}</span>
+                  </el-card>
+                </li>
+              </ul>
+            </el-form-item>
+          </el-form>
+        </div>
         <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editUser(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteUser(props.row._id)"></a>
       </v-client-table>
@@ -39,7 +80,8 @@
           },
           sortables: ['username', 'phone'],
           perPage: 10,
-          filterable: ['username', 'phone']
+          filterable: ['username', 'phone'],
+          uniqueKey: '_id'
         },
         props: [
           '_id'
@@ -108,6 +150,9 @@
   .users-table
     width: 80%
     margin: 0 auto
+    .address-item, .pay-item, .favorite-item
+      position: relative
+      width: 100%
     .slot
       display: table
       margin: 0 auto
