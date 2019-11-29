@@ -41,6 +41,9 @@
             required: true,
             message: 'Please enter username',
             trigger: 'blur'
+          }, {
+            min: 5,
+            message: 'The length of username should be at least 5 characters'
           }],
           password: [{
             required: true,

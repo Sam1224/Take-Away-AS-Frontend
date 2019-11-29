@@ -273,8 +273,6 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/mixin"
-
   .edit-goods-wrapper
     position: relative
     font-size: 0

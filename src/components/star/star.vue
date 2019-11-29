@@ -1,6 +1,6 @@
 <template>
   <div class="star" :class="starType">
-    <span v-for="(itemClass, index) in itemClasses" :key="index" :class="itemClass" class="star-item"></span>
+    <span v-for="(itemClass, index) in itemClasses" :key="index" :class="itemClass" class="star-item" @click="updateScore(index)"></span>
   </div>
 </template>
 
@@ -17,6 +17,20 @@
       },
       score: {
         type: Number
+      },
+      click: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data() {
+      return {
+        starScore: this.score
+      }
+    },
+    watch: {
+      score() {
+        this.starScore = this.score
       }
     },
     computed: {
@@ -25,7 +39,7 @@
       },
       itemClasses() {
         let result = [];
-        let score = Math.floor(this.score * 2) / 2;
+        let score = Math.floor(this.starScore * 2) / 2;
         let hasDecimal = score % 1 !== 0;
         let integer = Math.floor(score);
         for (let i = 0; i < integer; i++) {
@@ -38,6 +52,15 @@
           result.push(CLS_OFF);
         }
         return result;
+      }
+    },
+    methods: {
+      updateScore(index) {
+        if (!this.click) {
+          return
+        }
+        this.starScore = index + 1
+        this.$emit('updateScore', this.starScore)
       }
     }
   };

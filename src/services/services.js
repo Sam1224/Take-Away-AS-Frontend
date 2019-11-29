@@ -41,6 +41,21 @@ export default {
       }
     })
   },
+  addRating(id, rating) {
+    return Api().post(`/seller/${id}/ratings`, rating, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
+  deleteRating(id, rating) {
+    return Api().delete(`/seller/${id}/ratings`, {
+      data: rating,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   login(user) {
     return Api().post('/login', user, {
       headers: {
