@@ -8,46 +8,47 @@
   import axios from 'axios'
 
   const ERR_OK = 0
-  const GITLAB = 'gitlab'
+  const WECHAT = 'wechat'
 
   export default {
-    data() {
+    data () {
       return {
-        gitlabConfig: {
-          app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
-          secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/gitlabredirect',
-          scope: 'read_user+profile',
+        wechatConfig: {
+          app_id: 'wx02989b05866416be',
+          secret_id: '011ebb2b151848bbae53c37ab8a5839b',
+          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/wechatredirect',
+          scope: 'snsapi_base,snsapi_userinfo',
           state: 'Sam',
-          getCodeURL: 'https://gitlab.com/oauth/authorize',
-          getAccessTokenURL: '/gitlab/oauth/token',
-          getUserURL: '/gitlab/api/v4/user',
+          getCodeURL: 'https://open.weixin.qq.com/connect/qrconnect',
+          getAccessTokenURL: 'https://api.weixin.qq.com/sns/oauth2/access_token',
+          getUserURL: 'https://api.weixin.qq.com/sns/userinfo',
           code: null,
           accessToken: null
         }
       }
     },
-    mounted() {
+    mounted () {
       let code = this.$route.query.code
-      this.gitlabConfig.code = code
+      this.wechatConfig.code = code
       if (code) {
         this.getAccessToken()
       }
     },
     methods: {
-      getAccessToken() {
-        axios.post(`${this.gitlabConfig.getAccessTokenURL}?client_id=${this.gitlabConfig.app_id}&client_secret=${this.gitlabConfig.secret_id}&code=${this.gitlabConfig.code}&grant_type=authorization_code&redirect_uri=${this.gitlabConfig.redirectURL}`, {}, {
+      getAccessToken () {
+        axios.post(`${this.wechatConfig.getAccessTokenURL}?appid=${this.wechatConfig.app_id}&secret=${this.wechatConfig.secret_id}&code=${this.wechatConfig.code}&grant_type=authorization_code`, {}, {
           headers: {
             'accept': 'application/json'
           }
         })
           .then((response) => {
-            this.gitlabConfig.accessToken = response.data.access_token
-            this.getGitlabInfo()
+            console.log(response.data)
+            this.wechatConfig.accessToken = response.data.access_token
+            // this.getGitlabInfo()
           })
       },
-      getGitlabInfo() {
-        axios.get(`${this.gitlabConfig.getUserURL}?access_token=${this.gitlabConfig.accessToken}`, {}, {
+      getGitlabInfo () {
+        axios.get(`${this.wechatConfig.getUserURL}?access_token=${this.wechatConfig.accessToken}&openid=${this.wechatConfig.app_id}`, {}, {
           headers: {
             'accept': 'application/json'
           }
@@ -55,10 +56,10 @@
           .then((response) => {
             let profile = response.data
             let account = {
-              username: profile.username,
-              name: profile.name,
-              avatar: profile.avatar_url,
-              type: GITLAB
+              username: profile.nickname,
+              name: profile.nickname,
+              avatar: profile.headimgurl,
+              type: WECHAT
             }
             Service.getToken(account.username)
               .then((response) => {

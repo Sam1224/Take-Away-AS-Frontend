@@ -27,6 +27,7 @@ import AdminCommentOrder from '@/components/admin/orders/commentorder'
 import AdminLogin from '@/components/admin/login/login'
 import GithubRedirect from '@/components/admin/login/githubredirect'
 import GitlabRedirect from '@/components/admin/login/gitlabredirect'
+import WechatRedirect from '@/components/admin/login/wechatredirect'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -93,6 +94,11 @@ const router = new Router({
           path: 'gitlabredirect',
           name: 'gitlabredirect',
           component: GitlabRedirect
+        },
+        {
+          path: 'wechatredirect',
+          name: 'wechatredirect',
+          component: WechatRedirect
         },
         {
           path: '',

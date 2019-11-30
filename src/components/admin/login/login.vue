@@ -22,6 +22,9 @@
           <span class="icon" @click="loginGitlab">
             <img :src="gitlabIcon" class="img" alt="Gitlab">
           </span>
+          <span class="icon" @click="loginWechat">
+            <img :src="wechatIcon" class="img" alt="Wechat">
+          </span>
         </div>
       </el-form-item>
     </el-form>
@@ -40,6 +43,8 @@
   const GITHUB = 'github'
   // eslint-disable-next-line no-unused-vars
   const GITLAB = 'gitlab'
+  // eslint-disable-next-line no-unused-vars
+  const WECHAT = 'wechat'
 
   export default {
     name: 'Login',
@@ -69,7 +74,7 @@
           getCodeURL: 'https://github.com/login/oauth/authorize',
           getAccessTokenURL: '/github/login/oauth/access_token',
           getUserURl: 'https://api.github.com/user',
-          redirectURL: 'http://localhost:8080/admin/githubredirect',
+          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/githubredirect',
           code: null,
           accessToken: null,
           signState: false
@@ -78,11 +83,23 @@
         gitlabConfig: {
           app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
           secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
+          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/gitlabredirect',
           scope: 'read_user+profile',
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
           getAccessTokenURL: '/gitlab/oauth/token',
+          code: null,
+          accessToken: null
+        },
+        wechatIcon: 'https://camo.githubusercontent.com/fa3c774822eb35f60cd1d76fc5c8e104c8c5f5fb/68747470733a2f2f67697465652e636f6d2f7961646f6e672e7a68616e672f7374617469632f7261772f6d61737465722f4a757374417574682f7765636861742e706e67',
+        wechatConfig: {
+          app_id: 'wx02989b05866416be',
+          secret_id: '011ebb2b151848bbae53c37ab8a5839b',
+          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/wechatredirect',
+          scope: 'snsapi_base,snsapi_userinfo',
+          state: 'Sam',
+          getCodeURL: 'https://open.weixin.qq.com/connect/qrconnect',
+          getAccessTokenURL: 'https://api.weixin.qq.com/sns/oauth2/access_token',
           code: null,
           accessToken: null
         }
@@ -189,6 +206,9 @@
       },
       loginGitlab() {
         window.location.href = `${this.gitlabConfig.getCodeURL}?response_type=code&client_id=${this.gitlabConfig.app_id}&redirect_uri=${this.gitlabConfig.redirectURL}&state=${this.gitlabConfig.state}&scope=${this.gitlabConfig.scope}`
+      },
+      loginWechat() {
+        window.location.href = `${this.wechatConfig.getCodeURL}?response_type=code&appid=${this.wechatConfig.app_id}&redirect_uri=${this.wechatConfig.redirectURL}&state=${this.wechatConfig.state}&scope=${this.wechatConfig.scope}`
       },
       ...mapMutations({
         login: 'LOGIN',

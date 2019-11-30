@@ -21,7 +21,7 @@
           getCodeURL: 'https://github.com/login/oauth/authorize',
           getAccessTokenURL: '/github/login/oauth/access_token',
           getUserURl: 'https://api.github.com/user',
-          redirectURL: 'http://localhost:8080/admin/githubredirect',
+          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/githubredirect',
           code: null,
           accessToken: null,
           signState: false
