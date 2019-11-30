@@ -25,6 +25,7 @@ import AdminAddOrder from '@/components/admin/orders/addorder'
 import AdminEditOrder from '@/components/admin/orders/editorder'
 import AdminCommentOrder from '@/components/admin/orders/commentorder'
 import AdminLogin from '@/components/admin/login/login'
+import GithubRedirect from '@/components/admin/login/githubredirect'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -82,6 +83,11 @@ const router = new Router({
       path: '/admin',
       component: AdminHome,
       children: [
+        {
+          path: 'githubredirect',
+          name: 'githubredirect',
+          component: GithubRedirect
+        },
         {
           path: '',
           name: 'adminlogin',
