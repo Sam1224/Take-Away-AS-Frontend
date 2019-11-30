@@ -63,6 +63,13 @@ export default {
       }
     })
   },
+  getToken(username) {
+    return Api().get(`/token/${username}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   addUser(user) {
     return Api().post('/user', user, {
       headers: {

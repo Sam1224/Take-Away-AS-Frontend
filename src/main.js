@@ -14,7 +14,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import GAuth from 'vue-google-oauth2'
 
 const gauthOption = {
-  cliendId: '536131817738-ledn5k0if6cdh3v0l871269jvr3c1qqa.apps.googleusercontent.com',
+  clientId: '536131817738-5t5o42838cpoegos86ql1hb64nu1cjbo.apps.googleusercontent.com',
   scope: 'profile email',
   prompt: 'select_account'
 }

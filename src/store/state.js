@@ -6,7 +6,8 @@
 const state = {
   seller: {},
   goods: [],
-  token: null
+  token: null,
+  account: {}
 }
 
 export default state

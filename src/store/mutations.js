@@ -19,6 +19,9 @@ const mutations = {
   [types.LOGOUT](state) {
     localStorage.removeItem('token')
     state.token = null
+  },
+  [types.SET_ACCOUNT](state, account) {
+    state.account = account
   }
 }
 export default mutations

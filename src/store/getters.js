@@ -8,3 +8,5 @@ export const seller = state => state.seller
 export const goods = state => state.goods
 
 export const token = state => state.token
+
+export const account = state => state.account
