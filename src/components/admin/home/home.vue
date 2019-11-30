@@ -36,12 +36,14 @@
           duration: 1000
         })
         this.logout()
+        this.setAccount({})
         setTimeout(() => {
           this.$router.push('/admin')
         }, 1500)
       },
       ...mapMutations({
-        logout: 'LOGOUT'
+        logout: 'LOGOUT',
+        setAccount: 'SET_ACCOUNT'
       })
     }
   }

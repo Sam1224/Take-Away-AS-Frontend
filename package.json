@@ -17,6 +17,7 @@
     "better-scroll": "^1.15.2",
     "bootstrap-vue": "^2.1.0",
     "element-ui": "^2.12.0",
+    "jsonp": "^0.2.1",
     "stylus": "^0.54.7",
     "vue": "^2.5.2",
     "vue-google-oauth2": "^1.4.0",
