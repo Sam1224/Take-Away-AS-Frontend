@@ -26,6 +26,7 @@ import AdminEditOrder from '@/components/admin/orders/editorder'
 import AdminCommentOrder from '@/components/admin/orders/commentorder'
 import AdminLogin from '@/components/admin/login/login'
 import GithubRedirect from '@/components/admin/login/githubredirect'
+import GitlabRedirect from '@/components/admin/login/gitlabredirect'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -87,6 +88,11 @@ const router = new Router({
           path: 'githubredirect',
           name: 'githubredirect',
           component: GithubRedirect
+        },
+        {
+          path: 'gitlabredirect',
+          name: 'gitlabredirect',
+          component: GitlabRedirect
         },
         {
           path: '',

@@ -17,6 +17,13 @@ module.exports = {
         pathRewrite: {
           '^/github': 'https://github.com/'
         }
+      },
+      '/gitlab': {
+        target: 'https://gitlab.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/gitlab': 'https://gitlab.com/'
+        }
       }
     },
 

@@ -19,6 +19,9 @@
           <span class="icon" @click="loginGithub">
             <img :src="githubIcon" class="img" alt="Github">
           </span>
+          <span class="icon" @click="loginGitlab">
+            <img :src="gitlabIcon" class="img" alt="Gitlab">
+          </span>
         </div>
       </el-form-item>
     </el-form>
@@ -35,6 +38,8 @@
   const GOOGLE = 'google'
   // eslint-disable-next-line no-unused-vars
   const GITHUB = 'github'
+  // eslint-disable-next-line no-unused-vars
+  const GITLAB = 'gitlab'
 
   export default {
     name: 'Login',
@@ -68,6 +73,18 @@
           code: null,
           accessToken: null,
           signState: false
+        },
+        gitlabIcon: 'https://camo.githubusercontent.com/7406d4224c31c5ae2c4de025075592297dd75b7c/68747470733a2f2f67697465652e636f6d2f7961646f6e672e7a68616e672f7374617469632f7261772f6d61737465722f4a757374417574682f6769746c61622e706e67',
+        gitlabConfig: {
+          app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
+          secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
+          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
+          scope: 'read_user+profile',
+          state: 'Sam',
+          getCodeURL: 'https://gitlab.com/oauth/authorize',
+          getAccessTokenURL: '/gitlab/oauth/token',
+          code: null,
+          accessToken: null
         }
       }
     },
@@ -169,6 +186,9 @@
       },
       loginGithub() {
         window.location.href = `${this.githubConfig.getCodeURL}?response_type=code&client_id=${this.githubConfig.client_id}&redirect_url=${this.githubConfig.redirectURL}&state=${this.githubConfig.state}&scope=${this.githubConfig.scope}`
+      },
+      loginGitlab() {
+        window.location.href = `${this.gitlabConfig.getCodeURL}?response_type=code&client_id=${this.gitlabConfig.app_id}&redirect_uri=${this.gitlabConfig.redirectURL}&state=${this.gitlabConfig.state}&scope=${this.gitlabConfig.scope}`
       },
       ...mapMutations({
         login: 'LOGIN',
