@@ -24,6 +24,7 @@ import AdminOrdersList from '@/components/admin/orders/orderslist'
 import AdminAddOrder from '@/components/admin/orders/addorder'
 import AdminEditOrder from '@/components/admin/orders/editorder'
 import AdminCommentOrder from '@/components/admin/orders/commentorder'
+import AdminLogin from '@/components/admin/login/login'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -79,18 +80,31 @@ const router = new Router({
     {
       path: '/admin',
       component: AdminHome,
-      meta: {
-        requireAuth: true
-      },
       children: [
         {
           path: '',
+          name: 'adminlogin',
+          component: AdminLogin
+        },
+        {
+          path: 'login',
+          name: 'admin_login',
+          component: AdminLogin
+        },
+        {
+          path: 'index',
           name: 'index',
-          component: AdminIndex
+          component: AdminIndex,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: 'users',
           component: AdminUserIndex,
+          meta: {
+            requireAuth: true
+          },
           children: [
             {
               path: '',
@@ -118,6 +132,9 @@ const router = new Router({
         {
           path: 'sellers',
           component: AdminSellerIndex,
+          meta: {
+            requireAuth: true
+          },
           children: [
             {
               path: '',
@@ -157,6 +174,9 @@ const router = new Router({
         {
           path: 'orders',
           component: AdminOrdersIndex,
+          meta: {
+            requireAuth: true
+          },
           children: [
             {
               path: '',
@@ -199,7 +219,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({
-        path: '/login',
+        path: '/admin',
         query: {redirect: to.fullPath}
       })
     }
