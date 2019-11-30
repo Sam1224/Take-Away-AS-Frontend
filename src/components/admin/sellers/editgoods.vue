@@ -1,7 +1,7 @@
 <template>
-  <div class="edit-goods-wrapper">
+  <div class="edit-goods-wrapper" v-show="!loading">
     <h2 class="title">{{title}}</h2>
-    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="goodsForm" :model="goodsForm" status-icon label-width="100px" class="goods-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="goodsForm" :model="goodsForm" status-icon label-width="100px" class="goods-table" :rules="rules">
       <el-form-item label="Goods" prop="goods">
         <el-collapse>
           <div v-for="(good, goodIndex) in goodsForm.goods" :key="goodIndex" class="good-wrapper">

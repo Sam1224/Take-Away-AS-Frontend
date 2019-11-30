@@ -3,10 +3,10 @@
     <b-navbar toggleable="md" variant="dark" type="dark">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <img src="../../../assets/mevnnav.png" class="img-circle" style="padding: 5px">
-      <b-navbar-brand to="/admin">Take-Away Backend Management</b-navbar-brand>
+      <b-navbar-brand to="/admin/index">Take-Away Backend Management</b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/admin"><i class="fa fa-home" style="padding: 5px">Home</i></b-nav-item>
+          <b-nav-item to="/admin/index"><i class="fa fa-home" style="padding: 5px">Home</i></b-nav-item>
           <b-nav-item to="/admin/users"><i class="fa fa-list" style="padding: 5px">Users</i></b-nav-item>
           <b-nav-item to="/admin/sellers"><i class="fa fa-list" style="padding: 5px">Sellers</i></b-nav-item>
           <b-nav-item to="/admin/orders"><i class="fa fa-list" style="padding: 5px">Orders</i></b-nav-item>

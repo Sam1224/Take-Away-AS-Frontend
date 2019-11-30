@@ -1,8 +1,8 @@
 <template>
-  <div class="sellerslist-wrapper">
+  <div class="sellerslist-wrapper" v-show="!loading">
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <div class="sellers-table">
-      <v-client-table v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" :columns="columns" :data="sellers" :options="options" label-width="auto">
+      <v-client-table v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" :columns="columns" :data="sellers" :options="options" label-width="auto">
         <div slot="child_row" slot-scope="props">
           <el-form :model="props.row" status-icon label-width="100px" style="position:relative;width: 50%;margin:auto;">
             <el-form-item label="Name" prop="name">

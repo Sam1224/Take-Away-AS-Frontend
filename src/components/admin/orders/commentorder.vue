@@ -1,7 +1,7 @@
 <template>
-  <div class="comment-wrapper">
+  <div class="comment-wrapper" v-show="!loading">
     <h2 class="title">{{title}}</h2>
-    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="commentForm" :model="commentForm" status-icon label-width="100px" class="comment-table">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="commentForm" :model="commentForm" status-icon label-width="100px" class="comment-table">
       <el-form-item label="Seller" prop="seller">
         <el-input v-model="commentForm.seller" auto-complete="off" disabled></el-input>
       </el-form-item>

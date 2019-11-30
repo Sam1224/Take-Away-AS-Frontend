@@ -1,7 +1,7 @@
 <template>
-  <div class="edit-ratings-wrapper">
+  <div class="edit-ratings-wrapper" v-show="!loading">
     <h2 class="title">{{title}}</h2>
-    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
       <el-collapse>
         <el-collapse-item title="Ratings" name="Ratings">
           <el-collapse>

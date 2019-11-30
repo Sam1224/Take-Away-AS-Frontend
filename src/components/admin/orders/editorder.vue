@@ -1,7 +1,7 @@
 <template>
-  <div class="edit-wrapper">
+  <div class="edit-wrapper" v-show="!loading">
     <h2 class="title">{{title}}</h2>
-    <el-form v-loading.fullscreen.lock="loading" element-loading-background="rgb(255, 255, 255)" ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
+    <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
       <el-form-item label="User" prop="user">
         <el-input v-model="orderForm.user" auto-complete="off"></el-input>
       </el-form-item>
