@@ -74,7 +74,7 @@
           getCodeURL: 'https://github.com/login/oauth/authorize',
           getAccessTokenURL: '/github/login/oauth/access_token',
           getUserURl: 'https://api.github.com/user',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/githubredirect',
+          redirectURL: 'http://localhost:8080/admin/githubredirect',
           code: null,
           accessToken: null,
           signState: false
@@ -83,7 +83,7 @@
         gitlabConfig: {
           app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
           secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/gitlabredirect',
+          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
           scope: 'read_user+profile',
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
@@ -95,7 +95,7 @@
         wechatConfig: {
           app_id: 'wx02989b05866416be',
           secret_id: '011ebb2b151848bbae53c37ab8a5839b',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/wechatredirect',
+          redirectURL: 'http://localhost:8080/admin/wechatredirect',
           scope: 'snsapi_base,snsapi_userinfo',
           state: 'Sam',
           getCodeURL: 'https://open.weixin.qq.com/connect/qrconnect',

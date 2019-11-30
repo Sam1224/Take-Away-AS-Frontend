@@ -16,7 +16,7 @@
         gitlabConfig: {
           app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
           secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/gitlabredirect',
+          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
           scope: 'read_user+profile',
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
