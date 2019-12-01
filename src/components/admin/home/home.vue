@@ -12,9 +12,12 @@
           <b-nav-item to="/admin/orders"><i class="fa fa-list" style="padding: 5px">Orders</i></b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/admin/login"><i class="fa fa-sign-in" style="padding: 5px">Login</i></b-nav-item>
-          <b-nav-item @click="signOut"><i class="fa fa-sign-out" style="padding: 5px">Logout</i></b-nav-item>
-          <i class="fa fa-pied-piper-alt fa-1x" style="padding: 5px; color: white;"></i>
+          <b-nav-item v-show="!token || Object.keys(account).length === 0" to="/admin/login"><i class="fa fa-sign-in" style="padding:5px;font-size:18px;">Login</i></b-nav-item>
+          <div v-show="token && Object.keys(account).length !== 0" style="display:flex;font-size:0;height:50px;line-height:50px;">
+            <el-avatar :size="50" :src="account.avatar" style="flex: 0 0 50px"></el-avatar>
+            <span style="flex:1;display:inline-block;vertical-align:top;height:50px;line-height:50px;font-size:20px;color:rgba(255,255,255,0.5);padding-left:5px;">{{account.name}}</span>
+            <b-nav-item @click="signOut" style="flex:1;"><i class="fa fa-sign-out" style="padding:5px;font-size:18px;">Logout</i></b-nav-item>
+          </div>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -23,9 +26,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { mapMutations } from 'vuex'
+  import { mapMutations, mapGetters } from 'vuex'
 
   export default {
+    computed: {
+      ...mapGetters([
+        'token',
+        'account'
+      ])
+    },
     methods: {
       signOut() {
         this.$message({
