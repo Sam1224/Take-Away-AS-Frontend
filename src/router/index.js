@@ -249,10 +249,16 @@ router.beforeEach((to, from, next) => {
     if (store.state.token) {
       next()
     } else {
-      next({
-        path: '/admin',
-        query: {redirect: to.fullPath}
-      })
+      if (localStorage.token && localStorage.getItem('account')) {
+        store.state.token = localStorage.token
+        store.state.account = JSON.parse(localStorage.getItem('account'))
+        next()
+      } else {
+        next({
+          path: '/admin',
+          query: {redirect: to.fullPath}
+        })
+      }
     }
   } else {
     next()

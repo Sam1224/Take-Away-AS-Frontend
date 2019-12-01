@@ -21,6 +21,11 @@ const mutations = {
     state.token = null
   },
   [types.SET_ACCOUNT](state, account) {
+    if (Object.keys(account).length !== 0) {
+      localStorage.setItem('account', JSON.stringify(account))
+    } else {
+      localStorage.removeItem('account')
+    }
     state.account = account
   }
 }
