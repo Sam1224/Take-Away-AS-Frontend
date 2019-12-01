@@ -28,6 +28,7 @@ import AdminLogin from '@/components/admin/login/login'
 import GithubRedirect from '@/components/admin/login/githubredirect'
 import GitlabRedirect from '@/components/admin/login/gitlabredirect'
 import GiteeRedirect from '@/components/admin/login/giteeredirect'
+import BitbucketRedirect from '@/components/admin/login/bitbucketredirect'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -99,6 +100,11 @@ const router = new Router({
           path: 'giteeredirect',
           name: 'giteeredirect',
           component: GiteeRedirect
+        },
+        {
+          path: 'bitbucketredirect',
+          name: 'bitbucketredirect',
+          component: BitbucketRedirect
         },
         {
           path: '',

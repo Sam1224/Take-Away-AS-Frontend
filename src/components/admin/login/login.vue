@@ -25,6 +25,9 @@
           <span class="icon" @click="loginGitee">
             <img :src="giteeIcon" class="img" alt="Gitee">
           </span>
+          <span class="icon" @click="loginBitbucket">
+            <img :src="bitbucketIcon" class="img" alt="Bitbucket">
+          </span>
         </div>
       </el-form-item>
     </el-form>
@@ -44,7 +47,9 @@
   // eslint-disable-next-line no-unused-vars
   const GITLAB = 'gitlab'
   // eslint-disable-next-line no-unused-vars
-  const WECHAT = 'wechat'
+  const GITEE = 'gitee'
+  // eslint-disable-next-line no-unused-vars
+  const BITBUCKET = 'bitbucket'
 
   export default {
     name: 'Login',
@@ -102,6 +107,19 @@
           getCodeURL: 'https://gitee.com/oauth/authorize',
           getAccessTokenURL: '/gitee/oauth/token',
           getUserURL: '/gitee/api/v5/user',
+          code: null,
+          accessToken: null
+        },
+        bitbucketIcon: require('../../../assets/bitbucket-icon.png'),
+        bitbucketConfig: {
+          client_id: 'sBxPceYExjFSBJDctK',
+          client_secret: 'AyDFbpNSDTjgrJmHDVs2HTJ2zsHsLP3a',
+          redirect_uri: 'http://localhost:8080/admin/bitbucketredirect',
+          scope: 'account',
+          state: 'Sam',
+          getCodeURL: 'https://bitbucket.org/site/oauth2/authorize',
+          getAccessTokenURL: '/bitbucket/site/oauth2/access_token',
+          getUserURL: '/bitbucket/api/v5/user',
           code: null,
           accessToken: null
         }
@@ -211,6 +229,9 @@
       },
       loginGitee() {
         window.location.href = `${this.giteeConfig.getCodeURL}?client_id=${this.giteeConfig.client_id}&redirect_uri=${this.giteeConfig.redirect_uri}&response_type=code&scope=${this.giteeConfig.scope}`
+      },
+      loginBitbucket() {
+        window.location.href = `${this.bitbucketConfig.getCodeURL}?client_id=${this.bitbucketConfig.client_id}&redirect_uri=${this.bitbucketConfig.redirect_uri}&response_type=token&scope=${this.bitbucketConfig.scope}`
       },
       ...mapMutations({
         login: 'LOGIN',

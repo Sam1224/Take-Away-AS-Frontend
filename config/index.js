@@ -31,6 +31,13 @@ module.exports = {
         pathRewrite: {
           '^/gitee': 'https://gitee.com/'
         }
+      },
+      '/bitbucket': {
+        target: 'https://bitbucket.org/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/bitbucket': 'https://bitbucket.org/'
+        }
       }
     },
 
