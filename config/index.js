@@ -38,6 +38,13 @@ module.exports = {
         pathRewrite: {
           '^/bitbucket': 'https://bitbucket.org/'
         }
+      },
+      '/weibo': {
+        target: 'https://api.weibo.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/weibo': 'https://api.weibo.com/'
+        }
       }
     },
 

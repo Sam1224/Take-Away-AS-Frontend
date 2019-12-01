@@ -28,6 +28,9 @@
           <span class="icon" @click="loginBitbucket">
             <img :src="bitbucketIcon" class="img" alt="Bitbucket">
           </span>
+          <span class="icon" @click="loginWeibo">
+            <img :src="weiboIcon" class="img" alt="Weibo">
+          </span>
         </div>
       </el-form-item>
     </el-form>
@@ -50,6 +53,8 @@
   const GITEE = 'gitee'
   // eslint-disable-next-line no-unused-vars
   const BITBUCKET = 'bitbucket'
+  // eslint-disable-next-line no-unused-vars
+  const WEIBO = 'weibo'
 
   export default {
     name: 'Login',
@@ -120,6 +125,19 @@
           getCodeURL: 'https://bitbucket.org/site/oauth2/authorize',
           getAccessTokenURL: '/bitbucket/site/oauth2/access_token',
           getUserURL: '/bitbucket/api/v5/user',
+          code: null,
+          accessToken: null
+        },
+        weiboIcon: require('../../../assets/weibo-icon.png'),
+        weiboConfig: {
+          client_id: '4195182896',
+          client_secret: '577c9eb2eaf2534d64679cf2c886c727',
+          redirect_uri: 'http://127.0.0.1:8080/admin/weiboredirect',
+          scope: 'all',
+          state: 'Sam',
+          getCodeURL: 'https://api.weibo.com/oauth2/authorize',
+          getAccessTokenURL: '/weibo/oauth2/access_token',
+          getUserURL: '/weibo/2/users/show.json',
           code: null,
           accessToken: null
         }
@@ -232,6 +250,9 @@
       },
       loginBitbucket() {
         window.location.href = `${this.bitbucketConfig.getCodeURL}?client_id=${this.bitbucketConfig.client_id}&redirect_uri=${this.bitbucketConfig.redirect_uri}&response_type=token&scope=${this.bitbucketConfig.scope}`
+      },
+      loginWeibo() {
+        window.location.href = `${this.weiboConfig.getCodeURL}?client_id=${this.weiboConfig.client_id}&redirect_uri=${this.weiboConfig.redirect_uri}&response_type=code`
       },
       ...mapMutations({
         login: 'LOGIN',

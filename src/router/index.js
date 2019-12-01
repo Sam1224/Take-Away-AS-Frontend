@@ -29,6 +29,7 @@ import GithubRedirect from '@/components/admin/login/githubredirect'
 import GitlabRedirect from '@/components/admin/login/gitlabredirect'
 import GiteeRedirect from '@/components/admin/login/giteeredirect'
 import BitbucketRedirect from '@/components/admin/login/bitbucketredirect'
+import WeiboRedirect from '@/components/admin/login/weiboredirect'
 import store from '@/store/store'
 
 Vue.use(Router)
@@ -105,6 +106,11 @@ const router = new Router({
           path: 'bitbucketredirect',
           name: 'bitbucketredirect',
           component: BitbucketRedirect
+        },
+        {
+          path: 'weiboredirect',
+          name: 'weiboredirect',
+          component: WeiboRedirect
         },
         {
           path: '',
