@@ -22,6 +22,9 @@
           <span class="icon" @click="loginGitlab">
             <img :src="gitlabIcon" class="img" alt="Gitlab">
           </span>
+          <span class="icon" @click="loginGitee">
+            <img :src="giteeIcon" class="img" alt="Gitee">
+          </span>
         </div>
       </el-form-item>
     </el-form>
@@ -61,8 +64,8 @@
             { required: true, message: 'Please Enter Password' }
           ]
         },
-        googleIcon: 'https://camo.githubusercontent.com/62bb6eba282da108ffd78574e3c5ec775e9615f2/68747470733a2f2f67697465652e636f6d2f7961646f6e672e7a68616e672f7374617469632f7261772f6d61737465722f4a757374417574682f676f6f676c652e706e67',
-        githubIcon: 'https://camo.githubusercontent.com/4e32805fc11673699795cabc24870b053f75e140/68747470733a2f2f67697465652e636f6d2f7961646f6e672e7a68616e672f7374617469632f7261772f6d61737465722f4a757374417574682f6769746875622e706e67',
+        googleIcon: require('../../../assets/google-icon.png'),
+        githubIcon: require('../../../assets/github-icon.png'),
         githubConfig: {
           client_id: '647b09a3a4f9bb530f27',
           client_secret: '9bcc6ff9cbd3847663f8b48c06c598246135bb9a',
@@ -76,7 +79,7 @@
           accessToken: null,
           signState: false
         },
-        gitlabIcon: 'https://camo.githubusercontent.com/7406d4224c31c5ae2c4de025075592297dd75b7c/68747470733a2f2f67697465652e636f6d2f7961646f6e672e7a68616e672f7374617469632f7261772f6d61737465722f4a757374417574682f6769746c61622e706e67',
+        gitlabIcon: require('../../../assets/gitlab-icon.png'),
         gitlabConfig: {
           app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
           secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
@@ -85,6 +88,20 @@
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
           getAccessTokenURL: '/gitlab/oauth/token',
+          getUserURL: '/gitlab/api/v4/user',
+          code: null,
+          accessToken: null
+        },
+        giteeIcon: require('../../../assets/gitee-icon.png'),
+        giteeConfig: {
+          client_id: 'be2a4ea3ee9855e62a174786359fd3833fd591cd920ead21f46ef2e92be5c712',
+          client_secret: '17dd85e76cafab22cf107b0f2a716c7b162222a15340b23c40d467e896765b00',
+          redirect_uri: 'http://localhost:8080/admin/giteeredirect',
+          scope: 'user_info',
+          state: 'Sam',
+          getCodeURL: 'https://gitee.com/oauth/authorize',
+          getAccessTokenURL: '/gitee/oauth/token',
+          getUserURL: '/gitee/api/v5/user',
           code: null,
           accessToken: null
         }
@@ -191,6 +208,9 @@
       },
       loginGitlab() {
         window.location.href = `${this.gitlabConfig.getCodeURL}?response_type=code&client_id=${this.gitlabConfig.app_id}&redirect_uri=${this.gitlabConfig.redirectURL}&state=${this.gitlabConfig.state}&scope=${this.gitlabConfig.scope}`
+      },
+      loginGitee() {
+        window.location.href = `${this.giteeConfig.getCodeURL}?client_id=${this.giteeConfig.client_id}&redirect_uri=${this.giteeConfig.redirect_uri}&response_type=code&scope=${this.giteeConfig.scope}`
       },
       ...mapMutations({
         login: 'LOGIN',

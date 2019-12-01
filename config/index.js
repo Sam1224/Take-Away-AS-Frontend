@@ -24,6 +24,13 @@ module.exports = {
         pathRewrite: {
           '^/gitlab': 'https://gitlab.com/'
         }
+      },
+      '/gitee': {
+        target: 'https://gitee.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/gitee': 'https://gitee.com/'
+        }
       }
     },
 
