@@ -14,7 +14,7 @@
         giteeConfig: {
           client_id: 'be2a4ea3ee9855e62a174786359fd3833fd591cd920ead21f46ef2e92be5c712',
           client_secret: '17dd85e76cafab22cf107b0f2a716c7b162222a15340b23c40d467e896765b00',
-          redirect_uri: 'http://localhost:8080/admin/giteeredirect',
+          redirect_uri: 'https://takeawayapp-88d06.firebaseapp.com/admin/giteeredirect',
           scope: 'user_info',
           state: 'Sam',
           getCodeURL: 'https://gitee.com/oauth/authorize',

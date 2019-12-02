@@ -84,16 +84,16 @@
           getCodeURL: 'https://github.com/login/oauth/authorize',
           getAccessTokenURL: '/github/login/oauth/access_token',
           getUserURl: 'https://api.github.com/user',
-          redirectURL: 'http://localhost:8080/admin/githubredirect',
+          redirectURL: 'https://takeawayapp-88d06.firebaseapp.com/admin/githubredirect',
           code: null,
           accessToken: null,
           signState: false
         },
         gitlabIcon: require('../../../assets/gitlab-icon.png'),
         gitlabConfig: {
-          app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
-          secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
+          app_id: '55ee814d9f753bfdb7e76a6053987b8eac33575c9e43cfca10e087f19849b7bb',
+          secret_id: '558c93119c11ac2ed964bac31ac7e8069a10644985352079049b6dd00867d777',
+          redirectURL: 'https://takeawayapp-88d06.firebaseapp.com/admin/gitlabredirect',
           scope: 'read_user+profile',
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
@@ -106,7 +106,7 @@
         giteeConfig: {
           client_id: 'be2a4ea3ee9855e62a174786359fd3833fd591cd920ead21f46ef2e92be5c712',
           client_secret: '17dd85e76cafab22cf107b0f2a716c7b162222a15340b23c40d467e896765b00',
-          redirect_uri: 'http://localhost:8080/admin/giteeredirect',
+          redirect_uri: 'https://takeawayapp-88d06.firebaseapp.com/admin/giteeredirect',
           scope: 'user_info',
           state: 'Sam',
           getCodeURL: 'https://gitee.com/oauth/authorize',
@@ -119,7 +119,7 @@
         bitbucketConfig: {
           client_id: 'sBxPceYExjFSBJDctK',
           client_secret: 'AyDFbpNSDTjgrJmHDVs2HTJ2zsHsLP3a',
-          redirect_uri: 'http://localhost:8080/admin/bitbucketredirect',
+          redirect_uri: 'https://takeawayapp-88d06.firebaseapp.com/admin/bitbucketredirect',
           scope: 'account',
           state: 'Sam',
           getCodeURL: 'https://bitbucket.org/site/oauth2/authorize',
@@ -132,7 +132,7 @@
         weiboConfig: {
           client_id: '4195182896',
           client_secret: '577c9eb2eaf2534d64679cf2c886c727',
-          redirect_uri: 'http://127.0.0.1:8080/admin/weiboredirect',
+          redirect_uri: 'https://takeawayapp-88d06.firebaseapp.com/admin/weiboredirect',
           scope: 'all',
           state: 'Sam',
           getCodeURL: 'https://api.weibo.com/oauth2/authorize',

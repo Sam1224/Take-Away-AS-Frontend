@@ -14,7 +14,7 @@
         weiboConfig: {
           client_id: '4195182896',
           client_secret: '577c9eb2eaf2534d64679cf2c886c727',
-          redirect_uri: 'http://127.0.0.1:8080/admin/weiboredirect',
+          redirect_uri: 'https://takeawayapp-88d06.firebaseapp.com/admin/weiboredirect',
           scope: 'all',
           state: 'Sam',
           getCodeURL: 'https://api.weibo.com/oauth2/authorize',

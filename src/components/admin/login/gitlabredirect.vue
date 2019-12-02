@@ -12,9 +12,9 @@
     data() {
       return {
         gitlabConfig: {
-          app_id: 'cd768aeb6419ef7370f2e390990dc8850bc4abab86d2631137c303bf09141a92',
-          secret_id: '11efcd87a92963e0f9dbc80653de8fa516afd86c96197ed95e3e1412e39e97e5',
-          redirectURL: 'http://localhost:8080/admin/gitlabredirect',
+          app_id: '55ee814d9f753bfdb7e76a6053987b8eac33575c9e43cfca10e087f19849b7bb',
+          secret_id: '558c93119c11ac2ed964bac31ac7e8069a10644985352079049b6dd00867d777',
+          redirectURL: 'https://takeawayapp-88d06.firebaseapp.com/admin/gitlabredirect',
           scope: 'read_user+profile',
           state: 'Sam',
           getCodeURL: 'https://gitlab.com/oauth/authorize',
