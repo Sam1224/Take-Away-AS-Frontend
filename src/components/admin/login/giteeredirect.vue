@@ -3,12 +3,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Service from '@/services/services'
   import { mapMutations } from 'vuex'
   import axios from 'axios'
 
   const ERR_OK = 0
-  const GITEE = 'gitee'
 
   export default {
     data() {
@@ -20,7 +18,7 @@
           scope: 'user_info',
           state: 'Sam',
           getCodeURL: 'https://gitee.com/oauth/authorize',
-          getAccessTokenURL: '/gitee/oauth/token',
+          getAccessTokenURL: 'https://takeawayapp-sam.herokuapp.com/loginGitee',
           getUserURL: '/gitee/api/v5/user',
           code: null,
           accessToken: null
@@ -36,56 +34,35 @@
     },
     methods: {
       getAccessToken() {
-        axios.post(`${this.giteeConfig.getAccessTokenURL}?grant_type=authorization_code&code=${this.giteeConfig.code}&client_id=${this.giteeConfig.client_id}&redirect_uri=${this.giteeConfig.redirect_uri}&client_secret=${this.giteeConfig.client_secret}`, {}, {
+        axios.get(`${this.giteeConfig.getAccessTokenURL}?grant_type=authorization_code&code=${this.giteeConfig.code}&client_id=${this.giteeConfig.client_id}&redirect_uri=${this.giteeConfig.redirect_uri}&client_secret=${this.giteeConfig.client_secret}`, {}, {
           headers: {
             'accept': 'application/json'
           }
         })
           .then((response) => {
-            this.giteeConfig.accessToken = response.data.access_token
-            this.getGiteeInfo()
-          })
-      },
-      getGiteeInfo() {
-        axios.get(`${this.giteeConfig.getUserURL}?access_token=${this.giteeConfig.accessToken}`, {}, {
-          headers: {
-            'accept': 'application/json'
-          }
-        })
-          .then((response) => {
-            let profile = response.data
-            let account = {
-              username: profile.login,
-              name: profile.name,
-              avatar: profile.avatar_url,
-              type: GITEE
-            }
-            Service.getToken(account.username)
-              .then((response) => {
-                let res = response.data
-                if (res.code === ERR_OK) {
-                  this.$message({
-                    showClose: true,
-                    message: 'Successfully Login',
-                    type: 'success',
-                    center: true,
-                    duration: 1000
-                  })
-                  this.login(res.token)
-                  this.setAccount(account)
-                  setTimeout(() => {
-                    this.$router.push('/admin/index')
-                  }, 1500)
-                } else {
-                  this.$message({
-                    showClose: true,
-                    message: res.message,
-                    type: 'warning',
-                    center: true,
-                    duration: 1000
-                  })
-                }
+            let res = response.data
+            if (res.code === ERR_OK) {
+              this.$message({
+                showClose: true,
+                message: 'Successfully Login',
+                type: 'success',
+                center: true,
+                duration: 1000
               })
+              this.login(res.token)
+              this.setAccount(res.account)
+              setTimeout(() => {
+                this.$router.push('/admin/index')
+              }, 1500)
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+            }
           })
       },
       ...mapMutations({

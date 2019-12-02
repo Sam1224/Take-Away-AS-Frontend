@@ -3,12 +3,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Service from '@/services/services'
   import { mapMutations } from 'vuex'
   import axios from 'axios'
 
   const ERR_OK = 0
-  const GITHUB = 'github'
 
   export default {
     data() {
@@ -19,9 +17,9 @@
           scope: 'user:email',
           state: 'Sam',
           getCodeURL: 'https://github.com/login/oauth/authorize',
-          getAccessTokenURL: '/github/login/oauth/access_token',
+          getAccessTokenURL: 'https://takeawayapp-sam.herokuapp.com/loginGithub',
           getUserURl: 'https://api.github.com/user',
-          redirectURL: 'https://take-away-app-frontend.firebaseapp.com/admin/githubredirect',
+          redirectURL: 'http://localhost:8080/admin/githubredirect',
           code: null,
           accessToken: null,
           signState: false
@@ -37,56 +35,35 @@
     },
     methods: {
       getAccessToken() {
-        axios.post(`${this.githubConfig.getAccessTokenURL}?client_id=${this.githubConfig.client_id}&client_secret=${this.githubConfig.client_secret}&code=${this.githubConfig.code}`, {}, {
+        axios.get(`${this.githubConfig.getAccessTokenURL}?client_id=${this.githubConfig.client_id}&client_secret=${this.githubConfig.client_secret}&code=${this.githubConfig.code}`, {
           headers: {
+            'Content-Type': 'application/json',
             'accept': 'application/json'
           }
-        })
-          .then((response) => {
-            this.githubConfig.accessToken = response.data.access_token
-            this.getGithubInfo()
-          })
-      },
-      getGithubInfo() {
-        axios.get(`${this.githubConfig.getUserURl}?access_token=${this.githubConfig.accessToken}`, {}, {
-          headers: {
-            'accept': 'application/json'
+        }).then((response) => {
+          let res = response.data
+          if (res.code === ERR_OK) {
+            this.$message({
+              showClose: true,
+              message: 'Successfully Login',
+              type: 'success',
+              center: true,
+              duration: 1000
+            })
+            this.login(res.token)
+            this.setAccount(res.account)
+            setTimeout(() => {
+              this.$router.push('/admin/index')
+            }, 1500)
+          } else {
+            this.$message({
+              showClose: true,
+              message: res.message,
+              type: 'warning',
+              center: true,
+              duration: 1000
+            })
           }
-        })
-          .then((response) => {
-            let profile = response.data
-            let account = {
-              username: profile.login,
-              name: profile.name,
-              avatar: profile.avatar_url,
-              type: GITHUB
-            }
-            Service.getToken(account.username)
-              .then((response) => {
-                let res = response.data
-                if (res.code === ERR_OK) {
-                  this.$message({
-                    showClose: true,
-                    message: 'Successfully Login',
-                    type: 'success',
-                    center: true,
-                    duration: 1000
-                  })
-                  this.login(res.token)
-                  this.setAccount(account)
-                  setTimeout(() => {
-                    this.$router.push('/admin/index')
-                  }, 1500)
-                } else {
-                  this.$message({
-                    showClose: true,
-                    message: res.message,
-                    type: 'warning',
-                    center: true,
-                    duration: 1000
-                  })
-                }
-              })
           })
       },
       ...mapMutations({

@@ -11,41 +11,41 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/github': {
-        target: 'https://github.com/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/github': 'https://github.com/'
-        }
-      },
-      '/gitlab': {
-        target: 'https://gitlab.com/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/gitlab': 'https://gitlab.com/'
-        }
-      },
-      '/gitee': {
-        target: 'https://gitee.com/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/gitee': 'https://gitee.com/'
-        }
-      },
-      '/bitbucket': {
-        target: 'https://bitbucket.org/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/bitbucket': 'https://bitbucket.org/'
-        }
-      },
-      '/weibo': {
-        target: 'https://api.weibo.com/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/weibo': 'https://api.weibo.com/'
-        }
-      }
+      // '/github': {
+      //   target: 'https://github.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/github': 'https://github.com/'
+      //   }
+      // },
+      // '/gitlab': {
+      //   target: 'https://gitlab.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/gitlab': 'https://gitlab.com/'
+      //   }
+      // },
+      // '/gitee': {
+      //   target: 'https://gitee.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/gitee': 'https://gitee.com/'
+      //   }
+      // },
+      // '/bitbucket': {
+      //   target: 'https://bitbucket.org/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/bitbucket': 'https://bitbucket.org/'
+      //   }
+      // },
+      // '/weibo': {
+      //   target: 'https://api.weibo.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/weibo': 'https://api.weibo.com/'
+      //   }
+      // }
     },
 
     // Various Dev Server settings

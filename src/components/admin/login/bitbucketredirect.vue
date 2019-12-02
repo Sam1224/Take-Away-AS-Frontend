@@ -3,12 +3,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Service from '@/services/services'
   import { mapMutations } from 'vuex'
   import axios from 'axios'
 
   const ERR_OK = 0
-  const BITBUCKET = 'bitbucket'
 
   export default {
     data() {
@@ -20,7 +18,7 @@
           scope: 'account',
           state: 'Sam',
           getCodeURL: 'https://bitbucket.org/site/oauth2/authorize',
-          getAccessTokenURL: '/bitbucket/site/oauth2/access_token',
+          getAccessTokenURL: 'https://takeawayapp-sam.herokuapp.com/loginBitbucket',
           getUserURL: '/bitbucket/api/2.0/user',
           code: null,
           accessToken: null
@@ -37,45 +35,35 @@
     },
     methods: {
       getBitbucketInfo() {
-        axios.get(`${this.bitbucketConfig.getUserURL}?access_token=${this.bitbucketConfig.accessToken}`, {}, {
+        axios.get(`${this.bitbucketConfig.getAccessTokenURL}?access_token=${this.bitbucketConfig.accessToken}`, {}, {
           headers: {
             'accept': 'application/json'
           }
         })
           .then((response) => {
-            let profile = response.data
-            let account = {
-              username: profile.username,
-              name: profile.display_name,
-              avatar: profile.links.avatar.href,
-              type: BITBUCKET
-            }
-            Service.getToken(account.username)
-              .then((response) => {
-                let res = response.data
-                if (res.code === ERR_OK) {
-                  this.$message({
-                    showClose: true,
-                    message: 'Successfully Login',
-                    type: 'success',
-                    center: true,
-                    duration: 1000
-                  })
-                  this.login(res.token)
-                  this.setAccount(account)
-                  setTimeout(() => {
-                    this.$router.push('/admin/index')
-                  }, 1500)
-                } else {
-                  this.$message({
-                    showClose: true,
-                    message: res.message,
-                    type: 'warning',
-                    center: true,
-                    duration: 1000
-                  })
-                }
+            let res = response.data
+            if (res.code === ERR_OK) {
+              this.$message({
+                showClose: true,
+                message: 'Successfully Login',
+                type: 'success',
+                center: true,
+                duration: 1000
               })
+              this.login(res.token)
+              this.setAccount(res.account)
+              setTimeout(() => {
+                this.$router.push('/admin/index')
+              }, 1500)
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+            }
           })
       },
       ...mapMutations({
