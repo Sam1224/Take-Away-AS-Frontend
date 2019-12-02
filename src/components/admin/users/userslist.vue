@@ -16,7 +16,7 @@
               </el-card>
             </el-form-item>
             <el-form-item label="Address" prop="address">
-              <ul>
+              <ul style="padding:0">
                 <li class="address-item" v-for="(address, index) in props.row.address" :key="index">
                   <el-card shadow="never">
                     <span>{{address}}</span>
@@ -25,7 +25,7 @@
               </ul>
             </el-form-item>
             <el-form-item label="Pay" prop="pay">
-              <ul>
+              <ul style="padding:0">
                 <li class="pay-item" v-for="(pay, index) in props.row.pay" :key="index">
                   <el-card shadow="never">
                     <span>{{pay}}</span>
@@ -34,7 +34,7 @@
               </ul>
             </el-form-item>
             <el-form-item label="Favorite" prop="favorite">
-              <ul>
+              <ul style="padding:0">
                 <li class="favorite-item" v-for="(favorite, index) in props.row.favorite" :key="index">
                   <el-card shadow="never">
                     <span>{{favorite}}</span>
@@ -157,6 +157,7 @@
     .address-item, .pay-item, .favorite-item
       position: relative
       width: 100%
+      list-style: none
     .slot
       display: table
       margin: 0 auto
