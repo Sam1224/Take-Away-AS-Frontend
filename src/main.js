@@ -12,6 +12,15 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import GAuth from 'vue-google-oauth2'
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAcFK3rhTsY9W5AogdnnRUQSnCbr36hs_k',
+    libraries: 'places',
+    language: 'en'
+  }
+})
 
 const gauthOption = {
   clientId: '536131817738-5t5o42838cpoegos86ql1hb64nu1cjbo.apps.googleusercontent.com',

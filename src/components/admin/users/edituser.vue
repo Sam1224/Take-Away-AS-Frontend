@@ -15,10 +15,16 @@
         <ul v-if="userForm.address.length !== 0">
           <li class="address-item" v-for="(address, index) in userForm.address" :key="index">
             <div class="input-wrapper">
-              <el-input v-model="userForm.address[index]" auto-complete="off"></el-input>
+              <el-input v-if="userForm.address[index].status === 0" v-model="userForm.address[index].text" auto-complete="off" disabled></el-input>
+              <div v-else>
+                <el-form-item>
+                  <googlemap @selectPlace="submitAddress($event, index)"></googlemap>
+                </el-form-item>
+              </div>
             </div>
             <div class="icon-wrapper">
-              <i class="iconBtn el-icon-remove-outline" @click="delAddress(index)"></i>
+              <i v-if="userForm.address[index].status === 0" class="iconBtn el-icon-remove-outline" @click="delAddress(index)"></i>
+              <i v-else class="iconBtn el-icon-remove-outline" @click="removeAddress(index)"></i>
               <i class="iconBtn" :class="{'el-icon-circle-plus-outline': userForm.address.length - 1 === index}" @click="addAddress(index)"></i>
             </div>
           </li>
@@ -82,6 +88,7 @@
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
   import { mapGetters } from 'vuex'
+  import Googlemap from '@/components/admin/googlemap/googlemap'
 
   const ERR_OK = 0
 
@@ -98,7 +105,10 @@
           username: '',
           password: '',
           phone: '',
-          address: [],
+          address: [{
+            text: '',
+            status: 0
+          }],
           pay: [],
           favorite: []
         },
@@ -141,6 +151,14 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
+              let addresses = []
+              res.data[0].address.forEach((address) => {
+                addresses.push({
+                  text: address,
+                  status: 0
+                })
+              })
+              res.data[0].address = addresses
               this.userForm = res.data[0]
               this.user = res.data[0]
               setTimeout(() => {
@@ -183,13 +201,18 @@
         this.$router.push('/admin/users')
       },
       addAddress(index) {
-        this.$prompt('Please enter your address', 'Tips', {
-          confirmButtonText: 'Submit',
-          cancelButtonText: 'Cancel'
-        }).then(({ value }) => {
+        let newAddress = {
+          text: '',
+          status: 1
+        }
+        this.userForm.address.push(newAddress)
+      },
+      submitAddress(address, index) {
+        this.userForm.address[index].text = address
+        if (this.userForm.address[index].text !== '') {
           let address = {
             username: this.user.username,
-            address: value,
+            address: this.userForm.address[index].text,
             token: this.token
           }
 
@@ -204,8 +227,7 @@
                   center: true,
                   duration: 1000
                 })
-                let newAddress = value
-                this.userForm.address.push(newAddress)
+                this.userForm.address[index].status = 0
               } else {
                 this.$message({
                   showClose: true,
@@ -216,20 +238,22 @@
                 })
               }
             })
-        }).catch(() => {
-          this.$message({
-            showClose: true,
-            message: 'Cancel adding address',
-            type: 'info',
-            center: true,
-            duration: 1000
-          })
-        })
+        } else {
+          return false
+        }
+      },
+      removeAddress(index) {
+        if (this.userForm.address.length === 1) {
+          this.userForm.address[0].text = ''
+          this.userForm.address[0].status = 1
+          return
+        }
+        this.userForm.address.splice(index, 1)
       },
       delAddress(index) {
         let address = {
           username: this.user.username,
-          address: this.userForm.address[index],
+          address: this.userForm.address[index].text,
           token: this.token
         }
         this.$confirm('This operation will delete this address, continue?', 'Tips', {
@@ -240,7 +264,6 @@
           Service.deleteAddress(address)
             .then((response) => {
               let res = response.data
-              console.log(res)
               if (res.code === ERR_OK) {
                 this.$message({
                   showClose: true,
@@ -456,6 +479,9 @@
           })
         })
       }
+    },
+    components: {
+      Googlemap
     }
   }
 </script>
@@ -470,7 +496,7 @@
       margin-top: 36px
     .user-table
       position: relative
-      width: 40%
+      width: 60%
       top: 50px
       margin: 0 auto
     .address-item, .pay-item, .favorite-item
