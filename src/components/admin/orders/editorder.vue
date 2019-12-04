@@ -9,7 +9,10 @@
         <el-input v-model="orderForm.seller" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Address" prop="address">
-        <el-input type="textarea" v-model="orderForm.address" auto-complete="off"></el-input>
+        <el-input v-model="orderForm.address" auto-complete="off" disabled></el-input>
+        <el-form-item>
+          <googlemap @selectPlace="selectAddress($event)"></googlemap>
+        </el-form-item>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
         <el-input v-model="orderForm.phone" auto-complete="off"></el-input>
@@ -56,6 +59,7 @@
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
   import { mapGetters } from 'vuex'
+  import Googlemap from '@/components/admin/googlemap/googlemap'
 
   const ERR_OK = 0
 
@@ -151,6 +155,9 @@
           }
         })
       },
+      selectAddress(data) {
+        this.orderForm.address = data
+      },
       cancel () {
         this.$router.push('/admin/orders')
       },
@@ -173,6 +180,9 @@
         }
         this.orderForm.foods.splice(index, 1)
       }
+    },
+    components: {
+      Googlemap
     }
   }
 </script>
