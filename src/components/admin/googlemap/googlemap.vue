@@ -2,7 +2,7 @@
   <div class="map" style="padding-bottom:10px">
     <el-form-item>
       <el-col :span="20">
-        <gmap-autocomplete style="width:100%;height:48px;" @place_changed="setPlace"  @input="input"></gmap-autocomplete>
+        <gmap-autocomplete style="width:100%;height:48px;" @place_changed="setPlace"  @input="input" ref="textbox"></gmap-autocomplete>
       </el-col>
       <el-col :span="4">
         <el-button style="width:100%;height:48px;" @click="addMarker">Select</el-button>
@@ -54,6 +54,10 @@
           this.markers = []
           this.markers.push({position: marker})
           this.center = marker
+          this.$emit('selectPlace', this.address)
+        } else {
+          this.markers = []
+          this.address = this.$refs.textbox.$el.value
           this.$emit('selectPlace', this.address)
         }
       },

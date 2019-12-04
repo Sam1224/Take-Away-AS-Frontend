@@ -15,7 +15,10 @@
         </v-client-table>
       </el-form-item>
       <el-form-item label="Address" prop="address">
-        <el-input v-model="orderForm.address" auto-complete="off"></el-input>
+        <el-input v-model="orderForm.address" auto-complete="off" disabled></el-input>
+        <el-form-item>
+          <googlemap @selectPlace="selectAddress($event)"></googlemap>
+        </el-form-item>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
         <el-input v-model="orderForm.phone" auto-complete="off"></el-input>
@@ -70,6 +73,7 @@
   import Service from '@/services/services'
   import { mapGetters } from 'vuex'
   import cartcontrol2 from '@/components/cartcontrol/cartcontrol2'
+  import Googlemap from '@/components/admin/googlemap/googlemap'
 
   const ERR_OK = 0
 
@@ -177,6 +181,9 @@
             console.log(err)
           })
       },
+      selectAddress(data) {
+        this.orderForm.address = data
+      },
       addOrder() {
         this.$refs.orderForm.validate((valid) => {
           if (valid) {
@@ -282,7 +289,8 @@
       }
     },
     components: {
-      cartcontrol2
+      cartcontrol2,
+      Googlemap
     }
   }
 </script>
