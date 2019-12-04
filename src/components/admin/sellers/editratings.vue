@@ -54,7 +54,8 @@
                 </div>
               </el-collapse-item>
               <div class="icon-wrapper">
-                <i class="iconBtn el-icon-remove-outline" @click="delRating(index)"></i>
+                <i v-if="rating.status === 0" class="iconBtn el-icon-remove-outline" @click="delRating(index)"></i>
+                <i v-else class="iconBtn el-icon-remove-outline" @click="removeRating(index)"></i>
                 <i class="iconBtn" :class="{'el-icon-circle-plus-outline': ratingsForm.ratings.length - 1 === index}" @click="addRating(index)"></i>
               </div>
             </div>
@@ -231,6 +232,21 @@
             duration: 1000
           })
         })
+      },
+      removeRating(index) {
+        if (this.ratingsForm.ratings.length === 1) {
+          this.ratingsForm.ratings[0].username = ''
+          this.ratingsForm.ratings[0].deliveryTime = null
+          this.ratingsForm.ratings[0].score = '5'
+          this.ratingsForm.ratings[0].rateTime = null
+          this.ratingsForm.ratings[0].rateType = '0'
+          this.ratingsForm.ratings[0].text = ''
+          this.ratingsForm.ratings[0].avatar = DEFAULT_AVATAR
+          this.ratingsForm.ratings[0].recommend = []
+          this.ratingsForm.ratings[0].status = 1
+          return
+        }
+        this.ratingsForm.ratings.splice(index, 1)
       },
       submitRating(index) {
         this.$refs.ratingsForm.validate((valid) => {
