@@ -15,20 +15,39 @@
         <el-input v-model="sellerForm.bulletin" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Avatar" prop="avatar">
-        <el-input v-model="sellerForm.avatar" auto-complete="off"></el-input>
+        <el-upload ref="avatarUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
+                   :auto-upload="false"
+                   accept="image/png, image/jpeg"
+                   :on-progress="handleAvatarProgress"
+                   :on-remove="handleAvatarRemove"
+                   :disabled="avatarStatus"
+                   :file-list="avatarList"
+                   list-type="picture"
+                   :http-request="uploadAvatar"
+                   :limit="Number(1)"
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">Drag picture here, or <em>click to upload</em></div>
+          <div class="el-upload__tip" slot="tip">Only .jpg and .png files accepted</div>
+        </el-upload>
       </el-form-item>
       <el-form-item label="Pictures" prop="pics">
-        <ul>
-          <li class="pic-item" v-for="(pic, index) in sellerForm.pics" :key="index">
-            <div class="input-wrapper">
-              <el-input v-model="sellerForm.pics[index]" auto-complete="off"></el-input>
-            </div>
-            <div class="icon-wrapper">
-              <i class="iconBtn el-icon-remove-outline" @click="delPic(index)"></i>
-              <i class="iconBtn" :class="{'el-icon-circle-plus-outline': sellerForm.pics.length - 1 === index}" @click="addPic(index)"></i>
-            </div>
-          </li>
-        </ul>
+        <el-upload ref="picsUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/uploadmul" show-file-list
+                   :auto-upload="false"
+                   accept="image/png, image/jpeg"
+                   :on-progress="handlePicsProgress"
+                   :on-remove="handlePicsRemove"
+                   :file-list="picsList"
+                   list-type="picture"
+                   :disabled="picsStatus"
+                   :http-request="uploadPics"
+                   :limit="Number(10)"
+                   multiple
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">Drag picture here, or <em>click to upload</em></div>
+          <div class="el-upload__tip" slot="tip">Only .jpg and .png files accepted, maximum: 10</div>
+        </el-upload>
       </el-form-item>
       <el-form-item label="Supports" prop="supports">
         <ul>
@@ -64,7 +83,7 @@
         </ul>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="editSeller">Edit Seller</el-button>
+        <el-button type="primary" @click="submitAvatar">Edit Seller</el-button>
         <el-button @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
@@ -74,6 +93,7 @@
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
   import { mapGetters } from 'vuex'
+  import axios from 'axios'
 
   const ERR_OK = 0
 
@@ -83,6 +103,12 @@
         title: 'Edit Seller',
         loading: true,
         seller: {},
+        avatarStatus: false,
+        picsStatus: false,
+        avatarList: [],
+        picsList: [],
+        avatarFormData: '',
+        picsFormData: '',
         sellerForm: {
           name: '',
           description: '',
@@ -142,11 +168,124 @@
             if (res.code === ERR_OK) {
               this.sellerForm = res.data[0]
               this.seller = res.data[0]
+              this.avatarList.push({
+                name: res.data[0].avatar.split('/')[-1],
+                url: `https://takeawayapp-sam.herokuapp.com/${res.data[0].avatar}`
+              })
+              res.data[0].pics.forEach((pic) => {
+                this.picsList.push({
+                  name: pic.split('/')[-1],
+                  url: `https://takeawayapp-sam.herokuapp.com/${pic}`
+                })
+              })
               setTimeout(() => {
                 this.loading = false
               }, 1000)
             }
           })
+      },
+      handleAvatarProgress(event, file, fileList) {
+        this.avatarStatus = true
+      },
+      handlePicsProgress(event, file, fileList) {
+        this.picsStatus = true
+      },
+      handleAvatarRemove(file, fileList) {
+        this.sellerForm.avatar = null
+      },
+      handlePicsRemove(file, fileList) {
+        if (file.status === 'success') {
+          let url = file.url.replace('https://takeawayapp-sam.herokuapp.com/', '')
+          let index = this.sellerForm.pics.indexOf(url)
+          if (index > -1) {
+            this.sellerForm.pics.splice(index, 1)
+          }
+        }
+      },
+      uploadAvatar(file) {
+        this.avatarFormData.append('file', file.file)
+      },
+      uploadPics(file) {
+        this.picsFormData.append('files', file.file)
+      },
+      submitAvatar() {
+        // this.loading = true
+        this.avatarFormData = new FormData()
+        let files = this.$refs.avatarUploader.uploadFiles
+        let readyCount = 0
+        files.forEach((file) => {
+          if (file.status === 'ready') {
+            readyCount++
+          }
+        })
+        if (readyCount > 0) {
+          this.$refs.avatarUploader.submit()
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          axios.post('https://takeawayapp-sam.herokuapp.com/upload', this.avatarFormData, config)
+            .then((response) => {
+              this.sellerForm.avatar = response.data.filepath
+              this.avatarStatus = false
+              this.avatarList = []
+              this.avatarList.push({
+                name: response.data.filepath.split('/')[-1],
+                url: `https://takeawayapp-sam.herokuapp.com/${response.data.filepath}`
+              })
+              this.submitPics()
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        } else {
+          this.submitPics()
+        }
+      },
+      submitPics() {
+        this.picsFormData = new FormData()
+        let files = this.$refs.picsUploader.uploadFiles
+        let readyCount = 0
+        this.picsList = []
+        files.forEach((file) => {
+          if (file.status === 'ready') {
+            readyCount++
+          } else if (file.status === 'success') {
+            let url = file.url.replace('https://takeawayapp-sam.herokuapp.com/', '')
+            this.picsList.push({
+              name: url.split('/')[-1],
+              url: `https://takeawayapp-sam.herokuapp.com/${url}`
+            })
+          }
+        })
+        if (readyCount > 0) {
+          this.$refs.picsUploader.submit()
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          axios.post('https://takeawayapp-sam.herokuapp.com/uploadmul', this.picsFormData, config)
+            .then((response) => {
+              response.data.filepaths.forEach((filepath) => {
+                this.sellerForm.pics.push(filepath)
+              })
+              this.picsStatus = false
+              response.data.filepaths.forEach((filepath) => {
+                this.picsList.push({
+                  name: filepath.split('/')[-1],
+                  url: `https://takeawayapp-sam.herokuapp.com/${filepath}`
+                })
+              })
+              this.editSeller()
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        } else {
+          this.editSeller()
+        }
       },
       editSeller() {
         this.$refs.sellerForm.validate((valid) => {
@@ -166,6 +305,7 @@
             Service.updateSeller(this.seller._id, seller)
               .then((response) => {
                 let res = response.data
+                this.loading = false
                 if (res.code === ERR_OK) {
                   this.$message({
                     showClose: true,
