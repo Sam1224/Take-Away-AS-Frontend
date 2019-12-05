@@ -2,66 +2,71 @@
   <div class="edit-ratings-wrapper" v-show="!loading">
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
-      <el-collapse>
-        <el-collapse-item title="Ratings" name="Ratings">
-          <el-collapse>
-            <div v-for="(rating, index) in ratingsForm.ratings" :key="index" class="rating-wrapper">
-              <el-collapse-item class="rating-item" :title="rating.username" :name="index">
-                <div class="input-wrapper" v-if="rating.status === 0">
-                  <el-card shadow="never" class="content-wrapper">
-                    <div class="rating">
-                      <div class="avatar">
-                        <img :src="rating.avatar" width="18" height="18">
+      <el-form-item>
+        <el-collapse>
+          <el-collapse-item title="Ratings" name="Ratings">
+            <el-collapse>
+              <div v-for="(rating, index) in ratingsForm.ratings" :key="index" class="rating-wrapper">
+                <el-collapse-item class="rating-item" :title="rating.username" :name="index">
+                  <div class="input-wrapper" v-if="rating.status === 0">
+                    <el-card shadow="never" class="content-wrapper">
+                      <div class="rating">
+                        <div class="avatar">
+                          <img :src="rating.avatar" width="18" height="18">
+                        </div>
+                        <div class="content">
+                          <h1 class="name">{{rating.username}}</h1>
+                          <div class="star-wrapper">
+                            <star :size="24" :score="Number(rating.score)"></star>
+                            <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}min</span>
+                          </div>
+                          <p class="text">{{rating.text}}</p>
+                          <div class="recommend" v-show="rating.recommend.length">
+                            <span class="icon-thumb_up"></span>
+                            <span class="item" v-for="(item, index) in rating.recommend" :key="index">{{item}}</span>
+                          </div>
+                          <div class="time">
+                            {{rating.rateTime | formatDate}}
+                          </div>
+                        </div>
                       </div>
-                      <div class="content">
-                        <h1 class="name">{{rating.username}}</h1>
-                        <div class="star-wrapper">
-                          <star :size="24" :score="Number(rating.score)"></star>
-                          <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}min</span>
-                        </div>
-                        <p class="text">{{rating.text}}</p>
-                        <div class="recommend" v-show="rating.recommend.length">
-                          <span class="icon-thumb_up"></span>
-                          <span class="item" v-for="(item, index) in rating.recommend" :key="index">{{item}}</span>
-                        </div>
-                        <div class="time">
-                          {{rating.rateTime | formatDate}}
-                        </div>
-                      </div>
-                    </div>
-                  </el-card>
+                    </el-card>
+                  </div>
+                  <div class="input-wrapper" v-else>
+                    <el-form-item label="Username" :prop="`ratings.${index}.username`" :rules="rules.username">
+                      <el-input v-model="ratingsForm.ratings[index].username" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="DeliveryTime" :prop="rating.deliveryTime">
+                      <el-input type="number" v-model="ratingsForm.ratings[index].deliveryTime" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Score" :prop="rating.score" class="score-wrapper">
+                      <star :size="36" :score="Number(ratingsForm.ratings[index].score)" :click="true" @updateScore="updateScore($event, index)" class="star"></star>
+                    </el-form-item>
+                    <el-form-item label="RateType" :prop="rating.rateType">
+                      <el-radio v-model="ratingsForm.ratings[index].rateType" label="0">Satisfied</el-radio>
+                      <el-radio v-model="ratingsForm.ratings[index].rateType" label="1">Unsatisfied</el-radio>
+                    </el-form-item>
+                    <el-form-item label="Text" :prop="rating.text">
+                      <el-input type="textarea" v-model="ratingsForm.ratings[index].text" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item v-show="ratingsForm.ratings[index].status === 1">
+                      <el-button type="primary" @click="submitRating(index)">Submit Rating</el-button>
+                    </el-form-item>
+                  </div>
+                </el-collapse-item>
+                <div class="icon-wrapper">
+                  <i v-if="rating.status === 0" class="iconBtn el-icon-remove-outline" @click="delRating(index)"></i>
+                  <i v-else class="iconBtn el-icon-remove-outline" @click="removeRating(index)"></i>
+                  <i class="iconBtn" :class="{'el-icon-circle-plus-outline': ratingsForm.ratings.length - 1 === index}" @click="addRating(index)"></i>
                 </div>
-                <div class="input-wrapper" v-else>
-                  <el-form-item label="Username" :prop="`ratings.${index}.username`" :rules="rules.username">
-                    <el-input v-model="ratingsForm.ratings[index].username" auto-complete="off"></el-input>
-                  </el-form-item>
-                  <el-form-item label="DeliveryTime" :prop="rating.deliveryTime">
-                    <el-input type="number" v-model="ratingsForm.ratings[index].deliveryTime" auto-complete="off"></el-input>
-                  </el-form-item>
-                  <el-form-item label="Score" :prop="rating.score" class="score-wrapper">
-                    <star :size="36" :score="Number(ratingsForm.ratings[index].score)" :click="true" @updateScore="updateScore($event, index)" class="star"></star>
-                  </el-form-item>
-                  <el-form-item label="RateType" :prop="rating.rateType">
-                    <el-radio v-model="ratingsForm.ratings[index].rateType" label="0">Satisfied</el-radio>
-                    <el-radio v-model="ratingsForm.ratings[index].rateType" label="1">Unsatisfied</el-radio>
-                  </el-form-item>
-                  <el-form-item label="Text" :prop="rating.text">
-                    <el-input type="textarea" v-model="ratingsForm.ratings[index].text" auto-complete="off"></el-input>
-                  </el-form-item>
-                  <el-form-item v-show="ratingsForm.ratings[index].status === 1">
-                    <el-button type="primary" @click="submitRating(index)">Submit Rating</el-button>
-                  </el-form-item>
-                </div>
-              </el-collapse-item>
-              <div class="icon-wrapper">
-                <i v-if="rating.status === 0" class="iconBtn el-icon-remove-outline" @click="delRating(index)"></i>
-                <i v-else class="iconBtn el-icon-remove-outline" @click="removeRating(index)"></i>
-                <i class="iconBtn" :class="{'el-icon-circle-plus-outline': ratingsForm.ratings.length - 1 === index}" @click="addRating(index)"></i>
               </div>
-            </div>
-          </el-collapse>
-        </el-collapse-item>
-      </el-collapse>
+            </el-collapse>
+          </el-collapse-item>
+        </el-collapse>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="cancel">Cancel</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
