@@ -326,7 +326,7 @@
                   setTimeout(() => {
                     this.logout()
                     this.setAccount({})
-                    this.$router.push('admin/sellers')
+                    this.$router.push('admin/login')
                   }, 1500)
                 } else {
                   this.$message({

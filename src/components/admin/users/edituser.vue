@@ -198,7 +198,7 @@
               setTimeout(() => {
                 this.logout()
                 this.setAccount({})
-                this.$router.push('admin/users')
+                this.$router.push('admin/login')
               }, 1500)
             } else {
               this.$message({
@@ -242,6 +242,19 @@
                   duration: 1000
                 })
                 this.userForm.address[index].status = 0
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -291,6 +304,19 @@
                   return
                 }
                 this.userForm.address.splice(index, 1)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -335,6 +361,19 @@
                 })
                 let newPay = value
                 this.userForm.pay.push(newPay)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -382,6 +421,19 @@
                   return
                 }
                 this.userForm.pay.splice(index, 1)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -426,6 +478,19 @@
                 })
                 let newFavorite = value
                 this.userForm.favorite.push(newFavorite)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -473,6 +538,19 @@
                   return
                 }
                 this.userForm.favorite.splice(index, 1)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/login')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
