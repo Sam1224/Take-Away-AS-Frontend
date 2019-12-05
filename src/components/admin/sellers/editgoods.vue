@@ -30,10 +30,32 @@
                           <el-input type="number" v-model="goodsForm.goods[goodIndex].foods[foodIndex].oldPrice" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="Image" :prop="`goods.${goodIndex}.foods.${foodIndex}.image`" :rules="rules.image">
-                          <el-input v-model="goodsForm.goods[goodIndex].foods[foodIndex].image" auto-complete="off"></el-input>
+                          <el-upload ref="imageUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
+                                     accept="image/png, image/jpeg"
+                                     :on-success="(response, file, fileList) => {return handleImageSuccess(response, file, fileList, goodIndex, foodIndex)}"
+                                     :on-remove="(file, fileList) => {return handleImageRemove(file, fileList, goodIndex, foodIndex)}"
+                                     :file-list="goodsForm.goods[goodIndex].foods[foodIndex].imageList"
+                                     list-type="picture"
+                                     :limit="Number(1)"
+                          >
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">Drag picture here, or <em>click to upload</em></div>
+                            <div class="el-upload__tip" slot="tip">Only .jpg and .png files accepted</div>
+                          </el-upload>
                         </el-form-item>
                         <el-form-item label="Icon" :prop="`goods.${goodIndex}.foods.${foodIndex}.icon`" :rules="rules.icon">
-                          <el-input v-model="goodsForm.goods[goodIndex].foods[foodIndex].icon" auto-complete="off"></el-input>
+                          <el-upload ref="iconUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
+                                     accept="image/png, image/jpeg"
+                                     :on-success="(response, file, fileList) => {return handleIconSuccess(response, file, fileList, goodIndex, foodIndex)}"
+                                     :on-remove="(file, fileList) => {return handleIconRemove(file, fileList, goodIndex, foodIndex)}"
+                                     :file-list="goodsForm.goods[goodIndex].foods[foodIndex].iconList"
+                                     list-type="picture"
+                                     :limit="Number(1)"
+                          >
+                            <i class="el-icon-upload"></i>
+                            <div class="el-upload__text">Drag picture here, or <em>click to upload</em></div>
+                            <div class="el-upload__tip" slot="tip">Only .jpg and .png files accepted</div>
+                          </el-upload>
                         </el-form-item>
                       </div>
                     </el-collapse-item>
@@ -85,7 +107,9 @@
               price: 0,
               oldPrice: null,
               image: '',
+              imageList: [],
               icon: '',
+              iconList: [],
               ratings: []
             }]
           }]
@@ -152,13 +176,57 @@
                 }, 1000)
                 return
               }
-              this.goodsForm.goods = res.data[0].goods
-              this.goods = res.data[0].goods
+              let goods = res.data[0].goods
+              this.goodsForm.goods = goods
+              this.goods = goods
+              for (let i = 0; i < goods.length; i++) {
+                let foods = goods[i].foods
+                for (let j = 0; j < foods.length; j++) {
+                  let image = foods[j].image
+                  let icon = foods[j].icon
+                  this.goodsForm.goods[i].foods[j].imageList = []
+                  this.goodsForm.goods[i].foods[j].iconList = []
+                  this.goodsForm.goods[i].foods[j].imageList.push({
+                    name: image.split('/')[-1],
+                    url: `https://takeawayapp-sam.herokuapp.com/${image}`
+                  })
+                  this.goodsForm.goods[i].foods[j].iconList.push({
+                    name: icon.split('/')[-1],
+                    url: `https://takeawayapp-sam.herokuapp.com/${icon}`
+                  })
+                }
+              }
               setTimeout(() => {
                 this.loading = false
               }, 1000)
             }
           })
+      },
+      handleImageSuccess(response, file, fileList, goodIndex, foodIndex) {
+        if (response.code === ERR_OK) {
+          this.goodsForm.goods[goodIndex].foods[foodIndex].image = response.filepath
+          this.goodsForm.goods[goodIndex].foods[foodIndex].imageList = []
+          this.goodsForm.goods[goodIndex].foods[foodIndex].imageList.push({
+            name: response.filepath.split('/')[-1],
+            url: `https://takeawayapp-sam.herokuapp.com/${response.filepath}`
+          })
+        }
+      },
+      handleIconSuccess(response, file, fileList, goodIndex, foodIndex) {
+        if (response.code === ERR_OK) {
+          this.goodsForm.goods[goodIndex].foods[foodIndex].icon = response.filepath
+          this.goodsForm.goods[goodIndex].foods[foodIndex].iconList = []
+          this.goodsForm.goods[goodIndex].foods[foodIndex].iconList.push({
+            name: response.filepath.split('/')[-1],
+            url: `https://takeawayapp-sam.herokuapp.com/${response.filepath}`
+          })
+        }
+      },
+      handleImageRemove(file, fileList, goodIndex, foodIndex) {
+        this.goodsForm.goods[goodIndex].foods[foodIndex].image = null
+      },
+      handleIconRemove(file, fileList, goodIndex, foodIndex) {
+        this.goodsForm.goods[goodIndex].foods[foodIndex].icon = null
       },
       editGoods() {
         this.$refs.goodsForm.validate((valid) => {
