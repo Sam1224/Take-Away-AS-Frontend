@@ -87,9 +87,10 @@
 
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import Googlemap from '@/components/admin/googlemap/googlemap'
 
+  const ERR_NOK = -1
   const ERR_OK = 0
 
   export default {
@@ -186,6 +187,19 @@
                 center: true,
                 duration: 1000
               })
+            } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+              this.$message({
+                showClose: true,
+                message: 'The token has expired, please login again',
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+              setTimeout(() => {
+                this.logout()
+                this.setAccount({})
+                this.$router.push('admin/users')
+              }, 1500)
             } else {
               this.$message({
                 showClose: true,
@@ -478,7 +492,11 @@
             duration: 1000
           })
         })
-      }
+      },
+      ...mapMutations({
+        logout: 'LOGOUT',
+        setAccount: 'SET_ACCOUNT'
+      })
     },
     components: {
       Googlemap

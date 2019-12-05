@@ -156,12 +156,13 @@
   import Service from '@/services/services'
   import Vue from 'vue'
   import VueTables from 'vue-tables-2'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import Star from '@/components/star/star'
   import { formatDate } from '@/common/js/date'
 
   Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
+  const ERR_NOK = -1
   const ERR_OK = 0
 
   export default {
@@ -243,6 +244,19 @@
                 setTimeout(() => {
                   this._initializeSellers()
                 }, 1500)
+              } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                this.$message({
+                  showClose: true,
+                  message: 'The token has expired, please login again',
+                  type: 'warning',
+                  center: true,
+                  duration: 1000
+                })
+                setTimeout(() => {
+                  this.logout()
+                  this.setAccount({})
+                  this.$router.push('admin/sellers')
+                }, 1500)
               } else {
                 this.$message({
                   showClose: true,
@@ -271,7 +285,11 @@
       editRatings(id) {
         this.$router.params = id
         this.$router.push('/admin/sellers/editratings')
-      }
+      },
+      ...mapMutations({
+        logout: 'LOGOUT',
+        setAccount: 'SET_ACCOUNT'
+      })
     },
     components: {
       Star

@@ -71,10 +71,11 @@
 
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import cartcontrol2 from '@/components/cartcontrol/cartcontrol2'
   import Googlemap from '@/components/admin/googlemap/googlemap'
 
+  const ERR_NOK = -1
   const ERR_OK = 0
 
   export default {
@@ -207,6 +208,19 @@
                   setTimeout(() => {
                     this.$router.push('/admin/orders')
                   }, 1500)
+                } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                  this.$message({
+                    showClose: true,
+                    message: 'The token has expired, please login again',
+                    type: 'warning',
+                    center: true,
+                    duration: 1000
+                  })
+                  setTimeout(() => {
+                    this.logout()
+                    this.setAccount({})
+                    this.$router.push('admin/orders')
+                  }, 1500)
                 } else {
                   this.$message({
                     showClose: true,
@@ -286,7 +300,11 @@
           }
           this.statisticFoods()
         }
-      }
+      },
+      ...mapMutations({
+        logout: 'LOGOUT',
+        setAccount: 'SET_ACCOUNT'
+      })
     },
     components: {
       cartcontrol2,

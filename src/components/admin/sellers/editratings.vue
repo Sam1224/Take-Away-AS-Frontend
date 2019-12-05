@@ -73,10 +73,11 @@
 
 <script type="text/ecmascript-6">
   import Service from '@/services/services'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
   import Star from '@/components/star/star'
   import { formatDate } from '@/common/js/date'
 
+  const ERR_NOK = -1
   const ERR_OK = 0
   const DEFAULT_AVATAR = 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'
 
@@ -275,6 +276,19 @@
                     duration: 1000
                   })
                   this.ratingsForm.ratings[index].status = 0
+                } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+                  this.$message({
+                    showClose: true,
+                    message: 'The token has expired, please login again',
+                    type: 'warning',
+                    center: true,
+                    duration: 1000
+                  })
+                  setTimeout(() => {
+                    this.logout()
+                    this.setAccount({})
+                    this.$router.push('admin/sellers')
+                  }, 1500)
                 } else {
                   this.$message({
                     showClose: true,
@@ -296,7 +310,11 @@
       hideUsername(username) {
         username = username.toLowerCase()
         return `${username.charAt(0)}******${username.charAt(username.length - 1)}`
-      }
+      },
+      ...mapMutations({
+        logout: 'LOGOUT',
+        setAccount: 'SET_ACCOUNT'
+      })
     },
     components: {
       Star
