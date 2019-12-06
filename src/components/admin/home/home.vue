@@ -90,11 +90,13 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .nav-wrapper
-    .nav-item
-      text-decoration: none
-      width: 100%
-      height: 100%
-      display: inline-table
-      text-align: center
+  .home
+    text-align: center
+    .nav-wrapper
+      .nav-item
+        text-decoration: none
+        width: 100%
+        height: 100%
+        display: inline-table
+        text-align: center
 </style>

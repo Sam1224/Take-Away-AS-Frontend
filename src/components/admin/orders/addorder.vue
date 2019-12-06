@@ -175,6 +175,23 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
+              console.log(res)
+              res.data.forEach((seller) => {
+               let goods = seller.goods
+                goods.forEach((good) => {
+                  let foods = good.foods
+                  foods.forEach((food) => {
+                    let image = food.image
+                    let icon = food.icon
+                    if (image.startsWith('uploads')) {
+                      food.image = `https://takeawayapp-sam.herokuapp.com/${image}`
+                    }
+                    if (icon.startsWith('uploads')) {
+                      food.icon = `https://takeawayapp-sam.herokuapp.com/${icon}`
+                    }
+                  })
+                })
+              })
               this.sellers = res.data
             }
           })

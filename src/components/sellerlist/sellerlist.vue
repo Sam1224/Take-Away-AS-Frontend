@@ -47,6 +47,33 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
+              res.data.forEach((seller) => {
+                let avatar = seller.avatar
+                if (avatar.startsWith('uploads')) {
+                  seller.avatar = `https://takeawayapp-sam.herokuapp.com/${avatar}`
+                }
+                let goods = seller.goods
+                goods.forEach((good) => {
+                  let foods = good.foods
+                  foods.forEach((food) => {
+                    let icon = food.icon
+                    let image = food.image
+                    if (icon.startsWith('uploads')) {
+                      food.icon = `https://takeawayapp-sam.herokuapp.com/${icon}`
+                    }
+                    if (image.startsWith('uploads')) {
+                      food.image = `https://takeawayapp-sam.herokuapp.com/${image}`
+                    }
+                  })
+                })
+                let pics = seller.pics
+                for (let i = 0; i < pics.length; i++) {
+                  let pic = pics[i]
+                  if (pic.startsWith('uploads')) {
+                    seller.pics[i] = `https://takeawayapp-sam.herokuapp.com/${pic}`
+                  }
+                }
+              })
               this.sellers = res.data
               this.$nextTick(() => {
                 this._initScroll()
