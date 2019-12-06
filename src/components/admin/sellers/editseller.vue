@@ -210,7 +210,7 @@
         this.picsFormData.append('files', file.file)
       },
       submitAvatar() {
-        // this.loading = true
+        this.loading = true
         this.avatarFormData = new FormData()
         let files = this.$refs.avatarUploader.uploadFiles
         let readyCount = 0
