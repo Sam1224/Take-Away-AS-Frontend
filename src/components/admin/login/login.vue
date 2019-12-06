@@ -269,7 +269,7 @@
     margin-top: 30px
     text-align: center
     font-size: 45pt
-    margin-bottom: 10px
+    margin-bottom: 30px
   .login-table
     width: 40%
     margin: 0 auto
