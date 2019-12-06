@@ -7,12 +7,21 @@
       :show-close="false"
       class="drawer-wrapper"
     >
-      <h2>This is the backend of take-away app, used to manage:</h2>
-      <span>users</span>
-      <span>sellers</span>
-      <span>orders</span>
-      <el-divider></el-divider>
-      <span>Users</span>
+      <div class="content" style="padding-left:20px;padding-right:20px;">
+        <h2>Take-Away App - Backend</h2>
+        <el-divider></el-divider>
+        <span>This website acts as the backend of take-away app.</span>
+        <el-divider></el-divider>
+        <span>3 core functions of Vue are applied:</span>
+        <el-divider></el-divider>
+        <ul>
+          <li><a href="https://vuejs.org/index.html" target="_blank">Vue.js</a></li>
+          <li><a href="https://router.vuejs.org/" target="_blank">Vue-Router</a></li>
+          <li><a href="https://vuex.vuejs.org/guide/" target="_blank">Vuex</a></li>
+        </ul>
+        <el-divider></el-divider>
+        <span>This app is built by <a href="https://github.com/Sam1224" target="_blank">Sam</a>, all rights reserved.</span>
+      </div>
     </el-drawer>
     <el-menu
       :default-active="defaultActive"
