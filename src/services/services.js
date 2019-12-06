@@ -34,6 +34,13 @@ export default {
       }
     })
   },
+  fuzzySearch(keyword) {
+    return Api().post('/seller/search', keyword, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  },
   updateGoods(id, goods) {
     return Api().put(`/seller/${id}/goods`, goods, {
       headers: {

@@ -3,7 +3,12 @@
     <div class="header-wrapper">
       <h1 class="text">{{title}}</h1>
     </div>
-    <div class="seller-wrapper" ref="sellerWrapper">
+    <div class="search-wrapper">
+      <el-input :placeholder="placeholder" auto-complete="off" v-model="keyword">
+        <i slot="suffix" class="el-input__icon el-icon-search" @click="fuzzySearch"></i>
+      </el-input>
+    </div>
+    <div class="seller-wrapper" ref="sellerWrapper" v-loading="loading" :v-loading="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)">
       <ul class="content">
         <li v-for="(seller, index) in sellers" :key="index" class="seller-item border-1px" ref="sellerItem" @click="selectSeller(seller)">
           <div class="avatar-wrapper">
@@ -32,10 +37,13 @@
   export default {
     data () {
       return {
+        loading: true,
         errors: [],
         sellers: [],
         listHeight: [],
-        title: 'Seller List'
+        title: 'Take-Away App',
+        placeholder: 'Please input keyword',
+        keyword: ''
       }
     },
     created () {
@@ -79,6 +87,9 @@
                 this._initScroll()
               })
             }
+            setTimeout(() => {
+              this.loading = false
+            }, 1000)
           })
           .catch((err) => {
             this.errors.push(err)
@@ -99,6 +110,26 @@
         } else {
           this.sellerScroll.refresh()
         }
+      },
+      fuzzySearch() {
+        if (this.keyword.trim() === '') {
+          return
+        }
+        let keyword = {
+          keyword: this.keyword
+        }
+        this.loading = true
+
+        Service.fuzzySearch(keyword)
+          .then((response) => {
+            let res = response.data
+            if (res.code === ERR_OK) {
+              this.sellers = res.data
+            }
+            setTimeout(() => {
+              this.loading = false
+            }, 1000)
+          })
       },
       ...mapMutations({
         setSeller: 'SET_SELLER',
@@ -127,10 +158,14 @@
       line-height: 20px
       font-size: 24px
       margin: 24px
+  .search-wrapper
+    position: relative
+    height: 40px
+    z-index: 10
   .seller-wrapper
     position: absolute
     left: 0
-    top: 60px
+    top: 100px
     bottom: 0px
     width: 100%
     .seller-item
