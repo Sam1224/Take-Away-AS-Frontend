@@ -1,7 +1,7 @@
 <template>
   <div class="index" v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)">
     <div v-show="!loading" class="content-wrapper">
-      <h1 class="vue-title">Take-Away App - Backend</h1>
+      <h1 class="vue-title">Welcome to the Backend of Take-Away App!</h1>
       <el-carousel :interval="3000" arrow="hover" class="slides">
         <el-carousel-item v-for="(food, index) in foods" :key="index">
           <el-image :src="food" fit="fill"></el-image>
@@ -53,7 +53,7 @@
       width: 1280px
       margin: 0 auto
       .vue-title
-        font-size: 48px
+        font-size: 40px
         margin-bottom: 25px
       .slides
         .el-carousel__container
