@@ -198,7 +198,7 @@
               setTimeout(() => {
                 this.logout()
                 this.setAccount({})
-                this.$router.push('admin/login')
+                this.$router.push('/admin/login')
               }, 1500)
             } else {
               this.$message({
@@ -253,7 +253,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({
@@ -315,7 +315,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({
@@ -372,7 +372,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({
@@ -432,7 +432,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({
@@ -489,7 +489,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({
@@ -549,7 +549,7 @@
                 setTimeout(() => {
                   this.logout()
                   this.setAccount({})
-                  this.$router.push('admin/login')
+                  this.$router.push('/admin/login')
                 }, 1500)
               } else {
                 this.$message({

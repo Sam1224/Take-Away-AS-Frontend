@@ -7,7 +7,12 @@
       :show-close="false"
       class="drawer-wrapper"
     >
-      <h1>TODO</h1>
+      <h2>This is the backend of take-away app, used to manage:</h2>
+      <span>users</span>
+      <span>sellers</span>
+      <span>orders</span>
+      <el-divider></el-divider>
+      <span>Users</span>
     </el-drawer>
     <el-menu
       :default-active="defaultActive"
