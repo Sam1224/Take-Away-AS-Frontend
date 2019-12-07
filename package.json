@@ -5,6 +5,7 @@
   "author": "Qianxiong Xu <20086454@mail.wit.ie>",
   "private": true,
   "scripts": {
+    "cypress:open": "cypress open",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
@@ -48,6 +49,7 @@
     "cross-env": "^5.0.1",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
+    "cypress": "^3.7.0",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
