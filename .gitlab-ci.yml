@@ -35,6 +35,6 @@ tests:
   before_script:
     - npm install -g httpserver
     - npm install cypress
-    - npm run start
+    - npm run start:server
   script:
     - npx cypress run --record --key=$CYPRESS_RECORD_KEY
