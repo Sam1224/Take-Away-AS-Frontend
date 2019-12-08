@@ -42,6 +42,7 @@ tests:
 deploy_staging:
   only:
     - develop
+    - master
   stage: deploy
   before_script:
     - npm install -g surge
@@ -64,3 +65,18 @@ continuous_delivery:
     - mv CNAME-P CNAME
     - surge dist
     - echo "Deployed to production server"
+
+continuous_deployment:
+  dependencies:
+    - deploy_staging
+  only:
+    - master
+  stage: production
+  before_script:
+    - npm install -g surge
+  script:
+    - cp CNAME-P dist
+    - mv CNAME-P CNAME
+    - surge dist
+    - echo "Deployed to production server"
+
