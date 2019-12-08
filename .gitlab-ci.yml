@@ -10,6 +10,7 @@ stages:
   - install
   - build
   - test
+  - deploy
 
 # Jobs:
 
