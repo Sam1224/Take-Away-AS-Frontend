@@ -45,6 +45,8 @@ deploy_staging:
     - master
   stage: deploy
   before_script:
+    - npm install
+    - npm run build
     - npm install -g surge
   script:
     - cp CNAME-S dist
