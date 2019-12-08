@@ -5,15 +5,16 @@
     </div>
     <el-form ref="loginForm" v-if="!isLogin" :model="loginForm" status-icon :rules="rules" label-width="80px" class="login-form">
       <el-form-item label="Username" prop="username">
-        <el-input v-model="loginForm.username"></el-input>
+        <el-input class="username" v-model="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input type="password" v-model="loginForm.password" auto-complete="off"></el-input>
+        <el-input class="password" type="password" v-model="loginForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('loginForm')">Login</el-button>
+        <el-button class="submit" type="primary" @click="onSubmit('loginForm')">Login</el-button>
+        <el-button class="cancel" @click="cancel">Cancel</el-button>
         <br>
-        <router-link to="/register">No account? Register now</router-link>
+        <router-link to="/register" class="register">No account? Register now</router-link>
       </el-form-item>
     </el-form>
   </div>
@@ -24,6 +25,8 @@
   import { mapMutations, mapGetters } from 'vuex'
 
   const ERR_OK = 0
+  const AVATAR = 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'
+  const DEFAULT = 'default'
 
   export default {
     name: 'Login',
@@ -66,10 +69,33 @@
               .then((response) => {
                 let res = response.data
                 if (res.code === ERR_OK) {
+                  this.$message({
+                    showClose: true,
+                    message: 'Successfully Login',
+                    type: 'success',
+                    center: true,
+                    duration: 1000
+                  })
+
+                  let account = {
+                    username: user.username,
+                    name: user.username,
+                    avatar: AVATAR,
+                    type: DEFAULT
+                  }
                   this.login(res.token)
-                  this.loginForm.username = ''
-                  this.loginForm.password = ''
-                  this.$router.push({ path: '/' })
+                  this.setAccount(account)
+                  setTimeout(() => {
+                    this.$router.push('/')
+                  }, 1500)
+                } else {
+                  this.$message({
+                    showClose: true,
+                    message: res.message,
+                    type: 'warning',
+                    center: true,
+                    duration: 1000
+                  })
                 }
               })
           } else {
@@ -77,8 +103,12 @@
           }
         })
       },
+      cancel() {
+        this.$router.push('/')
+      },
       ...mapMutations({
-        login: 'LOGIN'
+        login: 'LOGIN',
+        setAccount: 'SET_ACCOUNT'
       })
     }
   }
