@@ -5,21 +5,22 @@
     </div>
     <el-form ref="regForm" :model="regForm" status-icon :rules="rules" label-width="80px" class="reg-form">
       <el-form-item label="Username" prop="username">
-        <el-input v-model="regForm.username"></el-input>
+        <el-input class="username" v-model="regForm.username" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input type="password" v-model="regForm.password" auto-complete="off"></el-input>
+        <el-input class="password" type="password" v-model="regForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Confirm Password" prop="password_confirm">
-        <el-input type="password" v-model="regForm.password_confirm" auto-complete="off"></el-input>
+        <el-input class="confirm-password" type="password" v-model="regForm.password_confirm" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
-        <el-input v-model="regForm.phone"></el-input>
+        <el-input class="phone" v-model="regForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('regForm')">Register</el-button>
+        <el-button class="submit" type="primary" @click="onSubmit('regForm')">Register</el-button>
+        <el-button class="cancel" @click="cancel">Cancel</el-button>
         <br>
-        <router-link to="/login">Already Registered？Login Now</router-link>
+        <router-link to="/login" class="login">Already Registered？Login Now</router-link>
       </el-form-item>
     </el-form>
   </div>
@@ -89,16 +90,33 @@
               .then((response) => {
                 let res = response.data
                 if (res.code === ERR_OK) {
-                  this.regForm.username = ''
-                  this.regForm.password = ''
-                  this.regForm.phone = ''
-                  this.$router.push({ path: '/login' })
+                  this.$message({
+                    showClose: true,
+                    message: 'Successfully Register',
+                    type: 'success',
+                    center: true,
+                    duration: 1000
+                  })
+                  setTimeout(() => {
+                    this.$router.push({ path: '/login' })
+                  }, 1500)
+                } else {
+                  this.$message({
+                    showClose: true,
+                    message: res.message,
+                    type: 'warning',
+                    center: true,
+                    duration: 1000
+                  })
                 }
               })
           } else {
             return false
           }
         })
+      },
+      cancel() {
+        this.$router.push('/login')
       }
     }
   }
