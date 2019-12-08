@@ -12,6 +12,7 @@ variables:
 stages:
   - install
   - build
+  - test
 
 # Jobs:
 
@@ -27,3 +28,13 @@ build:
   stage: build
   script:
     - npm run build
+
+tests:
+  image: cypress/base:10
+  stage: test
+  before_script:
+    - npm install -g httpserver
+    - npm install cypress
+    - npm run start
+  script:
+    - npx cypress run --record --key=$CYPRESS_RECORD_KEY
