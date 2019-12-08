@@ -55,12 +55,12 @@ deploy_staging:
     - echo "Deployed to staging server"
 
 continuous_delivery:
-  dependencies:
-    - deploy_staging
   only:
     - develop
   stage: production
   before_script:
+    - npm install
+    - npm run build
     - npm install -g surge
   script:
     - mv CNAME-P CNAME
@@ -69,12 +69,12 @@ continuous_delivery:
     - echo "Deployed to production server"
 
 continuous_deployment:
-  dependencies:
-    - deploy_staging
   only:
     - master
   stage: production
   before_script:
+    - npm install
+    - npm run build
     - npm install -g surge
   script:
     - mv CNAME-P CNAME
