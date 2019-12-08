@@ -52,7 +52,6 @@ deploy_staging:
     - echo "Deployed to staging server"
 
 continuous_delivery:
-  image: ruby:latest
   dependencies:
     - deploy_staging
   only:
