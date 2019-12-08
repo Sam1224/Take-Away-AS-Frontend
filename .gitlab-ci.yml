@@ -39,14 +39,14 @@ tests:
     - npx cypress run --record --key=$CYPRESS_RECORD_KEY
 
 deploy_staging:
-  image: ruby:latest
   only:
     - develop
   stage: deploy
   before_script:
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - gem install dpl
+    - npm install -g surge
   script:
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME_STAGING --api-key=$HEROKU_API_KEY
+    - cp CNAME-S dist
+    - mv CNAME-S CNAME
+    - surge dist
     - echo "Deployed to staging server"
+
