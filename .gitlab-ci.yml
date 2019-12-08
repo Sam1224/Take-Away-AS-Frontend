@@ -49,8 +49,8 @@ deploy_staging:
     - npm run build
     - npm install -g surge
   script:
-    - cp CNAME-S dist
     - mv CNAME-S CNAME
+    - cp CNAME dist
     - surge dist
     - echo "Deployed to staging server"
 
@@ -63,8 +63,8 @@ continuous_delivery:
   before_script:
     - npm install -g surge
   script:
-    - cp CNAME-P dist
     - mv CNAME-P CNAME
+    - cp CNAME dist
     - surge dist
     - echo "Deployed to production server"
 
@@ -77,8 +77,8 @@ continuous_deployment:
   before_script:
     - npm install -g surge
   script:
-    - cp CNAME-P dist
     - mv CNAME-P CNAME
+    - cp CNAME dist
     - surge dist
     - echo "Deployed to production server"
 
