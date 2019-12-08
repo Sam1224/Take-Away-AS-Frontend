@@ -61,7 +61,7 @@ continuous_delivery:
   before_script:
     - npm install -g surge
   script:
-    - cp CNAME-S dist
-    - mv CNAME-S CNAME
+    - cp CNAME-P dist
+    - mv CNAME-P CNAME
     - surge dist
     - echo "Deployed to production server"
