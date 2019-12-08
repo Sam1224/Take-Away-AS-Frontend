@@ -14,7 +14,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "postinstall": "rimraf ./dist && npm run build"
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
     "better-scroll": "^1.15.2",
