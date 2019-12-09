@@ -3,18 +3,18 @@
     <h2 class="title">{{title}}</h2>
     <el-form ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
       <el-form-item label="Username" prop="username">
-        <el-input v-model="userForm.username" auto-complete="off"></el-input>
+        <el-input class="username" v-model="userForm.username" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input type="password" v-model="userForm.password" auto-complete="off"></el-input>
+        <el-input class="password" type="password" v-model="userForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
-        <el-input v-model="userForm.phone" auto-complete="off"></el-input>
+        <el-input class="phone" v-model="userForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="addUser">Add User</el-button>
-        <el-button @click="reset">Reset</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="add-btn" type="primary" @click="addUser">Add User</el-button>
+        <el-button class="reset-btn" @click="reset">Reset</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
