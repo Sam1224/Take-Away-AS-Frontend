@@ -1,13 +1,13 @@
 /**
  * @Author: Sam
- * @Date: 2019/12/8
+ * @Date: 2019/12/9
  * @Version: 1.0
  **/
 /* eslint-disable */
-let url = 'http://localhost:8080/#/register'
+let url = 'http://localhost:8080/#/'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
-describe ('Test register page of the frontend ui', () => {
+describe ('Test home page of the frontend ui', () => {
   before(() => {
     // Get token
     let token = null
@@ -105,89 +105,75 @@ describe ('Test register page of the frontend ui', () => {
       it('shows a header', () => {
         cy.get('.header-wrapper')
           .get('.text')
-          .should('contain', 'Register')
+          .should('contain', 'Take-Away App')
       })
     })
-    describe('Register form', () => {
-      it('shows 4 input box, 2 buttons and 1 router link', () => {
-        let regForm = cy.get('.reg-form')
-        regForm.should('contain', 'Username')
-        regForm.should('contain', 'Password')
-        regForm.should('contain', 'Confirm Password')
-        regForm.should('contain', 'Phone')
-        regForm.should('contain', 'Register')
-        regForm.should('contain', 'Cancel')
-        regForm.should('contain', 'Already Registered？Login Now')
+    describe('Search', () => {
+      it('shows a search box', () => {
+        cy.get('.search-wrapper')
+          .get('.search')
+          .should('have.value', '')
       })
     })
-  })
-  describe('Function', () => {
-    describe('Register', () => {
-      it('successfully registers', () => {
-        let user = {
-          username: 'sam1224',
-          password: '123456',
-          phone: '18351818012'
-        }
-        cy.get('.reg-form')
-          .get('.username')
-          .type(user.username)
-        cy.get('.reg-form')
-          .get('.password')
-          .type(user.password)
-        cy.get('.reg-form')
-          .get('.confirm-password')
-          .type(user.password)
-        cy.get('.reg-form')
-          .get('.phone')
-          .type(user.phone)
-        cy.get('.reg-form')
-          .get('.submit')
-          .click()
-        cy.wait(5000)
-        cy.url()
-          .should('contain', '/login')
-        cy.get('.login-form')
-          .get('.username')
-          .type(user.username)
-        cy.get('.login-form')
-          .get('.password')
-          .type(user.password)
-        cy.get('.login-form')
-          .get('.submit')
-          .click()
-        cy.wait(5000)
-        cy.url()
-          .should('contain', '/')
+    describe('Seller list', () => {
+      it('shows 4 sellers', () => {
         cy.get('.seller-wrapper ul')
           .find('li')
           .should('have.length', 4)
       })
     })
-    describe('Cancel register', () => {
-      it('redirects to the login page', () => {
-        cy.get('.reg-form')
-          .get('.cancel')
+  })
+  describe('Function', () => {
+    describe('Search', () => {
+      it('gets the corresponded list of food and updates the dom', () => {
+        cy.get('.search-wrapper')
+          .get('.search')
+          .type('seller1')
+        cy.get('.search-wrapper')
+          .get('.search')
+          .get('.el-input__icon')
           .click()
         cy.wait(5000)
-        cy.url()
-          .should('contain', '/login')
-        cy.get('.header-wrapper')
-          .get('.text')
-          .should('contain', 'Login')
+        cy.get('.seller-wrapper ul')
+          .find('li')
+          .should('have.length', 1)
+          .eq(0)
+          .get('.content-wrapper')
+          .get('.name')
+          .should('contain', 'Seller1')
       })
     })
-    describe('Go to login', () => {
-      it('redirects to the login page', () => {
-        cy.get('.reg-form')
-          .get('.login')
+    describe('Select seller', () => {
+      it('redirects to the seller page of a selected seller', () => {
+        cy.get('.seller-wrapper ul')
+          .find('li')
+          .eq(0)
           .click()
-        cy.wait(5000)
-        cy.url()
-          .should('contain', '/login')
-        cy.get('.header-wrapper')
-          .get('.text')
-          .should('contain', 'Login')
+        cy.get('.tab')
+          .find('.tab-item')
+          .should('have.length', 3)
+        cy.get('.tab')
+          .find('.tab-item')
+          .eq(0)
+          .should('contain', 'Goods')
+        cy.get('.tab')
+          .find('.tab-item')
+          .eq(1)
+          .should('contain', 'Ratings')
+        cy.get('.tab')
+          .find('.tab-item')
+          .eq(2)
+          .should('contain', 'Seller')
+        cy.get('.goods')
+          .get('.menu-wrapper ul')
+          .find('li')
+          .should('have.length', 1)
+        cy.get('.foods-wrapper')
+          .find('.food-list')
+          .should('have.length', 1)
+        cy.get('.foods-wrapper')
+          .find('.food-item')
+          .should('have.length', 2)
       })
     })
   })

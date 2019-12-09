@@ -1,0 +1,76 @@
+[
+  {
+    "name": "Hot Sales",
+    "types": -1,
+    "foods": [
+      {
+        "name": "Egg & Pork Congee",
+        "price": 10,
+        "oldPrice": "",
+        "description": "Salty porridge",
+        "sellCount": 229,
+        "rating": 100,
+        "info": "A bowl of preserved egg thin meat porridge, always I go to the porridge shop when the selection of fragrant soft, full belly warm heart, preserved egg Q bomb and thin meat slippery with porridge fragrant overflow at full mouth, let a person drink such a bowl of porridge also feel satisfied.",
+        "ratings": [
+          {
+            "username": "3******c",
+            "rateTime": 1469281964000,
+            "rateType": 0,
+            "text": "I really like this porridge.",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          },
+          {
+            "username": "2******3",
+            "rateTime": 1469271264000,
+            "rateType": 0,
+            "text": "",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          },
+          {
+            "username": "3******b",
+            "rateTime": 1469261964000,
+            "rateType": 1,
+            "text": "",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          }
+        ],
+        "icon": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/114/h/114",
+        "image": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750"
+      },
+      {
+        "name": "Rice Cake Stir-Fried with Crabs",
+        "price": 14,
+        "oldPrice": "",
+        "description": "",
+        "sellCount": 188,
+        "rating": 96,
+        "ratings": [
+          {
+            "username": "3******c",
+            "rateTime": 1469281964000,
+            "rateType": 0,
+            "text": "",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          },
+          {
+            "username": "2******3",
+            "rateTime": 1469271264000,
+            "rateType": 0,
+            "text": "",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          },
+          {
+            "username": "3******b",
+            "rateTime": 1469261964000,
+            "rateType": 1,
+            "text": "",
+            "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+          }
+        ],
+        "info": "",
+        "icon": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/114/h/114",
+        "image": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750"
+      }
+    ]
+  }
+]

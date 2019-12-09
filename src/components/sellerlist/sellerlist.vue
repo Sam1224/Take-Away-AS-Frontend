@@ -4,7 +4,7 @@
       <h1 class="text">{{title}}</h1>
     </div>
     <div class="search-wrapper">
-      <el-input :placeholder="placeholder" auto-complete="off" v-model="keyword">
+      <el-input class="search" :placeholder="placeholder" auto-complete="off" v-model="keyword">
         <i slot="suffix" class="el-input__icon el-icon-search" @click="fuzzySearch"></i>
       </el-input>
     </div>

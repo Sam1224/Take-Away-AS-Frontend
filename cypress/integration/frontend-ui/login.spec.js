@@ -55,6 +55,22 @@ describe ('Test login page of the frontend ui', () => {
           })
         })
 
+        // Reset goods for the 1st seller
+        cy.fixture('goods').then(goods => {
+          let data = {
+            token: token,
+            goods: goods
+          }
+          cy.request(`${apiBaseUrl}/seller`)
+            .its('body')
+            .then((res) => {
+              expect(res.code).to.equal(0)
+              res.data.forEach((seller) => {
+                cy.request('PUT', `${apiBaseUrl}/seller/${seller._id}/goods`, data)
+              })
+            })
+        })
+
         // Reset orders
         let headers = {token: token}
         cy.request({
