@@ -3,13 +3,13 @@
     <h3 class="vue-title"><i class="fa fa-list" style="padding: 3px"></i>{{messageTitle}}</h3>
     <el-form ref="loginForm" :model="loginForm" status-icon :rules="rules" label-width="80px" class="login-table">
       <el-form-item label="Username" prop="username">
-        <el-input v-model="loginForm.username"></el-input>
+        <el-input class="username" v-model="loginForm.username" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input type="password" v-model="loginForm.password" auto-complete="off"></el-input>
+        <el-input class="password" type="password" v-model="loginForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('loginForm')">Login</el-button>
+        <el-button class="submit" type="primary" @click="onSubmit('loginForm')">Login</el-button>
       </el-form-item>
       <el-form-item label="OtherLogin" prop="otherlogin">
         <div class="icon-wrapper">

@@ -1,13 +1,13 @@
 /**
  * @Author: Sam
- * @Date: 2019/12/8
+ * @Date: 2019/12/9
  * @Version: 1.0
  **/
 /* eslint-disable */
-let url = 'http://localhost:8080/#/login'
+let url = 'http://localhost:8080/#/admin/login'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
-describe ('Test login page of the frontend ui', () => {
+describe ('Test login page of the backend ui', () => {
   before(() => {
     // Get token
     let token = null
@@ -118,69 +118,45 @@ describe ('Test login page of the frontend ui', () => {
     cy.visit(url)
   })
   describe('Content', () => {
-    describe('Header', () => {
-      it('shows a header', () => {
-        cy.get('.header-wrapper')
-          .get('.text')
+    describe('Title', () => {
+      it('shows a title', () => {
+        cy.get('.vue-title')
           .should('contain', 'Login')
       })
     })
-    describe('Login form', () => {
-      it('shows 2 input box, 2 buttons and 1 router link', () => {
-        let loginForm = cy.get('.login-form')
-        loginForm.should('contain', 'Username')
-        loginForm.should('contain', 'Password')
-        loginForm.should('contain', 'Login')
-        loginForm.should('contain', 'Cancel')
-        loginForm.should('contain', 'No account? Register now')
+    describe('Login table', () => {
+      it('shows a login table with 2 input boxes, 1 button and 6 3rd party oauth2 login buttons', () => {
+        let loginTable = cy.get('.login-table')
+        loginTable.should('contain', 'Username')
+        loginTable.should('contain', 'Password')
+        loginTable.should('contain', 'Login')
+        loginTable.should('contain', 'OtherLogin')
+        loginTable.get('.icon-wrapper')
+          .find('.icon')
+          .should('have.length', 6)
       })
     })
   })
   describe('Function', () => {
     describe('Login', () => {
-      it('successfully logins', () => {
-        cy.get('.login-form')
+      it('logins successfully', () => {
+        cy.get('.login-table')
           .get('.username')
           .type('admin')
-        cy.get('.login-form')
+        cy.get('.login-table')
           .get('.password')
           .type('admin')
-        cy.get('.login-form')
+        cy.get('.login-table')
           .get('.submit')
           .click()
-        cy.screenshot('frontend-login-success')
+        cy.screenshot('backend-login-success')
         cy.wait(5000)
         cy.url()
-          .should('contain', '/')
-        cy.get('.seller-wrapper ul')
-          .find('li')
-          .should('have.length', 4)
-      })
-    })
-    describe('Cancel login', () => {
-      it('redirects to the home page', () => {
-        cy.get('.login-form')
-          .get('.cancel')
-          .click()
-        cy.wait(5000)
-        cy.url()
-          .should('contain', '/')
-        cy.get('.seller-wrapper ul')
-          .find('li')
-          .should('have.length', 4)
-      })
-    })
-    describe('Go to register', () => {
-      it('redirects to the register page', () => {
-        cy.get('.login-form')
-          .get('.register')
-          .click()
-        cy.wait(5000)
-        cy.url()
-          .should('contain', '/register')
-        cy.get('.header-wrapper')
-          .get('.text')
-          .should('contain', 'Register')
+          .should('contain', '/admin')
+        cy.get('.index')
+          .get('.content-wrapper')
+          .get('.vue-title')
+          .should('contain', 'Welcome to the Backend of Take-Away App!')
       })
     })
   })
