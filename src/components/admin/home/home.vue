@@ -32,7 +32,7 @@
       active-text-color="#ffd04b"
       style="display:flex;height:60px;border:none;">
       <div style="flex:0 0 100px;display:flex;justify-content:center;align-items:center;">
-        <el-button type="info" style="background-color:rgba(84,92,100,1);border:none;" @click="toggleDrawer" :icon="drawer ? 'el-icon-arrow-down' : 'el-icon-arrow-right'"></el-button>
+        <el-button class="info-btn" type="info" style="background-color:rgba(84,92,100,1);border:none;" @click="toggleDrawer" :icon="drawer ? 'el-icon-arrow-down' : 'el-icon-arrow-right'"></el-button>
       </div>
       <el-menu-item index="1">
         <router-link tag="a" to="/admin/index" class="nav-item">Home</router-link>
@@ -51,10 +51,10 @@
       </el-menu-item>
       <el-submenu index="6" v-else style="position:absolute;right:0;margin-right:10px;width:200px;">
         <template slot="title">
-          <el-avatar :size="40" :src="account.avatar"></el-avatar>
-          <span style="padding-left:30px;padding-right:40px;">{{account.name}}</span>
+          <el-avatar class="avatar" :size="40" :src="account.avatar"></el-avatar>
+          <span class="name" style="padding-left:30px;padding-right:40px;">{{account.name}}</span>
         </template>
-        <el-menu-item index="6-1" @click="signOut" style="text-align:center;"><i class="fa fa-sign-out"></i> Logout</el-menu-item>
+        <el-menu-item class="nav-item" index="6-1" @click="signOut" style="text-align:center;"><i class="fa fa-sign-out"></i> Logout</el-menu-item>
       </el-submenu>
     </el-menu>
     <router-view></router-view>
