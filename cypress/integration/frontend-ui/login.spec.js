@@ -55,7 +55,7 @@ describe ('Test login page of the frontend ui', () => {
           })
         })
 
-        // Reset goods for the 1st seller
+        // Reset goods for sellers
         cy.fixture('goods').then(goods => {
           let data = {
             token: token,
@@ -67,6 +67,23 @@ describe ('Test login page of the frontend ui', () => {
               expect(res.code).to.equal(0)
               res.data.forEach((seller) => {
                 cy.request('PUT', `${apiBaseUrl}/seller/${seller._id}/goods`, data)
+              })
+            })
+        })
+
+        // Reset ratings for sellers
+        cy.fixture('ratings').then(ratings => {
+          let [r1, r2, r3, r4, ...rest] = ratings
+          let four = [r1, r2, r3, r4]
+          cy.request(`${apiBaseUrl}/seller`)
+            .its('body')
+            .then((res) => {
+              expect(res.code).to.equal(0)
+              res.data.forEach((seller) => {
+                four.forEach((rating) => {
+                  rating.token = token
+                  cy.request('POST', `${apiBaseUrl}/seller/${seller._id}/ratings`, rating)
+                })
               })
             })
         })
