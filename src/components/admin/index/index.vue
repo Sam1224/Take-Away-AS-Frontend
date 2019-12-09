@@ -3,7 +3,7 @@
     <div v-show="!loading" class="content-wrapper">
       <h1 class="vue-title">Welcome to the Backend of Take-Away App!</h1>
       <el-carousel :interval="3000" arrow="hover" class="slides">
-        <el-carousel-item v-for="(food, index) in foods" :key="index">
+        <el-carousel-item class="slide-item" v-for="(food, index) in foods" :key="index">
           <el-image :src="food" fit="fill"></el-image>
         </el-carousel-item>
       </el-carousel>
