@@ -47,9 +47,9 @@
         <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editUser(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteUser(props.row._id)"></a>
       </v-client-table>
-      <div class="tab">
+      <div class="tab-wrapper">
         <div class="tab-item">
-          <router-link to="/admin/users/add" tag="a">Add User</router-link>
+          <router-link class="add" to="/admin/users/add" tag="a">Add User</router-link>
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@
     .slot
       display: table
       margin: 0 auto
-    .tab
+    .tab-wrapper
       display: flex
       position: relative
       bottom: 50px
@@ -175,11 +175,9 @@
         padding-left: 5px
         padding-right: 5px
         border: solid black 1px
-        & > a
+        .add
           display: block
           text-decoration: none
           font-size: 18px
           color: rgb(77, 85, 93)
-          &.active
-            color: rgb(240, 20, 20)
 </style>
