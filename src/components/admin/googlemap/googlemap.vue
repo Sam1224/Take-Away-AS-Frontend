@@ -2,10 +2,10 @@
   <div class="map" style="padding-bottom:10px">
     <el-form-item>
       <el-col :span="20">
-        <gmap-autocomplete style="width:100%;height:48px;" @place_changed="setPlace"  @input="input" ref="textbox"></gmap-autocomplete>
+        <gmap-autocomplete class="google-map-address-input" style="width:100%;height:48px;" @place_changed="setPlace"  @input="input" ref="textbox"></gmap-autocomplete>
       </el-col>
       <el-col :span="4">
-        <el-button style="width:100%;height:48px;" @click="addMarker">Select</el-button>
+        <el-button class="google-map-address-select" style="width:100%;height:48px;" @click="addMarker">Select</el-button>
       </el-col>
     </el-form-item>
     <el-form-item>

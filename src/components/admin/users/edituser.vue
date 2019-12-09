@@ -3,13 +3,13 @@
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="userForm" :model="userForm" status-icon label-width="100px" class="user-table" :rules="rules">
       <el-form-item label="Username" prop="username">
-        <el-input v-model="userForm.username" auto-complete="off"></el-input>
+        <el-input class="username" v-model="userForm.username" auto-complete="off" disabled></el-input>
       </el-form-item>
       <el-form-item label="Password" prop="password">
-        <el-input type="password" v-model="userForm.password" auto-complete="off"></el-input>
+        <el-input class="password" type="password" v-model="userForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
-        <el-input v-model="userForm.phone" auto-complete="off"></el-input>
+        <el-input class="phone" v-model="userForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Address" prop="address">
         <ul v-if="userForm.address.length !== 0">
@@ -78,8 +78,8 @@
         </ul>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="editUser">Edit User</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="edit-btn" type="primary" @click="editUser">Edit User</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -102,6 +102,7 @@
         title: 'Edit User',
         loading: true,
         user: {},
+        isPasswordModified: false,
         userForm: {
           username: '',
           password: '',
@@ -299,11 +300,7 @@
                   center: true,
                   duration: 1000
                 })
-                if (this.userForm.address.length === 1) {
-                  this.userForm.address[0] = ''
-                  return
-                }
-                this.userForm.address.splice(index, 1)
+                this.removeAddress(index)
               } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
                 this.$message({
                   showClose: true,
@@ -394,6 +391,13 @@
           })
         })
       },
+      removePay(index) {
+        // if (this.userForm.pay.length === 1) {
+        //   this.userForm.pay[0] = ''
+        //   return
+        // }
+        this.userForm.pay.splice(index, 1)
+      },
       delPay(index) {
         let pay = {
           username: this.user.username,
@@ -416,11 +420,7 @@
                   center: true,
                   duration: 1000
                 })
-                if (this.userForm.pay.length === 1) {
-                  this.userForm.pay[0] = ''
-                  return
-                }
-                this.userForm.pay.splice(index, 1)
+                this.removePay(index)
               } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
                 this.$message({
                   showClose: true,
@@ -511,6 +511,13 @@
           })
         })
       },
+      removeFavorite(index) {
+        // if (this.userForm.favorite.length === 1) {
+        //   this.userForm.favorite[0] = ''
+        //   return
+        // }
+        this.userForm.favorite.splice(index, 1)
+      },
       delFavorite(index) {
         let favorite = {
           username: this.user.username,
@@ -533,11 +540,7 @@
                   center: true,
                   duration: 1000
                 })
-                if (this.userForm.favorite.length === 1) {
-                  this.userForm.favorite[0] = ''
-                  return
-                }
-                this.userForm.favorite.splice(index, 1)
+                this.removeFavorite(index)
               } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
                 this.$message({
                   showClose: true,
