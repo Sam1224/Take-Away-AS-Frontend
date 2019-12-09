@@ -7,7 +7,7 @@
 let url = 'http://localhost:8080/#/admin/login'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
-describe ('Test login page of the backend ui', () => {
+describe ('Test users list page of the backend ui', () => {
   before(() => {
     // Get token
     let token = null
