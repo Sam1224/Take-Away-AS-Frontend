@@ -131,6 +131,7 @@ describe ('Test login page of the frontend ui', () => {
         cy.get('.login-form')
           .get('.submit')
           .click()
+        cy.screenshot('login-success')
         cy.wait(5000)
         cy.url()
           .should('contain', '/')

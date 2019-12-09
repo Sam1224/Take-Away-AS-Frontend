@@ -134,6 +134,7 @@ describe ('Test home page of the frontend ui', () => {
           .get('.el-input__icon')
           .click()
         cy.wait(5000)
+        cy.screenshot('search-success')
         cy.get('.seller-wrapper ul')
           .find('li')
           .should('have.length', 1)

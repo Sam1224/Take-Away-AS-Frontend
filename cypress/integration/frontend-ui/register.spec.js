@@ -144,6 +144,7 @@ describe ('Test register page of the frontend ui', () => {
         cy.get('.reg-form')
           .get('.submit')
           .click()
+        cy.screenshot('register-success')
         cy.wait(5000)
         cy.url()
           .should('contain', '/login')

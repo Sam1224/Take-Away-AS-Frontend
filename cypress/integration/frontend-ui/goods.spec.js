@@ -217,6 +217,7 @@ describe ('Test goods page of sellerhome of the frontend ui', () => {
           .get('.list-content')
           .find('.food')
           .should('have.length', 1)
+        cy.screenshot('add-food')
       })
     })
     describe('Decrease food', () => {
@@ -260,6 +261,7 @@ describe ('Test goods page of sellerhome of the frontend ui', () => {
           .get('.cartcontrol')
           .get('.cart-count')
           .should('contain', '1')
+        cy.screenshot('dec-food')
       })
     })
     describe('Show food detail', () => {
@@ -272,6 +274,7 @@ describe ('Test goods page of sellerhome of the frontend ui', () => {
         cy.get('.food-mask')
           .get('.food')
           .get('.food-content')
+        cy.screenshot('food-detail')
       })
     })
     describe('Empty shopcart', () => {
@@ -313,6 +316,7 @@ describe ('Test goods page of sellerhome of the frontend ui', () => {
           .get('.list-content')
           .find('.food')
           .should('have.length', 0)
+        cy.screenshot('empty-shopcart')
       })
     })
   })
