@@ -8,26 +8,26 @@
             <el-collapse-item class="good-item" :title="good.name" :name="goodIndex">
               <div class="input-wrapper">
                 <el-form-item label="GoodName" :prop="`goods.${goodIndex}.name`" :rules="rules.goodName">
-                  <el-input v-model="goodsForm.goods[goodIndex].name" auto-complete="off"></el-input>
+                  <el-input class="goodname" v-model="goodsForm.goods[goodIndex].name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-collapse>
                   <div v-for="(food, foodIndex) in good.foods" :key="foodIndex" class="food-wrapper">
                     <el-collapse-item class="food-item" :title="food.name" :name="foodIndex">
                       <div class="input-wrapper">
                         <el-form-item label="FoodName" :prop="`goods.${goodIndex}.foods.${foodIndex}.name`" :rules="rules.foodName">
-                          <el-input v-model="goodsForm.goods[goodIndex].foods[foodIndex].name" auto-complete="off"></el-input>
+                          <el-input class="foodname" v-model="goodsForm.goods[goodIndex].foods[foodIndex].name" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="Description" :prop="`goods.${goodIndex}.foods.${foodIndex}.description`" :rules="rules.description">
-                          <el-input type="textarea" v-model="goodsForm.goods[goodIndex].foods[foodIndex].description" auto-complete="off"></el-input>
+                          <el-input class="desc" type="textarea" v-model="goodsForm.goods[goodIndex].foods[foodIndex].description" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="Information" :prop="`goods.${goodIndex}.foods.${foodIndex}.info`" :rules="rules.info">
-                          <el-input type="textarea" v-model="goodsForm.goods[goodIndex].foods[foodIndex].info" auto-complete="off"></el-input>
+                          <el-input class="info" type="textarea" v-model="goodsForm.goods[goodIndex].foods[foodIndex].info" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="Price" :prop="`goods.${goodIndex}.foods.${foodIndex}.price`" :rules="rules.price">
-                          <el-input type="number" v-model="goodsForm.goods[goodIndex].foods[foodIndex].price" auto-complete="off"></el-input>
+                          <el-input class="price" type="number" v-model="goodsForm.goods[goodIndex].foods[foodIndex].price" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="OldPrice" :prop="`goods.${goodIndex}.foods.${foodIndex}.oldPrice`">
-                          <el-input type="number" v-model="goodsForm.goods[goodIndex].foods[foodIndex].oldPrice" auto-complete="off"></el-input>
+                          <el-input class="oldprice" type="number" v-model="goodsForm.goods[goodIndex].foods[foodIndex].oldPrice" auto-complete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="Image" :prop="`goods.${goodIndex}.foods.${foodIndex}.image`" :rules="rules.image">
                           <el-upload ref="imageUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
@@ -59,7 +59,7 @@
                         </el-form-item>
                       </div>
                     </el-collapse-item>
-                    <div class="icon-wrapper">
+                    <div class="food-icon-wrapper">
                       <i class="iconBtn el-icon-remove-outline" @click="delFood(goodIndex, foodIndex)"></i>
                       <i class="iconBtn" :class="{'el-icon-circle-plus-outline': goodsForm.goods[goodIndex].foods.length - 1 === foodIndex}" @click="addFood(goodIndex, foodIndex)"></i>
                     </div>
@@ -67,7 +67,7 @@
                 </el-collapse>
               </div>
             </el-collapse-item>
-            <div class="icon-wrapper">
+            <div class="good-icon-wrapper">
               <i class="iconBtn el-icon-remove-outline" @click="delGood(goodIndex)"></i>
               <i class="iconBtn" :class="{'el-icon-circle-plus-outline': goodsForm.goods.length - 1 === goodIndex}" @click="addGood(goodIndex)"></i>
             </div>
@@ -75,8 +75,8 @@
         </el-collapse>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="editGoods">Edit Goods</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="edit-btn" type="primary" @click="editGoods">Edit Goods</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -187,13 +187,19 @@
                   let icon = foods[j].icon
                   this.goodsForm.goods[i].foods[j].imageList = []
                   this.goodsForm.goods[i].foods[j].iconList = []
+                  if (image.startsWith('/uploads')) {
+                    image = `https://takeawayapp-sam.herokuapp.com/${image}`
+                  }
+                  if (icon.startsWith('/uploads')) {
+                    icon = `https://takeawayapp-sam.herokuapp.com/${icon}`
+                  }
                   this.goodsForm.goods[i].foods[j].imageList.push({
-                    name: image.split('/')[-1],
-                    url: `https://takeawayapp-sam.herokuapp.com/${image}`
+                    name: foods[j].image.split('/')[-1],
+                    url: image
                   })
                   this.goodsForm.goods[i].foods[j].iconList.push({
-                    name: icon.split('/')[-1],
-                    url: `https://takeawayapp-sam.herokuapp.com/${icon}`
+                    name: foods[j].icon.split('/')[-1],
+                    url: icon
                   })
                 }
               }
@@ -392,13 +398,13 @@
               flex: 0 0 90%
               .input-wrapper
                 position: relative
-            .icon-wrapper
+            .food-icon-wrapper
               position: relative
               flex: 1
               .iconBtn
                 position: relative
                 top: 15px
-        .icon-wrapper
+        .good-icon-wrapper
           position: relative
           flex: 1
           .iconBtn
