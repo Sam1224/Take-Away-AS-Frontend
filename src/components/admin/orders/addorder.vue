@@ -3,28 +3,28 @@
     <h2 class="title">{{title}}</h2>
     <el-form ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
       <el-form-item label="User" prop="user">
-        <el-input v-model="orderForm.user" auto-complete="off" disabled></el-input>
+        <el-input class="user" v-model="orderForm.user" auto-complete="off" disabled></el-input>
         <v-client-table v-if="showUserTable" :columns="userColumns" :data="users" :options="userOptions" label-width="auto">
           <el-button slot="select" slot-scope="props" @click="selectUser(props.row)">Select</el-button>
         </v-client-table>
       </el-form-item>
       <el-form-item label="Seller" prop="seller">
-        <el-input v-model="orderForm.seller" auto-complete="off" disabled></el-input>
+        <el-input class="seller" v-model="orderForm.seller" auto-complete="off" disabled></el-input>
         <v-client-table v-if="showSellerTable" :columns="sellerColumns" :data="sellers" :options="sellerOptions" label-width="auto">
           <el-button slot="select" slot-scope="props" @click="selectSeller(props.row)">Select</el-button>
         </v-client-table>
       </el-form-item>
       <el-form-item label="Address" prop="address">
-        <el-input v-model="orderForm.address" auto-complete="off" disabled></el-input>
+        <el-input class="address" v-model="orderForm.address" auto-complete="off" disabled></el-input>
         <el-form-item>
           <googlemap @selectPlace="selectAddress($event)"></googlemap>
         </el-form-item>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
-        <el-input v-model="orderForm.phone" auto-complete="off"></el-input>
+        <el-input class="phone" v-model="orderForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Note" prop="note">
-        <el-input v-model="orderForm.note" auto-complete="off"></el-input>
+        <el-input class="note" v-model="orderForm.note" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Foods" prop="foods">
         <el-collapse>
@@ -61,9 +61,9 @@
         </el-card>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="addOrder">Add Order</el-button>
-        <el-button @click="reset">Reset</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="add-btn" type="primary" @click="addOrder">Add Order</el-button>
+        <el-button class="reset-btn" @click="reset">Reset</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -175,7 +175,6 @@
           .then((response) => {
             let res = response.data
             if (res.code === ERR_OK) {
-              console.log(res)
               res.data.forEach((seller) => {
                let goods = seller.goods
                 goods.forEach((good) => {
@@ -255,6 +254,9 @@
       },
       reset() {
         this.$refs.orderForm.resetFields()
+        this.showUserTable = true
+        this.showSellerTable = true
+        this.goods = []
       },
       cancel() {
         this.$router.push('/admin/orders')
