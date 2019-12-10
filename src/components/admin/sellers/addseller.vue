@@ -3,16 +3,16 @@
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="sellerForm" :model="sellerForm" status-icon label-width="100px" class="seller-table" :rules="rules">
       <el-form-item label="Name" prop="name">
-        <el-input v-model="sellerForm.name" auto-complete="off"></el-input>
+        <el-input class="name" v-model="sellerForm.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Description" prop="description">
-        <el-input v-model="sellerForm.description" auto-complete="off"></el-input>
+        <el-input class="desc" v-model="sellerForm.description" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="DeliveryTime" prop="deliveryTime">
-        <el-input v-model="sellerForm.deliveryTime" auto-complete="off"></el-input>
+        <el-input class="delivery" v-model="sellerForm.deliveryTime" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Bulletin" prop="bulletin">
-        <el-input v-model="sellerForm.bulletin" auto-complete="off"></el-input>
+        <el-input class="bulletin" v-model="sellerForm.bulletin" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Avatar" prop="avatar">
         <el-upload ref="avatarUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
@@ -70,7 +70,7 @@
                 </el-select>
               </el-col>
               <el-col :span="16">
-                <el-input v-model="sellerForm.supports[index].description" auto-complete="off"></el-input>
+                <el-input class="support-input" v-model="sellerForm.supports[index].description" auto-complete="off"></el-input>
               </el-col>
             </div>
             <div class="icon-wrapper">
@@ -85,7 +85,7 @@
         <ul>
           <li class="info-item" v-for="(info, index) in sellerForm.infos" :key="index">
             <div class="input-wrapper">
-              <el-input v-model="sellerForm.infos[index]" auto-complete="off"></el-input>
+              <el-input class="info-input" v-model="sellerForm.infos[index]" auto-complete="off"></el-input>
             </div>
             <div class="icon-wrapper">
               <i class="iconBtn el-icon-remove-outline" @click="delInfo(index)"></i>
@@ -96,9 +96,9 @@
         </ul>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitAvatar">Add Seller</el-button>
-        <el-button @click="reset">Reset</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="add-btn" type="primary" @click="submitAvatar">Add Seller</el-button>
+        <el-button class="reset-btn" @click="reset">Reset</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -180,112 +180,128 @@
         this.picsFormData.append('files', file.file)
       },
       submitAvatar() {
-        this.loading = true
-        this.avatarFormData = new FormData()
-        this.$refs.avatarUploader.submit()
-        let config = {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-        axios.post('https://takeawayapp-sam.herokuapp.com/upload', this.avatarFormData, config)
-          .then((response) => {
-            this.sellerForm.avatar = response.data.filepath
-            this.avatarStatus = false
-            this.avatarList.push({
-              name: response.data.filepath.split('/')[-1],
-              url: `https://takeawayapp-sam.herokuapp.com/${response.data.filepath}`
-            })
-            this.submitPics()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      },
-      submitPics() {
-        this.picsFormData = new FormData()
-        this.$refs.picsUploader.submit()
-        let config = {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-        axios.post('https://takeawayapp-sam.herokuapp.com/uploadmul', this.picsFormData, config)
-          .then((response) => {
-            this.sellerForm.pics = response.data.filepaths
-            this.picsStatus = false
-            response.data.filepaths.forEach((filepath) => {
-              this.picsList.push({
-                name: filepath.split('/')[-1],
-                url: `https://takeawayapp-sam.herokuapp.com/${filepath}`
-              })
-            })
-            this.addSeller()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      },
-      addSeller () {
         this.$refs.sellerForm.validate((valid) => {
           if (valid) {
-            let seller = {
-              name: this.sellerForm.name,
-              description: this.sellerForm.description,
-              deliveryTime: this.sellerForm.deliveryTime,
-              bulletin: this.sellerForm.bulletin,
-              avatar: this.sellerForm.avatar,
-              pics: this.sellerForm.pics,
-              supports: this.sellerForm.supports,
-              infos: this.sellerForm.infos,
-              token: this.token
-            }
-
-            Service.addSeller(seller)
-              .then((response) => {
-                let res = response.data
-                this.loading = false
-                if (res.code === ERR_OK) {
-                  this.$message({
-                    showClose: true,
-                    message: res.message,
-                    type: 'success',
-                    center: true,
-                    duration: 1000
-                  })
-                  setTimeout(() => {
-                    this.$router.push('/admin/sellers')
-                  }, 1500)
-                } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
-                  this.$message({
-                    showClose: true,
-                    message: 'The token has expired, please login again',
-                    type: 'warning',
-                    center: true,
-                    duration: 1000
-                  })
-                  setTimeout(() => {
-                    this.logout()
-                    this.setAccount({})
-                    this.$router.push('/admin/login')
-                  }, 1500)
-                } else {
-                  this.$message({
-                    showClose: true,
-                    message: res.message,
-                    type: 'warning',
-                    center: true,
-                    duration: 1000
-                  })
+            this.loading = true
+            if (this.avatarList.length !== 0) {
+              this.avatarFormData = new FormData()
+              this.$refs.avatarUploader.submit()
+              let config = {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
                 }
-              })
+              }
+              axios.post('https://takeawayapp-sam.herokuapp.com/upload', this.avatarFormData, config)
+                .then((response) => {
+                  this.sellerForm.avatar = response.data.filepath
+                  this.avatarStatus = false
+                  this.avatarList.push({
+                    name: response.data.filepath.split('/')[-1],
+                    url: `https://takeawayapp-sam.herokuapp.com/${response.data.filepath}`
+                  })
+                  this.submitPics()
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
+            } else {
+              this.submitPics()
+            }
           } else {
             return false
           }
         })
       },
+      submitPics() {
+        if (this.picsList.length !== 0) {
+          this.picsFormData = new FormData()
+          this.$refs.picsUploader.submit()
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          axios.post('https://takeawayapp-sam.herokuapp.com/uploadmul', this.picsFormData, config)
+            .then((response) => {
+              this.sellerForm.pics = response.data.filepaths
+              this.picsStatus = false
+              response.data.filepaths.forEach((filepath) => {
+                this.picsList.push({
+                  name: filepath.split('/')[-1],
+                  url: `https://takeawayapp-sam.herokuapp.com/${filepath}`
+                })
+              })
+              this.addSeller()
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        } else {
+          this.addSeller()
+        }
+      },
+      addSeller () {
+        this.sellerForm.supports.forEach((support) => {
+          if (support.description && !support.types) {
+            support.types = 0
+          }
+        })
+        let seller = {
+          name: this.sellerForm.name,
+          description: this.sellerForm.description,
+          deliveryTime: this.sellerForm.deliveryTime,
+          bulletin: this.sellerForm.bulletin,
+          avatar: this.sellerForm.avatar,
+          pics: this.sellerForm.pics,
+          supports: this.sellerForm.supports,
+          infos: this.sellerForm.infos,
+          token: this.token
+        }
+
+        Service.addSeller(seller)
+          .then((response) => {
+            let res = response.data
+            this.loading = false
+            if (res.code === ERR_OK) {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'success',
+                center: true,
+                duration: 1000
+              })
+              setTimeout(() => {
+                this.$router.push('/admin/sellers')
+              }, 1500)
+            } else if (res.code === ERR_NOK && res.error.name === 'TokenExpiredError') {
+              this.$message({
+                showClose: true,
+                message: 'The token has expired, please login again',
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+              setTimeout(() => {
+                this.logout()
+                this.setAccount({})
+                this.$router.push('/admin/login')
+              }, 1500)
+            } else {
+              this.$message({
+                showClose: true,
+                message: res.message,
+                type: 'warning',
+                center: true,
+                duration: 1000
+              })
+            }
+          })
+      },
       reset () {
         this.$refs.sellerForm.resetFields()
+        this.avatarList = []
+        this.picsList = []
+        this.sellerForm.supports = [{types: '', description: ''}]
       },
       cancel () {
         this.$router.push('/admin/sellers')
