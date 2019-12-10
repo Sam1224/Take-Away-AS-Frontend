@@ -3,16 +3,16 @@
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="sellerForm" :model="sellerForm" status-icon label-width="100px" class="seller-table" :rules="rules">
       <el-form-item label="Name" prop="name">
-        <el-input v-model="sellerForm.name" auto-complete="off"></el-input>
+        <el-input class="name" v-model="sellerForm.name" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Description" prop="description">
-        <el-input v-model="sellerForm.description" auto-complete="off"></el-input>
+        <el-input class="desc" v-model="sellerForm.description" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="DeliveryTime" prop="deliveryTime">
-        <el-input v-model="sellerForm.deliveryTime" auto-complete="off"></el-input>
+        <el-input class="delivery" v-model="sellerForm.deliveryTime" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Bulletin" prop="bulletin">
-        <el-input v-model="sellerForm.bulletin" auto-complete="off"></el-input>
+        <el-input class="bulletin" v-model="sellerForm.bulletin" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Avatar" prop="avatar">
         <el-upload ref="avatarUploader" class="upload-wrapper" drag action="https://takeawayapp-sam.herokuapp.com/upload" show-file-list
@@ -83,8 +83,8 @@
         </ul>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitAvatar">Edit Seller</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="edit-btn" type="primary" @click="submitAvatar">Edit Seller</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -169,14 +169,22 @@
             if (res.code === ERR_OK) {
               this.sellerForm = res.data[0]
               this.seller = res.data[0]
+              let avatar = res.data[0].avatar
+              if (avatar.startsWith('/uploads')) {
+                avatar = `https://takeawayapp-sam.herokuapp.com/${res.data[0].avatar}`
+              }
               this.avatarList.push({
                 name: res.data[0].avatar.split('/')[-1],
-                url: `https://takeawayapp-sam.herokuapp.com/${res.data[0].avatar}`
+                url: avatar
               })
               res.data[0].pics.forEach((pic) => {
+                let picUrl = pic
+                if (pic.startsWith('/uploads')) {
+                  picUrl = `https://takeawayapp-sam.herokuapp.com/${pic}`
+                }
                 this.picsList.push({
                   name: pic.split('/')[-1],
-                  url: `https://takeawayapp-sam.herokuapp.com/${pic}`
+                  url: picUrl
                 })
               })
               setTimeout(() => {
