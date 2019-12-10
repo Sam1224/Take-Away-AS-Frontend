@@ -3,10 +3,10 @@
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="orderForm" :model="orderForm" status-icon label-width="100px" class="order-table" :rules="rules">
       <el-form-item label="User" prop="user">
-        <el-input v-model="orderForm.user" auto-complete="off"></el-input>
+        <el-input v-model="orderForm.user" auto-complete="off" disabled></el-input>
       </el-form-item>
       <el-form-item label="Seller" prop="seller">
-        <el-input v-model="orderForm.seller" auto-complete="off"></el-input>
+        <el-input v-model="orderForm.seller" auto-complete="off" disabled></el-input>
       </el-form-item>
       <el-form-item label="Address" prop="address">
         <el-input v-model="orderForm.address" auto-complete="off" disabled></el-input>
@@ -15,10 +15,10 @@
         </el-form-item>
       </el-form-item>
       <el-form-item label="Phone" prop="phone">
-        <el-input v-model="orderForm.phone" auto-complete="off"></el-input>
+        <el-input class="phone" v-model="orderForm.phone" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Note" prop="note">
-        <el-input v-model="orderForm.note" auto-complete="off"></el-input>
+        <el-input class="note" v-model="orderForm.note" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Status" prop="status">
         <el-radio v-model="orderForm.status" label="0">Not commented</el-radio>
@@ -30,14 +30,15 @@
             <el-collapse-item class="food-item" :title="food.name" :name="index">
               <div class="input-wrapper">
                 <el-form-item label="Name" :prop="`foods.${index}.name`" :rules="rules.foodName">
-                  <el-input v-if="food.status === 0" v-model="orderForm.foods[index].name" auto-complete="off" disabled></el-input>
-                  <el-input v-else v-model="orderForm.foods[index].name" auto-complete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="Quantity" :prop="food.quantity">
-                  <el-input type="number" v-model="orderForm.foods[index].quantity" auto-complete="off"></el-input>
+                  <el-input class="name" v-if="food.status === 0" v-model="orderForm.foods[index].name" auto-complete="off" disabled></el-input>
+                  <el-input class="name" v-else v-model="orderForm.foods[index].name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="Price" :prop="food.price">
-                  <el-input type="number" v-model="orderForm.foods[index].price" auto-complete="off"></el-input>
+                  <el-input class="price" v-if="food.status === 0" v-model="orderForm.foods[index].price" auto-complete="off" disabled></el-input>
+                  <el-input class="price" v-else type="number" v-model="orderForm.foods[index].price" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Quantity" :prop="food.quantity">
+                  <el-input class="quantity" type="number" v-model="orderForm.foods[index].quantity" auto-complete="off"></el-input>
                 </el-form-item>
               </div>
             </el-collapse-item>
@@ -49,8 +50,8 @@
         </el-collapse>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="editOrder">Edit Order</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="edit-btn" type="primary" @click="editOrder">Edit Order</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
