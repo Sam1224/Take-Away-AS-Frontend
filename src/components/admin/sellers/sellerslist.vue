@@ -138,14 +138,14 @@
             </el-form-item>
           </el-form>
         </div>
-        <a slot="goods" slot-scope="props" class="el-icon-tableware" @click="editGoods(props.row._id)"></a>
-        <a slot="ratings" slot-scope="props" class="el-icon-edit" @click="editRatings(props.row._id)"></a>
+        <a slot="good" slot-scope="props" class="el-icon-tableware" @click="editGoods(props.row._id)"></a>
+        <a slot="rate" slot-scope="props" class="el-icon-edit" @click="editRatings(props.row._id)"></a>
         <a slot="edit" slot-scope="props" class="el-icon-setting" @click="editSeller(props.row._id)"></a>
         <a slot="remove" slot-scope="props" class="el-icon-delete" @click="deleteSeller(props.row._id)"></a>
       </v-client-table>
-      <div class="tab">
+      <div class="tab-wrapper">
         <div class="tab-item">
-          <router-link to="/admin/sellers/add" tag="a">Add Seller</router-link>
+          <router-link class="add" to="/admin/sellers/add" tag="a">Add Seller</router-link>
         </div>
       </div>
     </div>
@@ -172,7 +172,7 @@
         loading: true,
         sellers: [],
         errors: [],
-        columns: ['_id', 'name', 'description', 'score', 'goods', 'ratings', 'edit', 'remove'],
+        columns: ['_id', 'name', 'description', 'score', 'good', 'rate', 'edit', 'remove'],
         options: {
           headings: {
             _id: 'ID',
@@ -470,7 +470,7 @@
             line-height: 12px
             font-size: 10px
             color: rgb(147, 153, 159)
-    .tab
+    .tab-wrapper
       display: flex
       position: relative
       bottom: 50px
@@ -484,11 +484,9 @@
         padding-left: 5px
         padding-right: 5px
         border: solid black 1px
-        & > a
+        .add
           display: block
           text-decoration: none
           font-size: 18px
           color: rgb(77, 85, 93)
-          &.active
-            color: rgb(240, 20, 20)
 </style>
