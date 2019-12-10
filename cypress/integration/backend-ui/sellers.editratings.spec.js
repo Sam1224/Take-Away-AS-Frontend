@@ -198,7 +198,39 @@ describe ('Test edit ratings page of the backend ui', () => {
   describe('Function', () => {
     describe('Edit', () => {
       it('successfully edit ratings of one seller', () => {
-
+        cy.get('.rating-outter')
+          .eq(0)
+          .click()
+        cy.get('.icon-wrapper')
+          .eq(3)
+          .within(() => {
+            cy.get('.iconBtn')
+              .eq(1)
+              .click()
+          })
+        cy.get('.rating-item')
+          .should('have.length', 5)
+        cy.get('.rating-item')
+          .eq(4)
+          .click()
+        cy.get('.rating-item')
+          .eq(4)
+          .within(() => {
+            cy.get('.input-wrapper')
+              .get('.username')
+              .type('xusam2412@gmail.com')
+            cy.get('.input-wrapper')
+              .get('.delivery')
+              .type(30)
+            cy.get('.input-wrapper')
+              .get('.text')
+              .type('This shop is excellent.')
+            cy.get('.submit-btn')
+              .click()
+          })
+        cy.wait(1000)
+        cy.get('.rating-item')
+          .should('have.length', 5)
       })
     })
     describe('Cancel', () => {
