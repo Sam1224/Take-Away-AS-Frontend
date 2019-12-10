@@ -54,64 +54,6 @@ describe ('Test users list page of the backend ui', () => {
             cy.request('POST', `${apiBaseUrl}/seller`, seller)
           })
         })
-
-        // Reset goods for sellers
-        cy.fixture('goods').then(goods => {
-          let data = {
-            token: token,
-            goods: goods
-          }
-          cy.request(`${apiBaseUrl}/seller`)
-            .its('body')
-            .then((res) => {
-              expect(res.code).to.equal(0)
-              res.data.forEach((seller) => {
-                cy.request('PUT', `${apiBaseUrl}/seller/${seller._id}/goods`, data)
-              })
-            })
-        })
-
-        // Reset ratings for sellers
-        cy.fixture('ratings').then(ratings => {
-          let [r1, r2, r3, r4, ...rest] = ratings
-          let four = [r1, r2, r3, r4]
-          cy.request(`${apiBaseUrl}/seller`)
-            .its('body')
-            .then((res) => {
-              expect(res.code).to.equal(0)
-              res.data.forEach((seller) => {
-                four.forEach((rating) => {
-                  rating.token = token
-                  cy.request('POST', `${apiBaseUrl}/seller/${seller._id}/ratings`, rating)
-                })
-              })
-            })
-        })
-
-        // Reset orders
-        let headers = {token: token}
-        cy.request({
-          method: 'GET',
-          url: `${apiBaseUrl}/order`,
-          headers: headers
-        })
-          .its('body')
-          .then((res) => {
-            expect(res.code).to.equal(0)
-            res.data.forEach((order) => {
-              order.token = token
-              cy.request('DELETE', `${apiBaseUrl}/order/${order._id}`, order)
-            })
-          })
-
-        cy.fixture("orders").then(orders => {
-          let [o1, o2, o3, o4, ...rest] = orders
-          let four = [o1, o2, o3, o4]
-          four.forEach(order => {
-            order.token = token
-            cy.request('POST', `${apiBaseUrl}/order`, order)
-          })
-        })
       })
   })
   beforeEach(() => {
@@ -188,6 +130,7 @@ describe ('Test users list page of the backend ui', () => {
     })
     describe('Redirection', () => {
       it('redirects to add user page when add user is clicked', () => {
+        cy.wait(1000)
         cy.get('.userslist-wrapper')
           .get('.users-table')
           .get('.tab-wrapper')
@@ -198,6 +141,7 @@ describe ('Test users list page of the backend ui', () => {
           .should('contain', '/admin/users/add')
       })
       it('redirects to edit user page when edit user is clicked', () => {
+        cy.wait(1000)
         cy.get('tbody')
           .find('tr')
           .eq(0)
@@ -210,6 +154,7 @@ describe ('Test users list page of the backend ui', () => {
     })
     describe('Delete', () => {
       it('successfully deletes one user when the deletion is confirmed', () => {
+        cy.wait(1000)
         cy.get('tbody')
           .find('tr')
           .eq(1)
@@ -225,6 +170,7 @@ describe ('Test users list page of the backend ui', () => {
           .should('have.length', 3)
       })
       it('leaves the list unchanged when the deletion is canceled', () => {
+        cy.wait(1000)
         cy.get('tbody')
           .find('tr')
           .eq(1)
