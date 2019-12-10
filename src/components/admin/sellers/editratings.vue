@@ -4,7 +4,7 @@
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="ratingsForm" :model="ratingsForm" status-icon label-width="100px" class="ratings-table" :rules="rules">
       <el-form-item>
         <el-collapse>
-          <el-collapse-item title="Ratings" name="Ratings">
+          <el-collapse-item class="rating-outter" title="Ratings" name="Ratings">
             <el-collapse>
               <div v-for="(rating, index) in ratingsForm.ratings" :key="index" class="rating-wrapper">
                 <el-collapse-item class="rating-item" :title="rating.username" :name="index">
@@ -34,23 +34,23 @@
                   </div>
                   <div class="input-wrapper" v-else>
                     <el-form-item label="Username" :prop="`ratings.${index}.username`" :rules="rules.username">
-                      <el-input v-model="ratingsForm.ratings[index].username" auto-complete="off"></el-input>
+                      <el-input class="username" v-model="ratingsForm.ratings[index].username" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="DeliveryTime" :prop="rating.deliveryTime">
-                      <el-input type="number" v-model="ratingsForm.ratings[index].deliveryTime" auto-complete="off"></el-input>
+                      <el-input class="delivery" type="number" v-model="ratingsForm.ratings[index].deliveryTime" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="Score" :prop="rating.score" class="score-wrapper">
                       <star :size="36" :score="Number(ratingsForm.ratings[index].score)" :click="true" @updateScore="updateScore($event, index)" class="star"></star>
                     </el-form-item>
                     <el-form-item label="RateType" :prop="rating.rateType">
-                      <el-radio v-model="ratingsForm.ratings[index].rateType" label="0">Satisfied</el-radio>
-                      <el-radio v-model="ratingsForm.ratings[index].rateType" label="1">Unsatisfied</el-radio>
+                      <el-radio class="ratetype" v-model="ratingsForm.ratings[index].rateType" label="0">Satisfied</el-radio>
+                      <el-radio class="ratetype" v-model="ratingsForm.ratings[index].rateType" label="1">Unsatisfied</el-radio>
                     </el-form-item>
                     <el-form-item label="Text" :prop="rating.text">
-                      <el-input type="textarea" v-model="ratingsForm.ratings[index].text" auto-complete="off"></el-input>
+                      <el-input class="text" type="textarea" v-model="ratingsForm.ratings[index].text" auto-complete="off"></el-input>
                     </el-form-item>
                     <el-form-item v-show="ratingsForm.ratings[index].status === 1">
-                      <el-button type="primary" @click="submitRating(index)">Submit Rating</el-button>
+                      <el-button class="submit-btn" type="primary" @click="submitRating(index)">Submit Rating</el-button>
                     </el-form-item>
                   </div>
                 </el-collapse-item>
@@ -65,7 +65,7 @@
         </el-collapse>
       </el-form-item>
       <el-form-item>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
