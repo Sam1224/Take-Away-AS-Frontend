@@ -3,30 +3,30 @@
     <h2 class="title">{{title}}</h2>
     <el-form v-loading.fullscreen.lock="loading" element-loading-text="Loading..." element-loading-background="rgb(255, 255, 255)" ref="commentForm" :model="commentForm" status-icon label-width="100px" class="comment-table">
       <el-form-item label="Seller" prop="seller">
-        <el-input v-model="commentForm.seller" auto-complete="off" disabled></el-input>
+        <el-input class="seller" v-model="commentForm.seller" auto-complete="off" disabled></el-input>
       </el-form-item>
       <el-form-item label="DeliveryTime" prop="deliveryTime">
-        <el-input v-model="commentForm.deliveryTime" auto-complete="off"></el-input>
+        <el-input class="delivery" v-model="commentForm.deliveryTime" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Score" prop="score" class="score-wrapper">
         <star :size="36" :score="Number(commentForm.score)" :click="true" @updateScore="updateScore" class="star"></star>
       </el-form-item>
       <el-form-item label="RateType" prop="rateType">
-        <el-radio v-model="commentForm.rateType" label="0">Satisfied</el-radio>
-        <el-radio v-model="commentForm.rateType" label="1">Unsatisfied</el-radio>
+        <el-radio class="ratetype" v-model="commentForm.rateType" label="0">Satisfied</el-radio>
+        <el-radio class="ratetype" v-model="commentForm.rateType" label="1">Unsatisfied</el-radio>
       </el-form-item>
       <el-form-item label="Text" prop="text">
-        <el-input type="textarea" v-model="commentForm.text" auto-complete="off"></el-input>
+        <el-input class="text" type="textarea" v-model="commentForm.text" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="Recommend" prop="recommend" style="text-align:left;">
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="selectAll">Select All</el-checkbox>
+        <el-checkbox class="check-all" :indeterminate="isIndeterminate" v-model="checkAll" @change="selectAll">Select All</el-checkbox>
         <el-checkbox-group v-model="commentForm.recommend" @change="selectFood">
-          <el-checkbox v-for="(food, index) in foods" :label="food" :key="index">{{food}}</el-checkbox>
+          <el-checkbox class="check-item" v-for="(food, index) in foods" :label="food" :key="index">{{food}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="commentOrder">Comment Order</el-button>
-        <el-button @click="cancel">Cancel</el-button>
+        <el-button class="comment-btn" type="primary" @click="commentOrder">Comment Order</el-button>
+        <el-button class="cancel-btn" @click="cancel">Cancel</el-button>
       </el-form-item>
     </el-form>
   </div>
