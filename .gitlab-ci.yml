@@ -48,7 +48,8 @@ deploy_staging:
     - npm install
     - npm run build
   script:
-    - firebase deploy --only hosting:$FIREBASE_STAGING -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
+    - firebase use $FIREBASE_STAGING --token $FIREBASE_TOKEN
+    - firebase deploy --only hosting -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
     - echo "Deployed to staging server"
 
 continuous_delivery:
@@ -60,7 +61,8 @@ continuous_delivery:
     - npm install
     - npm run build
   script:
-    - firebase deploy --only hosting:$FIREBASE_PROD -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
+    - firebase use $FIREBASE_PROD --token $FIREBASE_TOKEN
+    - firebase deploy --only hosting -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
     - echo "Deployed to production server"
 
 continuous_deployment:
@@ -72,6 +74,7 @@ continuous_deployment:
     - npm install
     - npm run build
   script:
-    - firebase deploy --only hosting:$FIREBASE_PROD -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
+    - firebase use $FIREBASE_PROD --token $FIREBASE_TOKEN
+    - firebase deploy --only hosting -m "Pipe $CI_PIPELINE_ID Build $CI_BUILD_ID" --token $FIREBASE_TOKEN
     - echo "Deployed to production server"
 

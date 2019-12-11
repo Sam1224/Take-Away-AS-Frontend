@@ -1,6 +1,8 @@
 {
   "projects": {
-    "default": "takeawayapp"
+    "default": "takeawayapp-88d06",
+    "prod": "takeawayapp-sam-prod",
+    "staging": "takeawayapp-sam-staging"
   },
   "targets": {
     "takeawayapp-88d06": {
