@@ -1,5 +1,20 @@
 {
   "projects": {
-    "default": "takeawayapp-88d06"
+    "default": "takeawayapp"
+  },
+  "targets": {
+    "takeawayapp-88d06": {
+      "hosting": {
+        "default": [
+          "takeawayapp-88d06"
+        ],
+        "staging": [
+          "takeawayapp-sam-staging"
+        ],
+        "prod": [
+          "takeawayapp-sam-prod"
+        ]
+      }
+    }
   }
 }
