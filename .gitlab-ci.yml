@@ -28,6 +28,16 @@ build:
     paths:
       - dist/
 
+tests:
+  image: cypress/base:10
+  stage: test
+  before_script:
+    - npm install -g local-web-server
+    - npm install cypress
+    - npm run start:server
+  script:
+    - npx cypress run --record --key=$CYPRESS_RECORD_KEY
+
 deploy_staging:
   image: rambabusaravanan/firebase
   only:
