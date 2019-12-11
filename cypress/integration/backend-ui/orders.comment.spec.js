@@ -136,7 +136,7 @@ describe ('Test comment order page of the backend ui', () => {
       .find('tr')
       .eq(1)
       .find('td')
-      .eq(5)
+      .eq(3)
       .within(() => {
         cy.get('.el-icon-edit-outline')
           .click()

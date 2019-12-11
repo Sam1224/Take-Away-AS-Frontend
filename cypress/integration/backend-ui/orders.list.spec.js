@@ -210,7 +210,7 @@ describe ('Test orders list page of the backend ui', () => {
           .find('tr')
           .eq(0)
           .find('td')
-          .eq(6)
+          .eq(4)
           .within(() => {
             cy.get('.el-icon-setting')
               .click()
@@ -223,7 +223,7 @@ describe ('Test orders list page of the backend ui', () => {
           .find('tr')
           .eq(0)
           .find('td')
-          .eq(5)
+          .eq(3)
           .within(() => {
             cy.get('.el-icon-edit-outline')
               .click()
@@ -238,7 +238,7 @@ describe ('Test orders list page of the backend ui', () => {
           .find('tr')
           .eq(0)
           .find('td')
-          .eq(7)
+          .eq(5)
           .within(() => {
             cy.get('.el-icon-delete')
               .click()
@@ -256,7 +256,7 @@ describe ('Test orders list page of the backend ui', () => {
           .find('tr')
           .eq(0)
           .find('td')
-          .eq(7)
+          .eq(5)
           .within(() => {
             cy.get('.el-icon-delete')
               .click()

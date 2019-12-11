@@ -84,17 +84,15 @@
         loading: true,
         orders: [],
         errors: [],
-        columns: ['_id', 'user', 'seller', 'phone', 'comment', 'edit', 'remove'],
+        columns: ['_id', 'phone', 'comment', 'edit', 'remove'],
         options: {
           headings: {
             _id: 'ID',
-            user: 'User',
-            seller: 'Seller',
             phone: 'Phone'
           },
-          sortables: ['user', 'seller', 'phone'],
+          sortables: ['phone'],
           perPage: 10,
-          filterable: ['user', 'seller', 'phone'],
+          filterable: ['phone'],
           uniqueKey: '_id'
         },
         props: [

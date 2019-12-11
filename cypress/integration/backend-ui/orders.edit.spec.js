@@ -136,7 +136,7 @@ describe ('Test edit order page of the backend ui', () => {
       .find('tr')
       .eq(1)
       .find('td')
-      .eq(6)
+      .eq(4)
       .within(() => {
         cy.get('.el-icon-setting')
           .click()
