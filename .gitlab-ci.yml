@@ -32,7 +32,7 @@ tests:
   image: cypress/base:10
   stage: test
   before_script:
-    - npm install spa-http-server
+    - npm install -g local-web-server
     - npm install cypress
     - npm run start:server
   script:
