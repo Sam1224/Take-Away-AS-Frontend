@@ -14,14 +14,14 @@
     },
     "takeawayapp-sam-staging": {
       "hosting": {
-        "default": [
+        "staging": [
           "takeawayapp-sam-staging"
         ]
       }
     },
     "takeawayapp-sam-prod": {
       "hosting": {
-        "default": [
+        "prod": [
           "takeawayapp-sam-prod"
         ]
       }
