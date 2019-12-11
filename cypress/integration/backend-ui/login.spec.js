@@ -73,7 +73,7 @@ describe ('Test login page of the backend ui', () => {
           .get('.submit')
           .click()
         cy.screenshot('backend-login-success')
-        cy.wait(5000)
+        cy.wait(3000)
         cy.url()
           .should('contain', '/admin')
         cy.get('.index')

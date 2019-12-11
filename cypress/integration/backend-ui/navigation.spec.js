@@ -80,7 +80,7 @@ describe ('Test navigation bar of the backend ui', () => {
         cy.get('.login-table')
           .get('.submit')
           .click()
-        cy.wait(5000)
+        cy.wait(3000)
 
         cy.get('.home')
           .get('.nav-wrapper')
@@ -141,7 +141,7 @@ describe ('Test navigation bar of the backend ui', () => {
           cy.get('.login-table')
             .get('.submit')
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
         })
         it('redirects to the home page when home is clicked', () => {
           cy.get('.home')
@@ -149,7 +149,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(0)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin/index')
         })
         it('redirects to the users page when users is clicked', () => {
@@ -158,7 +158,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(1)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin/users')
         })
         it('redirects to the sellers page when sellers is clicked', () => {
@@ -167,7 +167,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(2)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin/sellers')
         })
         it('redirects to the orders page when orders is clicked', () => {
@@ -176,7 +176,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(3)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin/orders')
         })
       })
@@ -187,7 +187,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(0)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin')
         })
         it('redirects to the login page when users is clicked', () => {
@@ -196,7 +196,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(1)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin')
         })
         it('redirects to the login page when sellers is clicked', () => {
@@ -205,7 +205,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(2)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin')
         })
         it('redirects to the login page when orders is clicked', () => {
@@ -214,7 +214,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(3)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin')
         })
         it('logout and redirects to the login page when login is clicked', () => {
@@ -223,7 +223,7 @@ describe ('Test navigation bar of the backend ui', () => {
             .find('.nav-item')
             .eq(4)
             .click()
-          cy.wait(5000)
+          cy.wait(3000)
           cy.url().should('contain', '/admin/login')
         })
       })

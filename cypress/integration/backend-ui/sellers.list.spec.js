@@ -82,13 +82,13 @@ describe ('Test sellers list page of the backend ui', () => {
     cy.get('.login-table')
       .get('.submit')
       .click()
-    cy.wait(5000)
+    cy.wait(3000)
     cy.get('.home')
       .get('.nav-wrapper')
       .find('.nav-item')
       .eq(2)
       .click()
-    cy.wait(5000)
+    cy.wait(3000)
   })
   describe('Content', () => {
     describe('Title', () => {

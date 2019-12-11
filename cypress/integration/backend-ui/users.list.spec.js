@@ -67,13 +67,13 @@ describe ('Test users list page of the backend ui', () => {
     cy.get('.login-table')
       .get('.submit')
       .click()
-    cy.wait(5000)
+    cy.wait(3000)
     cy.get('.home')
       .get('.nav-wrapper')
       .find('.nav-item')
       .eq(1)
       .click()
-    cy.wait(5000)
+    cy.wait(3000)
   })
   describe('Content', () => {
     describe('Title', () => {

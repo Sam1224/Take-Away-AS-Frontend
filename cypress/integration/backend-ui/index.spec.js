@@ -48,7 +48,7 @@ describe ('Test index page of the backend ui', () => {
     cy.get('.login-table')
       .get('.submit')
       .click()
-    cy.wait(5000)
+    cy.wait(3000)
   })
   describe('Content', () => {
     describe('Title', () => {

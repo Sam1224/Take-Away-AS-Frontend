@@ -219,7 +219,7 @@ describe ('Test the header of sellerhome of the frontend ui', () => {
           .get('.back')
           .eq(0)
           .click()
-        cy.wait(5000)
+        cy.wait(3000)
         cy.url()
           .should('contain', '/')
         cy.get('.seller-wrapper ul')
