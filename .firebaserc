@@ -9,11 +9,19 @@
       "hosting": {
         "default": [
           "takeawayapp-88d06"
-        ],
-        "staging": [
+        ]
+      }
+    },
+    "takeawayapp-sam-staging": {
+      "hosting": {
+        "default": [
           "takeawayapp-sam-staging"
-        ],
-        "prod": [
+        ]
+      }
+    },
+    "takeawayapp-sam-prod": {
+      "hosting": {
+        "default": [
           "takeawayapp-sam-prod"
         ]
       }
