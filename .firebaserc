@@ -9,10 +9,10 @@
           "takeawayapp-88d06"
         ],
         "staging": [
-          "takeawayapp-88d06"
+          "takeawayapp-sam-staging"
         ],
         "prod": [
-          "takeawayapp-88d06"
+          "takeawayapp-sam-prod"
         ]
       }
     }
