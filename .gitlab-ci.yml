@@ -28,13 +28,13 @@ build:
     paths:
       - dist/
 
-
 tests:
   image: cypress/base:10
   stage: test
   before_script:
+    - npm install spa-http-server
     - npm install cypress
-    - npm run start
+    - npm run start:server
   script:
     - npx cypress run --record --key=$CYPRESS_RECORD_KEY
 
