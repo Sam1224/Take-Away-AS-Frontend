@@ -4,7 +4,7 @@
  * @Version: 1.0
  **/
 /* eslint-disable */
-let url = 'http://localhost:8080/#/register'
+let url = '/register'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
 describe ('Test register page of the frontend ui', () => {

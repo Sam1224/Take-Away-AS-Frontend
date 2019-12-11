@@ -4,7 +4,7 @@
  * @Version: 1.0
  **/
 /* eslint-disable */
-let url = 'http://localhost:8080/#/admin/login'
+let url = '/admin/login'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
 describe ('Test add user page of the backend ui', () => {

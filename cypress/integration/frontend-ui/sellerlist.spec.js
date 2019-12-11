@@ -4,7 +4,7 @@
  * @Version: 1.0
  **/
 /* eslint-disable */
-let url = 'http://localhost:8080/#/'
+let url = '/'
 let apiBaseUrl = 'https://takeawayapp-sam.herokuapp.com'
 
 describe ('Test home page of the frontend ui', () => {
