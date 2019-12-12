@@ -134,15 +134,11 @@ describe ('Test orders list page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Orders table', () => {
+      it('shows a orders table with a title, order items and a button', () => {
         cy.get('.orderslist-wrapper')
           .get('.vue-title')
           .should('contain', 'Order List')
-      })
-    })
-    describe('Orders table', () => {
-      it('shows a orders table', () => {
         cy.get('tbody')
           .find('tr')
           .should('have.length', 4)

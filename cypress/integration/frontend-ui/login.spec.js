@@ -118,15 +118,11 @@ describe ('Test login page of the frontend ui', () => {
     cy.visit(url)
   })
   describe('Content', () => {
-    describe('Header', () => {
-      it('shows a header', () => {
+    describe('Login form', () => {
+      it('shows a title, 2 input box, 2 buttons and 1 router link', () => {
         cy.get('.header-wrapper')
           .get('.text')
           .should('contain', 'Login')
-      })
-    })
-    describe('Login form', () => {
-      it('shows 2 input box, 2 buttons and 1 router link', () => {
         let loginForm = cy.get('.login-form')
         loginForm.should('contain', 'Username')
         loginForm.should('contain', 'Password')

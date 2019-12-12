@@ -101,15 +101,11 @@ describe ('Test edit ratings page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Ratings form', () => {
+      it('shows a ratings form with a title and ratings items', () => {
         cy.get('.edit-ratings-wrapper')
           .get('.title')
           .should('contain', 'Edit Ratings')
-      })
-    })
-    describe('Ratings form', () => {
-      it('shows a ratings form', () => {
         cy.get('.edit-ratings-wrapper')
           .get('.ratings-table')
           .should('contain', 'Ratings')

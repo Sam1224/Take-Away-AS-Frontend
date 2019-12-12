@@ -144,15 +144,11 @@ describe ('Test edit order page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Order form', () => {
+      it('shows a order form with a title, 7 inputs and 2 buttons', () => {
         cy.get('.edit-wrapper')
           .get('.title')
           .should('contain', 'Edit Order')
-      })
-    })
-    describe('Order form', () => {
-      it('shows a order form', () => {
         cy.get('.edit-wrapper')
           .get('.order-table')
           .should('contain', 'User')

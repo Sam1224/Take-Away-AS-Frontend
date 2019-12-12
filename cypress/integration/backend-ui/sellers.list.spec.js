@@ -91,15 +91,11 @@ describe ('Test sellers list page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Sellers table', () => {
+      it('shows a sellers table with a title, seller items and a button', () => {
         cy.get('.sellerslist-wrapper')
           .get('.vue-title')
           .should('contain', 'Seller List')
-      })
-    })
-    describe('Sellers table', () => {
-      it('shows a sellers table', () => {
         cy.get('tbody')
           .find('tr')
           .should('have.length', 4)

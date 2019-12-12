@@ -97,15 +97,11 @@ describe ('Test add seller page of the backend ui', () => {
       .click()
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Seller form', () => {
+      it('shows a seller form with a title, 6 input boxes, 2 image uploader, 1 select and 3 buttons', () => {
         cy.get('.add-wrapper')
           .get('.title')
           .should('contain', 'Add Seller')
-      })
-    })
-    describe('Seller form', () => {
-      it('shows a seller form with 6 input boxes, 2 image uploader, 1 select and 3 buttons', () => {
         cy.get('.add-wrapper')
           .get('.seller-table')
           .should('contain', 'Name')

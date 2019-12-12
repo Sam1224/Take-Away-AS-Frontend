@@ -63,15 +63,11 @@ describe ('Test edit user page of the backend ui', () => {
       .click()
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('User form', () => {
+      it('shows a user form with a title, 3 input boxes, 3 lines with symbol + and 2 buttons', () => {
         cy.get('.edit-wrapper')
           .get('.title')
           .should('contain', 'Edit User')
-      })
-    })
-    describe('User form', () => {
-      it('shows a user form with 3 input boxes, 3 lines with symbol + and 2 buttons', () => {
         cy.get('.edit-wrapper')
           .get('.user-table')
           .should('contain', 'Username')

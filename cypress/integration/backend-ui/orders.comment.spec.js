@@ -144,15 +144,11 @@ describe ('Test comment order page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Comment form', () => {
+      it('shows a comment form with a title, 6 inputs and 2 buttons', () => {
         cy.get('.comment-wrapper')
           .get('.title')
           .should('contain', 'Comment Order')
-      })
-    })
-    describe('Comment form', () => {
-      it('shows a comment form', () => {
         cy.get('.comment-wrapper')
           .get('.comment-table')
           .should('contain', 'Seller')

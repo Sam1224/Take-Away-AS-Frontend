@@ -76,15 +76,11 @@ describe ('Test users list page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Users table', () => {
+      it('shows a users table with a title, user items and a button', () => {
         cy.get('.userslist-wrapper')
           .get('.vue-title')
           .should('contain', 'User List')
-      })
-    })
-    describe('Users table', () => {
-      it('shows a users table', () => {
         cy.get('tbody')
           .find('tr')
           .should('have.length', 4)

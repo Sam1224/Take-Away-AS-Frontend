@@ -101,15 +101,11 @@ describe ('Test add seller page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Seller form', () => {
+      it('shows a seller form with a title, 6 input boxes, 2 image uploader, 1 select and 2 buttons', () => {
         cy.get('.edit-wrapper')
           .get('.title')
           .should('contain', 'Edit Seller')
-      })
-    })
-    describe('Seller form', () => {
-      it('shows a seller form with 6 input boxes, 2 image uploader, 1 select and 2 buttons', () => {
         cy.get('.edit-wrapper')
           .get('.seller-table')
           .should('contain', 'Name')

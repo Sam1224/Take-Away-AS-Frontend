@@ -118,22 +118,14 @@ describe ('Test home page of the frontend ui', () => {
     cy.visit(url)
   })
   describe('Content', () => {
-    describe('Header', () => {
-      it('shows a header', () => {
+    describe('Seller list', () => {
+      it('shows a page with a header, a search box and 4 seller items', () => {
         cy.get('.header-wrapper')
           .get('.text')
           .should('contain', 'Take-Away App')
-      })
-    })
-    describe('Search', () => {
-      it('shows a search box', () => {
         cy.get('.search-wrapper')
           .get('.search')
           .should('have.value', '')
-      })
-    })
-    describe('Seller list', () => {
-      it('shows 4 sellers', () => {
         cy.get('.seller-wrapper ul')
           .find('li')
           .should('have.length', 4)

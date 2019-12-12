@@ -63,15 +63,11 @@ describe ('Test add user page of the backend ui', () => {
       .click()
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('User form', () => {
+      it('shows a user form with a title, 3 input boxes and 3 buttons', () => {
         cy.get('.add-wrapper')
           .get('.title')
           .should('contain', 'Add User')
-      })
-    })
-    describe('User form', () => {
-      it('shows a user form with 3 input boxes and 3 buttons', () => {
         cy.get('.add-wrapper')
           .get('.user-table')
           .should('contain', 'Username')

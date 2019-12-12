@@ -127,68 +127,59 @@ describe ('Test seller page of sellerhome of the frontend ui', () => {
       .click()
   })
   describe('Content', () => {
-    describe('Seller header', () => {
-      it('shows a seller header', () => {
+    describe('Seller information page', () => {
+      it('shows basic information of a seller including a seller header, an overview, a bulletin, some pictures and information', () => {
+        // header
         cy.get('.header')
-      })
-    })
-    describe('Seller', () => {
-      describe('Overview', () => {
-        it('shows basic information', () => {
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.overview')
-            .get('.title')
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.overview')
-            .get('.desc')
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.overview')
-            .get('.remark')
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.overview')
-            .get('.favorite')
-        })
-      })
-      describe('Bulletin', () => {
-        it('shows bulletin and supports', () => {
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.bulletin')
-            .should('contain', 'Bulletin')
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.bulletin')
-            .get('.supports')
-        })
-      })
-      describe('Pictures', () => {
-        it('shows a list of pictures', () => {
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.pics')
-            .should('contain', 'Shop Pictures')
 
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.pics')
-            .get('.pic-wrapper')
-            .get('.pic-list')
-            .find('.pic-item')
-            .should('have.length', 4)
-        })
-      })
-      describe('Information', () => {
-        it('shows a list of information', () => {
-          cy.get('.seller')
-            .get('.seller-content')
-            .get('.info')
-            .find('.info-item')
-            .should('have.length', 4)
-        })
+        // overview
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.overview')
+          .get('.title')
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.overview')
+          .get('.desc')
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.overview')
+          .get('.remark')
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.overview')
+          .get('.favorite')
+
+        // bulletin and supports
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.bulletin')
+          .should('contain', 'Bulletin')
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.bulletin')
+          .get('.supports')
+
+        // picture list
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.pics')
+          .should('contain', 'Shop Pictures')
+
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.pics')
+          .get('.pic-wrapper')
+          .get('.pic-list')
+          .find('.pic-item')
+          .should('have.length', 4)
+
+        // information list
+        cy.get('.seller')
+          .get('.seller-content')
+          .get('.info')
+          .find('.info-item')
+          .should('have.length', 4)
       })
     })
   })

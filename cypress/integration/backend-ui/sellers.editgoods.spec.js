@@ -101,15 +101,11 @@ describe ('Test edit goods page of the backend ui', () => {
     cy.wait(3000)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Goods form', () => {
+      it('shows a complex goods form with a title and goods items', () => {
         cy.get('.edit-goods-wrapper')
           .get('.title')
           .should('contain', 'Edit Goods')
-      })
-    })
-    describe('Goods form', () => {
-      it('shows a complex goods form', () => {
         cy.get('.edit-goods-wrapper')
           .get('.goods-table')
           .should('contain', 'Goods')

@@ -41,14 +41,10 @@ describe ('Test login page of the backend ui', () => {
     cy.visit(url)
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Login table', () => {
+      it('shows a login table with a title, 2 input boxes, 1 button and 6 3rd party oauth2 login buttons', () => {
         cy.get('.vue-title')
           .should('contain', 'Login')
-      })
-    })
-    describe('Login table', () => {
-      it('shows a login table with 2 input boxes, 1 button and 6 3rd party oauth2 login buttons', () => {
         let loginTable = cy.get('.login-table')
         loginTable.should('contain', 'Username')
         loginTable.should('contain', 'Password')

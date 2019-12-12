@@ -140,15 +140,11 @@ describe ('Test add order page of the backend ui', () => {
       .click()
   })
   describe('Content', () => {
-    describe('Title', () => {
-      it('shows a title', () => {
+    describe('Order form', () => {
+      it('shows a order form with a title, 7 inputs and 3 buttons', () => {
         cy.get('.add-wrapper')
           .get('.title')
           .should('contain', 'Add Order')
-      })
-    })
-    describe('Order form', () => {
-      it('shows a order form', () => {
         cy.get('.add-wrapper')
           .get('.order-table')
           .should('contain', 'User')

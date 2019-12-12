@@ -118,15 +118,11 @@ describe ('Test register page of the frontend ui', () => {
     cy.visit(url)
   })
   describe('Content', () => {
-    describe('Header', () => {
-      it('shows a header', () => {
+    describe('Register form', () => {
+      it('shows a title, 4 input box, 2 buttons and 1 router link', () => {
         cy.get('.header-wrapper')
           .get('.text')
           .should('contain', 'Register')
-      })
-    })
-    describe('Register form', () => {
-      it('shows 4 input box, 2 buttons and 1 router link', () => {
         let regForm = cy.get('.reg-form')
         regForm.should('contain', 'Username')
         regForm.should('contain', 'Password')
