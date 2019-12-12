@@ -9,7 +9,7 @@
         </v-client-table>
       </el-form-item>
       <el-form-item label="Seller" prop="seller">
-        <el-input class="seller" v-model="orderForm.seller" auto-complete="off" disabled></el-input>
+        <el-input class="add-order-seller" v-model="orderForm.seller" auto-complete="off" disabled></el-input>
         <v-client-table v-if="showSellerTable" :columns="sellerColumns" :data="sellers" :options="sellerOptions" label-width="auto">
           <el-button slot="select" slot-scope="props" @click="selectSeller(props.row)">Select</el-button>
         </v-client-table>

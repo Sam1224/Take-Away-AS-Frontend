@@ -307,7 +307,7 @@ describe ('Test add order page of the backend ui', () => {
           .within(() => {
             cy.get('.user')
               .should('have.value', '')
-            cy.get('.seller')
+            cy.get('.add-order-seller')
               .should('have.value', '')
             cy.get('.address')
               .should('have.value', '')
