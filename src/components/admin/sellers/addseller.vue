@@ -183,7 +183,7 @@
         this.$refs.sellerForm.validate((valid) => {
           if (valid) {
             this.loading = true
-            if (this.avatarList.length !== 0) {
+            if (this.$refs.avatarUploader.uploadFiles.length !== 0) {
               this.avatarFormData = new FormData()
               this.$refs.avatarUploader.submit()
               let config = {
@@ -213,7 +213,7 @@
         })
       },
       submitPics() {
-        if (this.picsList.length !== 0) {
+        if (this.$refs.picsUploader.uploadFiles.length !== 0) {
           this.picsFormData = new FormData()
           this.$refs.picsUploader.submit()
           let config = {
