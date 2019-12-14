@@ -170,7 +170,7 @@
               this.sellerForm = res.data[0]
               this.seller = res.data[0]
               let avatar = res.data[0].avatar
-              if (avatar.startsWith('/uploads')) {
+              if (avatar.startsWith('uploads')) {
                 avatar = `https://takeawayapp-sam.herokuapp.com/${res.data[0].avatar}`
               }
               this.avatarList.push({
@@ -179,7 +179,7 @@
               })
               res.data[0].pics.forEach((pic) => {
                 let picUrl = pic
-                if (pic.startsWith('/uploads')) {
+                if (pic.startsWith('uploads')) {
                   picUrl = `https://takeawayapp-sam.herokuapp.com/${pic}`
                 }
                 this.picsList.push({

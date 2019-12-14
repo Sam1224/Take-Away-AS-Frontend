@@ -187,10 +187,10 @@
                   let icon = foods[j].icon
                   this.goodsForm.goods[i].foods[j].imageList = []
                   this.goodsForm.goods[i].foods[j].iconList = []
-                  if (image.startsWith('/uploads')) {
+                  if (image.startsWith('uploads')) {
                     image = `https://takeawayapp-sam.herokuapp.com/${image}`
                   }
-                  if (icon.startsWith('/uploads')) {
+                  if (icon.startsWith('uploads')) {
                     icon = `https://takeawayapp-sam.herokuapp.com/${icon}`
                   }
                   this.goodsForm.goods[i].foods[j].imageList.push({
