@@ -4,6 +4,20 @@
 
 > Frontend of Take-Away App for the assignment of Web Application Development 2.
 
+- Video: [Youtube Video Link](https://youtu.be/HYvRIWJxWIk)
+
+- Table Of Contents
+  - [Take-Away-AS-Frontend](#take-away-as-frontend)
+    * [Basic Information](#basic-information)
+    * [Environment](#environment)
+    * [Usage](#usage)
+    * [Description of Functionality](#description-of-functionality)
+    * [UML Diagrams](#uml-diagrams)
+    * [Database Schemas](#database-schemas)
+    * [Git Approach](#git-approach)
+    * [UX/DX Approach](#ux-dx-approach)
+    * [References](#references)
+
 ## Basic Information
 - ID: 20086454
 - Name: Qianxiong Xu
